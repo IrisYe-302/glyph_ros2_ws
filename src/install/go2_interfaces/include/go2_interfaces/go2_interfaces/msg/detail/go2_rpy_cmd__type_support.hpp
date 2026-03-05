@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_cpp/go2_interfaces/msg/detail/go2_rpy_cmd__type_support.hpp

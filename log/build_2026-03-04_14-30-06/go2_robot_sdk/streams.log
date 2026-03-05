@@ -1,0 +1,17 @@
+[1.550s] Invoking command in '/home/ming/ros2_ws/build/go2_robot_sdk': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/lidar_processor_cpp PYTHONPATH=/home/ming/ros2_ws/build/go2_robot_sdk/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/go2_robot_sdk/build --no-deps symlink_data
+[2.594s] running develop
+[2.960s] running egg_info
+[2.961s] writing go2_robot_sdk.egg-info/PKG-INFO
+[2.961s] writing dependency_links to go2_robot_sdk.egg-info/dependency_links.txt
+[2.961s] writing entry points to go2_robot_sdk.egg-info/entry_points.txt
+[2.962s] writing requirements to go2_robot_sdk.egg-info/requires.txt
+[2.962s] writing top-level names to go2_robot_sdk.egg-info/top_level.txt
+[2.972s] reading manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'
+[2.981s] writing manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'
+[2.981s] running build_ext
+[2.981s] Creating /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2-robot-sdk.egg-link (link to .)
+[2.981s] Installing go2_driver_node script to /home/ming/ros2_ws/install/go2_robot_sdk/lib/go2_robot_sdk
+[2.981s] 
+[2.981s] Installed /home/ming/ros2_ws/build/go2_robot_sdk
+[2.981s] running symlink_data
+[3.090s] Invoked command in '/home/ming/ros2_ws/build/go2_robot_sdk' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/lidar_processor_cpp PYTHONPATH=/home/ming/ros2_ws/build/go2_robot_sdk/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/go2_robot_sdk/build --no-deps symlink_data

@@ -1,0 +1,11 @@
+package.xml
+setup.py
+../../build/go2_navigation/go2_navigation.egg-info/PKG-INFO
+../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt
+../../build/go2_navigation/go2_navigation.egg-info/dependency_links.txt
+../../build/go2_navigation/go2_navigation.egg-info/entry_points.txt
+../../build/go2_navigation/go2_navigation.egg-info/requires.txt
+../../build/go2_navigation/go2_navigation.egg-info/top_level.txt
+../../build/go2_navigation/go2_navigation.egg-info/zip-safe
+go2_navigation/location_subscriber.py
+resource/go2_navigation

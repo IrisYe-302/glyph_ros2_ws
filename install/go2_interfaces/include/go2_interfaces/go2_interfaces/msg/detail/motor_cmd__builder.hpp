@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/build/go2_interfaces/rosidl_generator_cpp/go2_interfaces/msg/detail/motor_cmd__builder.hpp

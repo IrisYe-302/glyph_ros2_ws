@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/ament_cmake_core/go2_interfacesConfig-version.cmake

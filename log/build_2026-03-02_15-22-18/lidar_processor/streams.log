@@ -1,0 +1,18 @@
+[2.676s] Invoking command in '/home/ming/ros2_ws/build/lidar_processor': PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/lidar_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/lidar_processor/build --no-deps symlink_data
+[3.233s] running develop
+[3.562s] running egg_info
+[3.563s] writing lidar_processor.egg-info/PKG-INFO
+[3.563s] writing dependency_links to lidar_processor.egg-info/dependency_links.txt
+[3.564s] writing entry points to lidar_processor.egg-info/entry_points.txt
+[3.564s] writing requirements to lidar_processor.egg-info/requires.txt
+[3.564s] writing top-level names to lidar_processor.egg-info/top_level.txt
+[3.568s] reading manifest file 'lidar_processor.egg-info/SOURCES.txt'
+[3.569s] writing manifest file 'lidar_processor.egg-info/SOURCES.txt'
+[3.573s] running build_ext
+[3.573s] Creating /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar-processor.egg-link (link to .)
+[3.577s] Installing lidar_to_pointcloud script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+[3.577s] Installing pointcloud_aggregator script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+[3.577s] 
+[3.578s] Installed /home/ming/ros2_ws/build/lidar_processor
+[3.578s] running symlink_data
+[3.668s] Invoked command in '/home/ming/ros2_ws/build/lidar_processor' returned '0': PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/lidar_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/lidar_processor/build --no-deps symlink_data

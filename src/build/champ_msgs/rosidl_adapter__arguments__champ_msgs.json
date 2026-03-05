@@ -1,0 +1,14 @@
+{
+  "package_name": "champ_msgs",
+  "non_idl_tuples": [
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Velocities.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/PID.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Imu.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Point.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/PointArray.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Joints.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Contacts.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/ContactsStamped.msg",
+    "/home/ming/ros2_ws/src/unitree_go2/champ_msgs:msg/Pose.msg"
+  ]
+}

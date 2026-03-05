@@ -1,0 +1,981 @@
+[0.079s] Invoking command in '/home/ming/ros2_ws/src/build/go2_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/go2_interfaces -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/go2_interfaces
+[1.302s] -- The C compiler identification is GNU 11.4.0
+[1.596s] -- The CXX compiler identification is GNU 11.4.0
+[1.628s] -- Detecting C compiler ABI info
+[1.852s] -- Detecting C compiler ABI info - done
+[1.867s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.868s] -- Detecting C compile features
+[1.869s] -- Detecting C compile features - done
+[1.877s] -- Detecting CXX compiler ABI info
+[2.089s] -- Detecting CXX compiler ABI info - done
+[2.106s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.109s] -- Detecting CXX compile features
+[2.111s] -- Detecting CXX compile features - done
+[2.136s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.743s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.013s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[3.140s] -- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)
+[3.297s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.310s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.342s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.383s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.414s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.616s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[5.095s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[6.394s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[6.882s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[6.961s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[6.965s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[7.053s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[7.053s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[7.053s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[7.053s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[7.129s] -- Found PythonExtra: .so  
+[7.302s] -- Configuring done
+[7.509s] -- Generating done
+[7.555s] -- Build files have been written to: /home/ming/ros2_ws/src/build/go2_interfaces
+[7.608s] Invoked command in '/home/ming/ros2_ws/src/build/go2_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/go2_interfaces -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/go2_interfaces
+[7.609s] Invoking command in '/home/ming/ros2_ws/src/build/go2_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/src/build/go2_interfaces -- -j6 -l6
+[7.724s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[7.800s] [  1%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[7.837s] [  1%] Built target ament_cmake_python_symlink_go2_interfaces
+[8.594s] running egg_info
+[8.595s] creating go2_interfaces.egg-info
+[8.595s] writing go2_interfaces.egg-info/PKG-INFO
+[8.596s] writing dependency_links to go2_interfaces.egg-info/dependency_links.txt
+[8.596s] writing top-level names to go2_interfaces.egg-info/top_level.txt
+[8.597s] writing manifest file 'go2_interfaces.egg-info/SOURCES.txt'
+[8.619s] reading manifest file 'go2_interfaces.egg-info/SOURCES.txt'
+[8.619s] writing manifest file 'go2_interfaces.egg-info/SOURCES.txt'
+[8.763s] [  1%] Built target ament_cmake_python_build_go2_interfaces_egg
+[18.852s] [  1%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/go2_cmd__functions.c.o[0m
+[18.861s] [  1%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/go2_state__functions.c.o[0m
+[18.967s] [  2%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/go2_move__functions.c.o[0m
+[19.130s] [  2%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/go2_rpy_cmd__functions.c.o[0m
+[19.143s] [  2%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/imu__functions.c.o[0m
+[19.219s] [  3%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/audio_data__functions.c.o[0m
+[19.241s] [  3%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/bms_cmd__functions.c.o[0m
+[19.451s] [  4%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/bms_state__functions.c.o[0m
+[19.518s] [  4%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/go2_front_video_data__functions.c.o[0m
+[19.524s] [  4%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/error__functions.c.o[0m
+[19.725s] [  5%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/height_map__functions.c.o[0m
+[19.814s] [  5%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/interface_config__functions.c.o[0m
+[19.908s] [  5%] Built target go2_interfaces__cpp
+[19.924s] [  5%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/low_state__functions.c.o[0m
+[19.944s] [  6%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/low_cmd__functions.c.o[0m
+[19.945s] [  7%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/motor_cmd__functions.c.o[0m
+[19.950s] [  7%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/motor_cmds__functions.c.o[0m
+[19.950s] [  7%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/lidar_state__functions.c.o[0m
+[20.337s] [  7%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/path_point__functions.c.o[0m
+[20.368s] [  8%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/motor_states__functions.c.o[0m
+[20.370s] [  8%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/motor_state__functions.c.o[0m
+[20.374s] [  9%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[20.628s] [  9%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/req__functions.c.o[0m
+[20.679s] [ 10%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/sport_mode_cmd__functions.c.o[0m
+[20.682s] [ 10%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/res__functions.c.o[0m
+[21.009s] [ 11%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/time_spec__functions.c.o[0m
+[21.024s] [ 11%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/sport_mode_state__functions.c.o[0m
+[21.062s] [ 11%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/uwb_state__functions.c.o[0m
+[21.267s] [ 12%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/uwb_switch__functions.c.o[0m
+[21.402s] [ 12%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/voxel_map_compressed__functions.c.o[0m
+[21.492s] [ 12%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/voxel_height_map_state__functions.c.o[0m
+[21.674s] [ 13%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/web_rtc_req__functions.c.o[0m
+[21.804s] [ 13%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_c.dir/rosidl_generator_c/go2_interfaces/msg/detail/wireless_controller__functions.c.o[0m
+[22.141s] [ 13%] [32m[1mLinking C shared library libgo2_interfaces__rosidl_generator_c.so[0m
+[22.352s] [ 13%] Built target go2_interfaces__rosidl_generator_c
+[22.439s] [ 14%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[27.238s] [ 14%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/go2_cmd__type_support.cpp.o[0m
+[27.931s] [ 14%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/go2_state__type_support.cpp.o[0m
+[28.673s] [ 15%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/go2_move__type_support.cpp.o[0m
+[29.263s] [ 15%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/go2_rpy_cmd__type_support.cpp.o[0m
+[29.589s] [ 15%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/go2_cmd__type_support.cpp.o[0m
+[29.829s] [ 15%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/imu__type_support.cpp.o[0m
+[30.435s] [ 15%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/go2_state__type_support.cpp.o[0m
+[30.447s] [ 16%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/audio_data__type_support.cpp.o[0m
+[31.040s] [ 16%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/bms_cmd__type_support.cpp.o[0m
+[31.314s] [ 17%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/go2_move__type_support.cpp.o[0m
+[31.743s] [ 17%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/bms_state__type_support.cpp.o[0m
+[32.207s] [ 17%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/go2_rpy_cmd__type_support.cpp.o[0m
+[32.329s] [ 18%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/error__type_support.cpp.o[0m
+[32.893s] [ 18%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/go2_front_video_data__type_support.cpp.o[0m
+[33.069s] [ 19%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/imu__type_support.cpp.o[0m
+[33.528s] [ 20%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/height_map__type_support.cpp.o[0m
+[33.975s] [ 20%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/audio_data__type_support.cpp.o[0m
+[34.256s] [ 20%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/interface_config__type_support.cpp.o[0m
+[34.955s] [ 20%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/bms_cmd__type_support.cpp.o[0m
+[35.131s] [ 20%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/lidar_state__type_support.cpp.o[0m
+[35.797s] [ 21%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/low_cmd__type_support.cpp.o[0m
+[35.837s] [ 22%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/bms_state__type_support.cpp.o[0m
+[36.516s] [ 22%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/low_state__type_support.cpp.o[0m
+[36.736s] [ 22%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/error__type_support.cpp.o[0m
+[37.195s] [ 22%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/motor_cmd__type_support.cpp.o[0m
+[37.821s] [ 23%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/motor_cmds__type_support.cpp.o[0m
+[37.936s] [ 23%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/go2_front_video_data__type_support.cpp.o[0m
+[38.664s] [ 23%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/motor_state__type_support.cpp.o[0m
+[39.170s] [ 24%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/height_map__type_support.cpp.o[0m
+[39.362s] [ 25%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/motor_states__type_support.cpp.o[0m
+[40.015s] [ 25%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/path_point__type_support.cpp.o[0m
+[40.283s] [ 25%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/interface_config__type_support.cpp.o[0m
+[40.656s] [ 25%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/req__type_support.cpp.o[0m
+[41.236s] [ 25%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/lidar_state__type_support.cpp.o[0m
+[41.247s] [ 26%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/res__type_support.cpp.o[0m
+[41.948s] [ 26%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/sport_mode_cmd__type_support.cpp.o[0m
+[42.073s] [ 27%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/low_cmd__type_support.cpp.o[0m
+[42.663s] [ 27%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/sport_mode_state__type_support.cpp.o[0m
+[43.197s] [ 27%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/low_state__type_support.cpp.o[0m
+[43.348s] [ 28%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/time_spec__type_support.cpp.o[0m
+[44.140s] [ 28%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/uwb_state__type_support.cpp.o[0m
+[44.461s] [ 29%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/motor_cmd__type_support.cpp.o[0m
+[45.023s] [ 29%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/uwb_switch__type_support.cpp.o[0m
+[45.640s] [ 29%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/motor_cmds__type_support.cpp.o[0m
+[45.657s] [ 30%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/voxel_map_compressed__type_support.cpp.o[0m
+[46.500s] [ 30%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/voxel_height_map_state__type_support.cpp.o[0m
+[46.518s] [ 30%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/motor_state__type_support.cpp.o[0m
+[47.259s] [ 31%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/web_rtc_req__type_support.cpp.o[0m
+[47.607s] [ 32%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/motor_states__type_support.cpp.o[0m
+[48.026s] [ 32%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/go2_interfaces/msg/wireless_controller__type_support.cpp.o[0m
+[49.054s] [ 32%] [32m[1mLinking CXX shared library libgo2_interfaces__rosidl_typesupport_cpp.so[0m
+[49.068s] [ 32%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/path_point__type_support.cpp.o[0m
+[49.224s] [ 32%] Built target go2_interfaces__rosidl_typesupport_cpp
+[49.875s] [ 32%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/req__type_support.cpp.o[0m
+[50.653s] [ 33%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/res__type_support.cpp.o[0m
+[51.581s] [ 33%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/sport_mode_cmd__type_support.cpp.o[0m
+[52.607s] [ 34%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/sport_mode_state__type_support.cpp.o[0m
+[53.640s] [ 34%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/time_spec__type_support.cpp.o[0m
+[54.606s] [ 34%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/uwb_state__type_support.cpp.o[0m
+[55.648s] [ 35%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/uwb_switch__type_support.cpp.o[0m
+[56.474s] [ 35%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/voxel_map_compressed__type_support.cpp.o[0m
+[57.584s] [ 35%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/voxel_height_map_state__type_support.cpp.o[0m
+[58.553s] [ 36%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/web_rtc_req__type_support.cpp.o[0m
+[59.332s] [ 36%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/wireless_controller__type_support.cpp.o[0m
+[60.048s] [ 37%] [32m[1mLinking CXX shared library libgo2_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[60.276s] [ 37%] Built target go2_interfaces__rosidl_typesupport_introspection_cpp
+[60.297s] [ 38%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[63.367s] [ 38%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/go2_cmd__type_support.cpp.o[0m
+[63.432s] [ 39%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/go2_move__type_support.cpp.o[0m
+[63.498s] [ 39%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/go2_rpy_cmd__type_support.cpp.o[0m
+[63.565s] [ 39%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/imu__type_support.cpp.o[0m
+[63.633s] [ 40%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/audio_data__type_support.cpp.o[0m
+[63.700s] [ 40%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/bms_cmd__type_support.cpp.o[0m
+[63.766s] [ 41%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/bms_state__type_support.cpp.o[0m
+[63.831s] [ 41%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/error__type_support.cpp.o[0m
+[63.896s] [ 41%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/go2_front_video_data__type_support.cpp.o[0m
+[63.965s] [ 42%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/height_map__type_support.cpp.o[0m
+[64.030s] [ 42%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/interface_config__type_support.cpp.o[0m
+[64.089s] [ 42%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/lidar_state__type_support.cpp.o[0m
+[64.154s] [ 43%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/low_cmd__type_support.cpp.o[0m
+[64.215s] [ 43%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/low_state__type_support.cpp.o[0m
+[64.283s] [ 43%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/motor_cmd__type_support.cpp.o[0m
+[64.355s] [ 44%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/motor_cmds__type_support.cpp.o[0m
+[64.415s] [ 44%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/motor_state__type_support.cpp.o[0m
+[64.477s] [ 45%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/motor_states__type_support.cpp.o[0m
+[64.545s] [ 45%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/path_point__type_support.cpp.o[0m
+[64.610s] [ 45%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/req__type_support.cpp.o[0m
+[64.675s] [ 46%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/res__type_support.cpp.o[0m
+[64.740s] [ 46%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/sport_mode_cmd__type_support.cpp.o[0m
+[64.802s] [ 46%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/sport_mode_state__type_support.cpp.o[0m
+[64.863s] [ 47%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/time_spec__type_support.cpp.o[0m
+[64.926s] [ 47%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/uwb_state__type_support.cpp.o[0m
+[64.992s] [ 48%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/uwb_switch__type_support.cpp.o[0m
+[65.053s] [ 48%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/voxel_map_compressed__type_support.cpp.o[0m
+[65.117s] [ 48%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/voxel_height_map_state__type_support.cpp.o[0m
+[65.188s] [ 49%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/web_rtc_req__type_support.cpp.o[0m
+[65.258s] [ 49%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/wireless_controller__type_support.cpp.o[0m
+[65.322s] [ 49%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/go2_interfaces/msg/go2_state__type_support.cpp.o[0m
+[65.389s] [ 49%] [32m[1mLinking CXX shared library libgo2_interfaces__rosidl_typesupport_c.so[0m
+[65.475s] [ 49%] Built target go2_interfaces__rosidl_typesupport_c
+[65.499s] [ 50%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[69.809s] [ 50%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/go2_cmd__type_support.c.o[0m
+[70.230s] [ 50%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/go2_rpy_cmd__type_support.c.o[0m
+[70.297s] [ 51%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/imu__type_support.c.o[0m
+[70.370s] [ 51%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/audio_data__type_support.c.o[0m
+[70.438s] [ 51%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/bms_cmd__type_support.c.o[0m
+[70.503s] [ 52%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/bms_state__type_support.c.o[0m
+[70.573s] [ 52%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/error__type_support.c.o[0m
+[70.633s] [ 52%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/go2_front_video_data__type_support.c.o[0m
+[70.700s] [ 53%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/height_map__type_support.c.o[0m
+[70.777s] [ 53%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/interface_config__type_support.c.o[0m
+[70.840s] [ 54%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/lidar_state__type_support.c.o[0m
+[70.918s] [ 54%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/low_cmd__type_support.c.o[0m
+[71.004s] [ 54%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/low_state__type_support.c.o[0m
+[71.099s] [ 55%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/motor_cmd__type_support.c.o[0m
+[71.163s] [ 55%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/motor_cmds__type_support.c.o[0m
+[71.232s] [ 55%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/motor_state__type_support.c.o[0m
+[71.306s] [ 56%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/motor_states__type_support.c.o[0m
+[71.380s] [ 56%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/path_point__type_support.c.o[0m
+[71.451s] [ 57%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/req__type_support.c.o[0m
+[71.509s] [ 57%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/res__type_support.c.o[0m
+[71.576s] [ 57%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/sport_mode_cmd__type_support.c.o[0m
+[71.661s] [ 58%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/sport_mode_state__type_support.c.o[0m
+[71.750s] [ 58%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/time_spec__type_support.c.o[0m
+[71.824s] [ 58%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/uwb_state__type_support.c.o[0m
+[71.898s] [ 59%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/uwb_switch__type_support.c.o[0m
+[71.963s] [ 59%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/voxel_map_compressed__type_support.c.o[0m
+[72.048s] [ 59%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/voxel_height_map_state__type_support.c.o[0m
+[72.120s] [ 60%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/web_rtc_req__type_support.c.o[0m
+[72.190s] [ 60%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/wireless_controller__type_support.c.o[0m
+[72.264s] [ 60%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/go2_move__type_support.c.o[0m
+[72.336s] [ 61%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/go2_state__type_support.c.o[0m
+[72.448s] [ 62%] [32m[1mLinking C shared library libgo2_interfaces__rosidl_typesupport_introspection_c.so[0m
+[72.546s] [ 62%] Built target go2_interfaces__rosidl_typesupport_introspection_c
+[72.577s] [ 63%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[77.082s] [ 63%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/go2_cmd__type_support_c.cpp.o[0m
+[77.745s] [ 64%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/imu__type_support_c.cpp.o[0m
+[78.407s] [ 64%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/audio_data__type_support_c.cpp.o[0m
+[79.132s] [ 64%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/bms_cmd__type_support_c.cpp.o[0m
+[79.798s] [ 65%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/bms_state__type_support_c.cpp.o[0m
+[80.492s] [ 65%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/error__type_support_c.cpp.o[0m
+[81.147s] [ 65%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/go2_front_video_data__type_support_c.cpp.o[0m
+[81.886s] [ 66%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/height_map__type_support_c.cpp.o[0m
+[82.577s] [ 66%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/interface_config__type_support_c.cpp.o[0m
+[83.228s] [ 66%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/lidar_state__type_support_c.cpp.o[0m
+[83.924s] [ 67%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/low_cmd__type_support_c.cpp.o[0m
+[84.618s] [ 67%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/low_state__type_support_c.cpp.o[0m
+[85.437s] [ 68%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/motor_cmd__type_support_c.cpp.o[0m
+[86.166s] [ 68%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/motor_cmds__type_support_c.cpp.o[0m
+[86.898s] [ 68%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/motor_state__type_support_c.cpp.o[0m
+[87.588s] [ 69%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/motor_states__type_support_c.cpp.o[0m
+[88.268s] [ 69%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/path_point__type_support_c.cpp.o[0m
+[88.959s] [ 69%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/req__type_support_c.cpp.o[0m
+[89.689s] [ 70%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/res__type_support_c.cpp.o[0m
+[90.430s] [ 70%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/sport_mode_cmd__type_support_c.cpp.o[0m
+[91.181s] [ 71%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/sport_mode_state__type_support_c.cpp.o[0m
+[91.929s] [ 71%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/time_spec__type_support_c.cpp.o[0m
+[92.599s] [ 71%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/uwb_state__type_support_c.cpp.o[0m
+[93.275s] [ 72%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/uwb_switch__type_support_c.cpp.o[0m
+[93.921s] [ 72%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/voxel_map_compressed__type_support_c.cpp.o[0m
+[94.606s] [ 72%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/voxel_height_map_state__type_support_c.cpp.o[0m
+[95.316s] [ 72%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/go2_rpy_cmd__type_support_c.cpp.o[0m
+[95.317s] [ 73%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/web_rtc_req__type_support_c.cpp.o[0m
+[96.014s] [ 73%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/wireless_controller__type_support_c.cpp.o[0m
+[96.020s] [ 74%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/go2_move__type_support_c.cpp.o[0m
+[96.720s] [ 74%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/go2_state__type_support_c.cpp.o[0m
+[97.419s] [ 74%] [32m[1mLinking CXX shared library libgo2_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[97.596s] [ 74%] Built target go2_interfaces__rosidl_typesupport_fastrtps_c
+[97.618s] [ 75%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[102.169s] [ 75%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/go2_state__type_support.cpp.o[0m
+[102.169s] [ 75%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/go2_cmd__type_support.cpp.o[0m
+[102.988s] [ 76%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/audio_data__type_support.cpp.o[0m
+[103.018s] [ 76%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/bms_cmd__type_support.cpp.o[0m
+[103.776s] [ 77%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/bms_state__type_support.cpp.o[0m
+[103.929s] [ 77%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/error__type_support.cpp.o[0m
+[104.564s] [ 77%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/go2_front_video_data__type_support.cpp.o[0m
+[104.757s] [ 78%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/height_map__type_support.cpp.o[0m
+[105.416s] [ 78%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/interface_config__type_support.cpp.o[0m
+[106.361s] [ 78%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/imu__type_support.cpp.o[0m
+[106.361s] [ 78%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/lidar_state__type_support.cpp.o[0m
+[107.161s] [ 78%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/low_state__type_support.cpp.o[0m
+[107.220s] [ 79%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/motor_cmd__type_support.cpp.o[0m
+[108.072s] [ 79%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/motor_state__type_support.cpp.o[0m
+[108.899s] [ 80%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/motor_states__type_support.cpp.o[0m
+[109.802s] [ 80%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/path_point__type_support.cpp.o[0m
+[110.611s] [ 80%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/motor_cmds__type_support.cpp.o[0m
+[110.611s] [ 80%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/req__type_support.cpp.o[0m
+[111.417s] [ 81%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/res__type_support.cpp.o[0m
+[111.552s] [ 81%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/sport_mode_cmd__type_support.cpp.o[0m
+[112.343s] [ 81%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/sport_mode_state__type_support.cpp.o[0m
+[112.402s] [ 82%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/time_spec__type_support.cpp.o[0m
+[113.201s] [ 82%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/uwb_state__type_support.cpp.o[0m
+[113.215s] [ 83%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/uwb_switch__type_support.cpp.o[0m
+[113.236s] [ 83%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/voxel_map_compressed__type_support.cpp.o[0m
+[114.046s] [ 84%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/low_cmd__type_support.cpp.o[0m
+[114.078s] [ 84%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/voxel_height_map_state__type_support.cpp.o[0m
+[114.282s] [ 85%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/web_rtc_req__type_support.cpp.o[0m
+[114.931s] [ 85%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/wireless_controller__type_support.cpp.o[0m
+[114.944s] [ 85%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/go2_rpy_cmd__type_support.cpp.o[0m
+[115.268s] [ 86%] [32mBuilding CXX object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/dds_fastrtps/go2_move__type_support.cpp.o[0m
+[116.179s] [ 86%] [32m[1mLinking CXX shared library libgo2_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[116.392s] [ 86%] Built target go2_interfaces__rosidl_typesupport_fastrtps_cpp
+[116.433s] [ 86%] Built target go2_interfaces
+[116.474s] [ 86%] [34m[1mGenerating Python code for ROS interfaces[0m
+[125.061s] [ 86%] Built target go2_interfaces__py
+[125.111s] [ 86%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_go2_state_s.c.o[0m
+[125.117s] [ 87%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_go2_cmd_s.c.o[0m
+[125.125s] [ 88%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_go2_move_s.c.o[0m
+[125.388s] [ 89%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_audio_data_s.c.o[0m
+[125.426s] [ 89%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_bms_cmd_s.c.o[0m
+[125.464s] [ 89%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_bms_state_s.c.o[0m
+[125.654s] [ 90%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_error_s.c.o[0m
+[125.672s] [ 90%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_go2_front_video_data_s.c.o[0m
+[125.770s] [ 90%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_height_map_s.c.o[0m
+[125.896s] [ 91%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_interface_config_s.c.o[0m
+[125.943s] [ 91%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_lidar_state_s.c.o[0m
+[126.099s] [ 92%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_low_cmd_s.c.o[0m
+[126.114s] [ 92%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_low_state_s.c.o[0m
+[126.217s] [ 92%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_motor_cmd_s.c.o[0m
+[126.264s] [ 93%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_motor_cmds_s.c.o[0m
+[126.452s] [ 93%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_imu_s.c.o[0m
+[126.487s] [ 93%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_motor_state_s.c.o[0m
+[126.524s] [ 93%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_motor_states_s.c.o[0m
+[126.588s] [ 94%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_path_point_s.c.o[0m
+[126.796s] [ 94%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_req_s.c.o[0m
+[126.804s] [ 95%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_res_s.c.o[0m
+[126.867s] [ 95%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_sport_mode_cmd_s.c.o[0m
+[127.018s] [ 96%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_time_spec_s.c.o[0m
+[127.051s] [ 96%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_uwb_state_s.c.o[0m
+[127.226s] [ 96%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_uwb_switch_s.c.o[0m
+[127.233s] [ 97%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_voxel_map_compressed_s.c.o[0m
+[127.257s] [ 97%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_sport_mode_state_s.c.o[0m
+[127.383s] [ 97%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_voxel_height_map_state_s.c.o[0m
+[127.527s] [ 97%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_web_rtc_req_s.c.o[0m
+[127.539s] [ 98%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_wireless_controller_s.c.o[0m
+[127.635s] [ 98%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_generator_py.dir/rosidl_generator_py/go2_interfaces/msg/_go2_rpy_cmd_s.c.o[0m
+[127.850s] [ 98%] [32m[1mLinking C shared library rosidl_generator_py/go2_interfaces/libgo2_interfaces__rosidl_generator_py.so[0m
+[127.950s] [ 98%] Built target go2_interfaces__rosidl_generator_py
+[128.009s] [ 98%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[128.015s] [ 99%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[128.025s] [100%] [32mBuilding C object CMakeFiles/go2_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[128.427s] [100%] [32m[1mLinking C shared library rosidl_generator_py/go2_interfaces/go2_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[128.437s] [100%] [32m[1mLinking C shared library rosidl_generator_py/go2_interfaces/go2_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[128.496s] [100%] [32m[1mLinking C shared library rosidl_generator_py/go2_interfaces/go2_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[128.512s] [100%] Built target go2_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[128.554s] [100%] Built target go2_interfaces__rosidl_typesupport_c__pyext
+[128.576s] [100%] Built target go2_interfaces__rosidl_typesupport_introspection_c__pyext
+[128.604s] Invoked command in '/home/ming/ros2_ws/src/build/go2_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/src/build/go2_interfaces -- -j6 -l6
+[128.605s] Invoking command in '/home/ming/ros2_ws/src/build/go2_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/src/build/go2_interfaces
+[128.621s] -- Install configuration: ""
+[128.622s] -- Execute custom install script
+[128.623s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/ament_index/resource_index/rosidl_interfaces/go2_interfaces
+[128.645s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/audio_data.h
+[128.662s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/bms_cmd.h
+[128.681s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/bms_state.h
+[128.699s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__functions.h
+[128.716s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__struct.h
+[128.733s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__type_support.h
+[128.750s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__functions.h
+[128.767s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__struct.h
+[128.790s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__type_support.h
+[128.807s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__functions.h
+[128.823s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__struct.h
+[128.839s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__type_support.h
+[128.854s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__functions.h
+[128.875s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__struct.h
+[128.892s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__type_support.h
+[128.908s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__functions.h
+[128.924s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__struct.h
+[128.944s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__type_support.h
+[128.960s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__functions.h
+[128.986s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__struct.h
+[129.002s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__type_support.h
+[129.018s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__functions.h
+[129.036s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__struct.h
+[129.053s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__type_support.h
+[129.073s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__functions.h
+[129.087s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__struct.h
+[129.104s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__type_support.h
+[129.118s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__functions.h
+[129.137s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__struct.h
+[129.153s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__type_support.h
+[129.171s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__functions.h
+[129.194s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__struct.h
+[129.210s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__type_support.h
+[129.227s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__functions.h
+[129.244s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__struct.h
+[129.259s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__type_support.h
+[129.283s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__functions.h
+[129.301s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__struct.h
+[129.316s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__type_support.h
+[129.330s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__functions.h
+[129.348s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__struct.h
+[129.365s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__type_support.h
+[129.383s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__functions.h
+[129.400s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__struct.h
+[129.419s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__type_support.h
+[129.441s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__functions.h
+[129.459s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__struct.h
+[129.477s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__type_support.h
+[129.493s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__functions.h
+[129.510s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__struct.h
+[129.527s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__type_support.h
+[129.544s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__functions.h
+[129.561s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__struct.h
+[129.579s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__type_support.h
+[129.596s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__functions.h
+[129.614s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__struct.h
+[129.631s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__type_support.h
+[129.653s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__functions.h
+[129.670s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__struct.h
+[129.690s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__type_support.h
+[129.707s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__functions.h
+[129.724s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__struct.h
+[129.745s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__type_support.h
+[129.761s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__functions.h
+[129.783s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__struct.h
+[129.798s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__type_support.h
+[129.816s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__functions.h
+[129.832s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__struct.h
+[129.850s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__type_support.h
+[129.867s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__functions.h
+[129.885s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__struct.h
+[129.900s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__type_support.h
+[129.918s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__functions.h
+[129.936s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__struct.h
+[129.955s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__type_support.h
+[129.972s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__functions.h
+[129.989s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__struct.h
+[130.007s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__type_support.h
+[130.024s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__functions.h
+[130.044s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__struct.h
+[130.063s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__type_support.h
+[130.080s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__functions.h
+[130.096s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__struct.h
+[130.115s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__type_support.h
+[130.133s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__functions.h
+[130.151s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__struct.h
+[130.169s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__type_support.h
+[130.187s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__functions.h
+[130.203s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__struct.h
+[130.221s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__type_support.h
+[130.237s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__functions.h
+[130.262s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__struct.h
+[130.283s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__type_support.h
+[130.300s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__functions.h
+[130.320s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__struct.h
+[130.334s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__type_support.h
+[130.356s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/error.h
+[130.375s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_cmd.h
+[130.392s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_front_video_data.h
+[130.410s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_move.h
+[130.425s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_rpy_cmd.h
+[130.449s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_state.h
+[130.472s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/height_map.h
+[130.490s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/imu.h
+[130.507s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/interface_config.h
+[130.524s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/lidar_state.h
+[130.544s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/low_cmd.h
+[130.561s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/low_state.h
+[130.578s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_cmd.h
+[130.594s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_cmds.h
+[130.610s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_state.h
+[130.628s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_states.h
+[130.649s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/path_point.h
+[130.665s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/req.h
+[130.683s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/res.h
+[130.700s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/rosidl_generator_c__visibility_control.h
+[130.716s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/sport_mode_cmd.h
+[130.732s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/sport_mode_state.h
+[130.750s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/time_spec.h
+[130.768s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/uwb_state.h
+[130.784s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/uwb_switch.h
+[130.800s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/voxel_height_map_state.h
+[130.816s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/voxel_map_compressed.h
+[130.834s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/web_rtc_req.h
+[130.851s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/wireless_controller.h
+[130.868s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/library_path.sh
+[130.890s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/library_path.dsv
+[130.907s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__rosidl_typesupport_fastrtps_c.h
+[130.925s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__rosidl_typesupport_fastrtps_c.h
+[130.941s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__rosidl_typesupport_fastrtps_c.h
+[130.963s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__rosidl_typesupport_fastrtps_c.h
+[130.980s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__rosidl_typesupport_fastrtps_c.h
+[130.996s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__rosidl_typesupport_fastrtps_c.h
+[131.013s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__rosidl_typesupport_fastrtps_c.h
+[131.030s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__rosidl_typesupport_fastrtps_c.h
+[131.046s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__rosidl_typesupport_fastrtps_c.h
+[131.076s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__rosidl_typesupport_fastrtps_c.h
+[131.092s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__rosidl_typesupport_fastrtps_c.h
+[131.108s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__rosidl_typesupport_fastrtps_c.h
+[131.126s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__rosidl_typesupport_fastrtps_c.h
+[131.143s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__rosidl_typesupport_fastrtps_c.h
+[131.162s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__rosidl_typesupport_fastrtps_c.h
+[131.179s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__rosidl_typesupport_fastrtps_c.h
+[131.200s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__rosidl_typesupport_fastrtps_c.h
+[131.217s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__rosidl_typesupport_fastrtps_c.h
+[131.237s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__rosidl_typesupport_fastrtps_c.h
+[131.256s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__rosidl_typesupport_fastrtps_c.h
+[131.280s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__rosidl_typesupport_fastrtps_c.h
+[131.296s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__rosidl_typesupport_fastrtps_c.h
+[131.314s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__rosidl_typesupport_fastrtps_c.h
+[131.334s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__rosidl_typesupport_fastrtps_c.h
+[131.352s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__rosidl_typesupport_fastrtps_c.h
+[131.399s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__rosidl_typesupport_fastrtps_c.h
+[131.415s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__rosidl_typesupport_fastrtps_c.h
+[131.434s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__rosidl_typesupport_fastrtps_c.h
+[131.453s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__rosidl_typesupport_fastrtps_c.h
+[131.475s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__rosidl_typesupport_fastrtps_c.h
+[131.494s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__rosidl_typesupport_fastrtps_c.h
+[131.516s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[131.541s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/audio_data.hpp
+[131.560s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/bms_cmd.hpp
+[131.580s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/bms_state.hpp
+[131.596s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__builder.hpp
+[131.614s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__struct.hpp
+[131.629s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__traits.hpp
+[131.646s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__type_support.hpp
+[131.662s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__builder.hpp
+[131.683s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__struct.hpp
+[131.703s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__traits.hpp
+[131.719s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__type_support.hpp
+[131.743s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__builder.hpp
+[131.760s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__struct.hpp
+[131.780s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__traits.hpp
+[131.796s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__type_support.hpp
+[131.815s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__builder.hpp
+[131.832s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__struct.hpp
+[131.863s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__traits.hpp
+[131.884s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__type_support.hpp
+[131.903s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__builder.hpp
+[131.919s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__struct.hpp
+[131.936s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__traits.hpp
+[131.957s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__type_support.hpp
+[131.977s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__builder.hpp
+[131.993s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__struct.hpp
+[132.010s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__traits.hpp
+[132.029s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__type_support.hpp
+[132.051s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__builder.hpp
+[132.067s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__struct.hpp
+[132.092s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__traits.hpp
+[132.109s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__type_support.hpp
+[132.125s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__builder.hpp
+[132.142s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__struct.hpp
+[132.158s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__traits.hpp
+[132.183s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__type_support.hpp
+[132.197s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__builder.hpp
+[132.219s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__struct.hpp
+[132.239s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__traits.hpp
+[132.257s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__type_support.hpp
+[132.282s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__builder.hpp
+[132.299s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__struct.hpp
+[132.316s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__traits.hpp
+[132.333s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__type_support.hpp
+[132.352s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__builder.hpp
+[132.378s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__struct.hpp
+[132.389s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__traits.hpp
+[132.406s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__type_support.hpp
+[132.422s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__builder.hpp
+[132.448s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__struct.hpp
+[132.465s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__traits.hpp
+[132.484s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__type_support.hpp
+[132.502s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__builder.hpp
+[132.520s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__struct.hpp
+[132.537s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__traits.hpp
+[132.562s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__type_support.hpp
+[132.582s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__builder.hpp
+[132.602s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__struct.hpp
+[132.622s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__traits.hpp
+[132.637s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__type_support.hpp
+[132.655s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__builder.hpp
+[132.671s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__struct.hpp
+[132.694s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__traits.hpp
+[132.710s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__type_support.hpp
+[132.726s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__builder.hpp
+[132.741s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__struct.hpp
+[132.761s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__traits.hpp
+[132.779s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__type_support.hpp
+[132.796s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__builder.hpp
+[132.813s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__struct.hpp
+[132.829s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__traits.hpp
+[132.847s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__type_support.hpp
+[132.864s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__builder.hpp
+[132.882s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__struct.hpp
+[132.899s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__traits.hpp
+[132.921s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__type_support.hpp
+[132.938s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__builder.hpp
+[132.956s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__struct.hpp
+[132.973s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__traits.hpp
+[132.995s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__type_support.hpp
+[133.013s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__builder.hpp
+[133.030s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__struct.hpp
+[133.048s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__traits.hpp
+[133.068s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__type_support.hpp
+[133.086s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__builder.hpp
+[133.106s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__struct.hpp
+[133.124s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__traits.hpp
+[133.139s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__type_support.hpp
+[133.157s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__builder.hpp
+[133.178s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__struct.hpp
+[133.195s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__traits.hpp
+[133.212s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__type_support.hpp
+[133.231s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__builder.hpp
+[133.249s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__struct.hpp
+[133.274s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__traits.hpp
+[133.292s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__type_support.hpp
+[133.310s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__builder.hpp
+[133.327s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__struct.hpp
+[133.344s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__traits.hpp
+[133.365s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__type_support.hpp
+[133.383s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__builder.hpp
+[133.404s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__struct.hpp
+[133.423s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__traits.hpp
+[133.439s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__type_support.hpp
+[133.458s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__builder.hpp
+[133.474s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__struct.hpp
+[133.503s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__traits.hpp
+[133.523s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__type_support.hpp
+[133.540s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__builder.hpp
+[133.564s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__struct.hpp
+[133.583s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__traits.hpp
+[133.607s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__type_support.hpp
+[133.625s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__builder.hpp
+[133.644s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__struct.hpp
+[133.664s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__traits.hpp
+[133.683s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__type_support.hpp
+[133.704s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__builder.hpp
+[133.722s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__struct.hpp
+[133.738s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__traits.hpp
+[133.758s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__type_support.hpp
+[133.774s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__builder.hpp
+[133.792s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__struct.hpp
+[133.809s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__traits.hpp
+[133.826s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__type_support.hpp
+[133.845s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__builder.hpp
+[133.865s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__struct.hpp
+[133.886s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__traits.hpp
+[133.906s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__type_support.hpp
+[133.926s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/error.hpp
+[133.950s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_cmd.hpp
+[133.971s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_front_video_data.hpp
+[133.991s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_move.hpp
+[134.008s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_rpy_cmd.hpp
+[134.026s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/go2_state.hpp
+[134.047s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/height_map.hpp
+[134.072s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/imu.hpp
+[134.098s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/interface_config.hpp
+[134.119s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/lidar_state.hpp
+[134.142s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/low_cmd.hpp
+[134.160s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/low_state.hpp
+[134.186s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_cmd.hpp
+[134.205s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_cmds.hpp
+[134.225s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_state.hpp
+[134.243s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/motor_states.hpp
+[134.275s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/path_point.hpp
+[134.297s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/req.hpp
+[134.318s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/res.hpp
+[134.339s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[134.365s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/sport_mode_cmd.hpp
+[134.392s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/sport_mode_state.hpp
+[134.410s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/time_spec.hpp
+[134.428s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/uwb_state.hpp
+[134.453s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/uwb_switch.hpp
+[134.473s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/voxel_height_map_state.hpp
+[134.494s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/voxel_map_compressed.hpp
+[134.512s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/web_rtc_req.hpp
+[134.530s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/wireless_controller.hpp
+[134.555s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__rosidl_typesupport_fastrtps_cpp.hpp
+[134.575s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[134.598s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__rosidl_typesupport_fastrtps_cpp.hpp
+[134.622s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__rosidl_typesupport_fastrtps_cpp.hpp
+[134.643s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[134.670s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__rosidl_typesupport_fastrtps_cpp.hpp
+[134.695s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__rosidl_typesupport_fastrtps_cpp.hpp
+[134.715s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[134.734s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__rosidl_typesupport_fastrtps_cpp.hpp
+[134.755s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__rosidl_typesupport_fastrtps_cpp.hpp
+[134.776s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__rosidl_typesupport_fastrtps_cpp.hpp
+[134.803s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__rosidl_typesupport_fastrtps_cpp.hpp
+[134.821s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__rosidl_typesupport_fastrtps_cpp.hpp
+[134.845s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[134.866s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__rosidl_typesupport_fastrtps_cpp.hpp
+[134.883s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[134.922s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__rosidl_typesupport_fastrtps_cpp.hpp
+[134.948s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__rosidl_typesupport_fastrtps_cpp.hpp
+[134.969s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__rosidl_typesupport_fastrtps_cpp.hpp
+[134.988s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__rosidl_typesupport_fastrtps_cpp.hpp
+[135.019s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__rosidl_typesupport_fastrtps_cpp.hpp
+[135.038s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__rosidl_typesupport_fastrtps_cpp.hpp
+[135.061s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[135.079s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__rosidl_typesupport_fastrtps_cpp.hpp
+[135.105s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__rosidl_typesupport_fastrtps_cpp.hpp
+[135.121s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__rosidl_typesupport_fastrtps_cpp.hpp
+[135.140s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__rosidl_typesupport_fastrtps_cpp.hpp
+[135.162s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__rosidl_typesupport_fastrtps_cpp.hpp
+[135.186s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__rosidl_typesupport_fastrtps_cpp.hpp
+[135.202s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__rosidl_typesupport_fastrtps_cpp.hpp
+[135.220s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__rosidl_typesupport_fastrtps_cpp.hpp
+[135.239s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[135.267s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__rosidl_typesupport_introspection_c.h
+[135.290s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__rosidl_typesupport_introspection_c.h
+[135.306s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__rosidl_typesupport_introspection_c.h
+[135.325s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__rosidl_typesupport_introspection_c.h
+[135.346s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__rosidl_typesupport_introspection_c.h
+[135.370s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__rosidl_typesupport_introspection_c.h
+[135.387s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__rosidl_typesupport_introspection_c.h
+[135.404s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__rosidl_typesupport_introspection_c.h
+[135.427s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__rosidl_typesupport_introspection_c.h
+[135.444s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__rosidl_typesupport_introspection_c.h
+[135.470s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__rosidl_typesupport_introspection_c.h
+[135.488s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__rosidl_typesupport_introspection_c.h
+[135.510s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__rosidl_typesupport_introspection_c.h
+[135.526s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__rosidl_typesupport_introspection_c.h
+[135.542s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__rosidl_typesupport_introspection_c.h
+[135.564s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__rosidl_typesupport_introspection_c.h
+[135.582s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__rosidl_typesupport_introspection_c.h
+[135.603s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__rosidl_typesupport_introspection_c.h
+[135.624s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__rosidl_typesupport_introspection_c.h
+[135.640s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__rosidl_typesupport_introspection_c.h
+[135.659s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__rosidl_typesupport_introspection_c.h
+[135.675s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__rosidl_typesupport_introspection_c.h
+[135.707s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__rosidl_typesupport_introspection_c.h
+[135.726s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__rosidl_typesupport_introspection_c.h
+[135.742s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__rosidl_typesupport_introspection_c.h
+[135.762s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__rosidl_typesupport_introspection_c.h
+[135.778s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__rosidl_typesupport_introspection_c.h
+[135.804s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__rosidl_typesupport_introspection_c.h
+[135.822s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__rosidl_typesupport_introspection_c.h
+[135.838s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__rosidl_typesupport_introspection_c.h
+[135.858s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__rosidl_typesupport_introspection_c.h
+[135.875s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[135.896s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/audio_data__rosidl_typesupport_introspection_cpp.hpp
+[135.911s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_cmd__rosidl_typesupport_introspection_cpp.hpp
+[135.930s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/bms_state__rosidl_typesupport_introspection_cpp.hpp
+[135.948s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/error__rosidl_typesupport_introspection_cpp.hpp
+[135.968s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_cmd__rosidl_typesupport_introspection_cpp.hpp
+[135.987s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_front_video_data__rosidl_typesupport_introspection_cpp.hpp
+[136.017s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_move__rosidl_typesupport_introspection_cpp.hpp
+[136.043s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_rpy_cmd__rosidl_typesupport_introspection_cpp.hpp
+[136.065s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/go2_state__rosidl_typesupport_introspection_cpp.hpp
+[136.095s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/height_map__rosidl_typesupport_introspection_cpp.hpp
+[136.110s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/imu__rosidl_typesupport_introspection_cpp.hpp
+[136.131s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/interface_config__rosidl_typesupport_introspection_cpp.hpp
+[136.148s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/lidar_state__rosidl_typesupport_introspection_cpp.hpp
+[136.170s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_cmd__rosidl_typesupport_introspection_cpp.hpp
+[136.187s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/low_state__rosidl_typesupport_introspection_cpp.hpp
+[136.206s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmd__rosidl_typesupport_introspection_cpp.hpp
+[136.225s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_cmds__rosidl_typesupport_introspection_cpp.hpp
+[136.246s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_state__rosidl_typesupport_introspection_cpp.hpp
+[136.265s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/motor_states__rosidl_typesupport_introspection_cpp.hpp
+[136.284s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/path_point__rosidl_typesupport_introspection_cpp.hpp
+[136.305s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/req__rosidl_typesupport_introspection_cpp.hpp
+[136.324s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/res__rosidl_typesupport_introspection_cpp.hpp
+[136.342s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_cmd__rosidl_typesupport_introspection_cpp.hpp
+[136.364s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/sport_mode_state__rosidl_typesupport_introspection_cpp.hpp
+[136.411s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/time_spec__rosidl_typesupport_introspection_cpp.hpp
+[136.432s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_state__rosidl_typesupport_introspection_cpp.hpp
+[136.453s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/uwb_switch__rosidl_typesupport_introspection_cpp.hpp
+[136.476s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_height_map_state__rosidl_typesupport_introspection_cpp.hpp
+[136.497s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/voxel_map_compressed__rosidl_typesupport_introspection_cpp.hpp
+[136.517s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/web_rtc_req__rosidl_typesupport_introspection_cpp.hpp
+[136.540s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/include/go2_interfaces/go2_interfaces/msg/detail/wireless_controller__rosidl_typesupport_introspection_cpp.hpp
+[136.564s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/pythonpath.sh
+[136.582s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/pythonpath.dsv
+[136.607s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[136.622s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[136.640s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[136.660s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[136.684s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/__init__.py
+[136.707s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_c.c
+[136.719s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[136.742s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[136.762s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[136.785s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[136.804s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[136.821s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/libgo2_interfaces__rosidl_generator_py.so
+[136.841s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/__init__.py
+[136.859s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_audio_data.py
+[136.885s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_audio_data_s.c
+[136.899s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_cmd.py
+[136.917s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_cmd_s.c
+[136.935s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_state.py
+[136.953s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_state_s.c
+[136.971s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_error.py
+[136.994s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_error_s.c
+[137.012s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_cmd.py
+[137.033s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_cmd_s.c
+[137.051s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_front_video_data.py
+[137.067s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_front_video_data_s.c
+[137.084s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_move.py
+[137.103s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_move_s.c
+[137.119s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_rpy_cmd.py
+[137.140s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_rpy_cmd_s.c
+[137.157s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_state.py
+[137.176s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_state_s.c
+[137.194s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_height_map.py
+[137.211s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_height_map_s.c
+[137.228s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_imu.py
+[137.251s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_imu_s.c
+[137.268s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_interface_config.py
+[137.293s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_interface_config_s.c
+[137.306s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_lidar_state.py
+[137.324s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_lidar_state_s.c
+[137.340s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_cmd.py
+[137.358s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_cmd_s.c
+[137.377s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_state.py
+[137.397s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_state_s.c
+[137.414s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmd.py
+[137.430s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmd_s.c
+[137.456s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmds.py
+[137.477s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmds_s.c
+[137.495s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_state.py
+[137.514s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_state_s.c
+[137.531s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_states.py
+[137.552s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_states_s.c
+[137.571s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_path_point.py
+[137.588s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_path_point_s.c
+[137.606s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_req.py
+[137.622s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_req_s.c
+[137.638s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_res.py
+[137.654s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_res_s.c
+[137.675s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_cmd.py
+[137.698s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_cmd_s.c
+[137.717s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_state.py
+[137.734s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_state_s.c
+[137.753s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_time_spec.py
+[137.772s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_time_spec_s.c
+[137.820s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_state.py
+[137.850s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_state_s.c
+[137.872s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_switch.py
+[137.886s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_switch_s.c
+[137.907s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_height_map_state.py
+[137.927s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_height_map_state_s.c
+[137.946s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_map_compressed.py
+[137.964s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_map_compressed_s.c
+[137.982s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_web_rtc_req.py
+[138.000s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_web_rtc_req_s.c
+[138.018s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_wireless_controller.py
+[138.038s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_wireless_controller_s.c
+[138.055s] -- Up-to-date symlink: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[138.055s] -- Up-to-date symlink: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[138.056s] -- Up-to-date symlink: /home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/go2_interfaces_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[138.056s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2Cmd.idl
+[138.077s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2State.idl
+[138.093s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2Move.idl
+[138.116s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2RpyCmd.idl
+[138.132s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/IMU.idl
+[138.150s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/AudioData.idl
+[138.169s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/BmsCmd.idl
+[138.186s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/BmsState.idl
+[138.205s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Error.idl
+[138.221s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2FrontVideoData.idl
+[138.237s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/HeightMap.idl
+[138.254s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/InterfaceConfig.idl
+[138.274s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LidarState.idl
+[138.291s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LowCmd.idl
+[138.310s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LowState.idl
+[138.327s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorCmd.idl
+[138.344s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorCmds.idl
+[138.360s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorState.idl
+[138.381s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorStates.idl
+[138.399s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/PathPoint.idl
+[138.422s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Req.idl
+[138.445s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Res.idl
+[138.467s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/SportModeCmd.idl
+[138.493s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/SportModeState.idl
+[138.514s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/TimeSpec.idl
+[138.532s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/UwbState.idl
+[138.550s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/UwbSwitch.idl
+[138.574s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/VoxelMapCompressed.idl
+[138.596s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/VoxelHeightMapState.idl
+[138.616s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/WebRtcReq.idl
+[138.633s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/WirelessController.idl
+[138.649s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2Cmd.msg
+[138.666s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2State.msg
+[138.686s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2Move.msg
+[138.703s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2RpyCmd.msg
+[138.721s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/IMU.msg
+[138.738s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/AudioData.msg
+[138.755s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/BmsCmd.msg
+[138.782s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/BmsState.msg
+[138.799s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Error.msg
+[138.817s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Go2FrontVideoData.msg
+[138.839s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/HeightMap.msg
+[138.859s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/InterfaceConfig.msg
+[138.883s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LidarState.msg
+[138.900s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LowCmd.msg
+[138.917s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/LowState.msg
+[138.933s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorCmd.msg
+[138.954s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorCmds.msg
+[138.972s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorState.msg
+[138.994s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/MotorStates.msg
+[139.011s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/PathPoint.msg
+[139.028s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Req.msg
+[139.048s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/Res.msg
+[139.068s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/SportModeCmd.msg
+[139.095s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/SportModeState.msg
+[139.114s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/TimeSpec.msg
+[139.134s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/UwbState.msg
+[139.151s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/UwbSwitch.msg
+[139.173s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/VoxelMapCompressed.msg
+[139.196s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/VoxelHeightMapState.msg
+[139.213s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/WebRtcReq.msg
+[139.233s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/msg/WirelessController.msg
+[139.250s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/ament_index/resource_index/package_run_dependencies/go2_interfaces
+[139.276s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/ament_index/resource_index/parent_prefix_path/go2_interfaces
+[139.295s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/ament_prefix_path.sh
+[139.314s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/ament_prefix_path.dsv
+[139.333s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/path.sh
+[139.350s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/environment/path.dsv
+[139.377s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/local_setup.bash
+[139.400s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/local_setup.sh
+[139.419s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/local_setup.zsh
+[139.435s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/local_setup.dsv
+[139.452s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/package.dsv
+[139.471s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/ament_index/resource_index/packages/go2_interfaces
+[139.488s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/rosidl_cmake-extras.cmake
+[139.507s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[139.534s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[139.556s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[139.579s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[139.602s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[139.618s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[139.636s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfacesConfig.cmake
+[139.651s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfacesConfig-version.cmake
+[139.674s] -- Symlinking: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/package.xml
+[139.695s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_generator_c.so
+[139.698s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_generator_c.so" to ""
+[139.700s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_fastrtps_c.so
+[139.702s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[139.704s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[139.705s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[139.706s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_introspection_c.so
+[139.707s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_introspection_c.so" to ""
+[139.708s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_c.so
+[139.718s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_c.so" to ""
+[139.719s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_introspection_cpp.so
+[139.719s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[139.719s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_cpp.so
+[139.719s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_typesupport_cpp.so" to ""
+[139.884s] Listing '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces'...
+[139.884s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/__init__.py'...
+[139.884s] Listing '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg'...
+[139.884s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/__init__.py'...
+[139.884s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_audio_data.py'...
+[139.884s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_cmd.py'...
+[139.884s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_bms_state.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_error.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_cmd.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_front_video_data.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_move.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_rpy_cmd.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_go2_state.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_height_map.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_imu.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_interface_config.py'...
+[139.885s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_lidar_state.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_cmd.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_low_state.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmd.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_cmds.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_state.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_motor_states.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_path_point.py'...
+[139.886s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_req.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_res.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_cmd.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_sport_mode_state.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_time_spec.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_state.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_uwb_switch.py'...
+[139.887s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_height_map_state.py'...
+[139.888s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_voxel_map_compressed.py'...
+[139.888s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_web_rtc_req.py'...
+[139.888s] Compiling '/home/ming/ros2_ws/src/install/go2_interfaces/local/lib/python3.10/dist-packages/go2_interfaces/msg/_wireless_controller.py'...
+[139.901s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_generator_py.so
+[139.902s] -- Set runtime path of "/home/ming/ros2_ws/src/install/go2_interfaces/lib/libgo2_interfaces__rosidl_generator_py.so" to ""
+[139.903s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_generator_cExport.cmake
+[139.903s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_generator_cExport-noconfig.cmake
+[139.905s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[139.905s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[139.905s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_generator_cppExport.cmake
+[139.905s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[139.906s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[139.906s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[139.908s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[139.908s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_cExport.cmake
+[139.908s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[139.908s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[139.909s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[139.911s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_cppExport.cmake
+[139.912s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/go2_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[139.913s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_generator_pyExport.cmake
+[139.914s] -- Installing: /home/ming/ros2_ws/src/install/go2_interfaces/share/go2_interfaces/cmake/export_go2_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[139.927s] Invoked command in '/home/ming/ros2_ws/src/build/go2_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/src/build/go2_interfaces

@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/rosidl_generator_cpp/champ_msgs/msg/detail/velocities__type_support.hpp

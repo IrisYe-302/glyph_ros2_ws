@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/build/go2_interfaces/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/path_point__rosidl_typesupport_fastrtps_cpp.hpp

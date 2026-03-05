@@ -1,0 +1,3 @@
+[console_scripts]
+location_subscriber = go2_navigation.location_subscriber:main
+

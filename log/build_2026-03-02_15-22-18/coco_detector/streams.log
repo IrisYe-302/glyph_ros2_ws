@@ -1,0 +1,17 @@
+[2.689s] Invoking command in '/home/ming/ros2_ws/build/coco_detector': PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/coco_detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/coco_detector/build --no-deps symlink_data
+[3.221s] running develop
+[3.537s] running egg_info
+[3.538s] writing coco_detector.egg-info/PKG-INFO
+[3.539s] writing dependency_links to coco_detector.egg-info/dependency_links.txt
+[3.539s] writing entry points to coco_detector.egg-info/entry_points.txt
+[3.541s] writing requirements to coco_detector.egg-info/requires.txt
+[3.541s] writing top-level names to coco_detector.egg-info/top_level.txt
+[3.545s] reading manifest file 'coco_detector.egg-info/SOURCES.txt'
+[3.547s] writing manifest file 'coco_detector.egg-info/SOURCES.txt'
+[3.551s] running build_ext
+[3.552s] Creating /home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages/coco-detector.egg-link (link to .)
+[3.553s] Installing coco_detector_node script to /home/ming/ros2_ws/install/coco_detector/lib/coco_detector
+[3.554s] 
+[3.554s] Installed /home/ming/ros2_ws/build/coco_detector
+[3.554s] running symlink_data
+[3.650s] Invoked command in '/home/ming/ros2_ws/build/coco_detector' returned '0': PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/coco_detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/coco_detector/build --no-deps symlink_data

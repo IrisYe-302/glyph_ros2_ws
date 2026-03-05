@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/rosidl_generator_c/champ_msgs/msg/pid.h

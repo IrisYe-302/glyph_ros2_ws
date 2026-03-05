@@ -1,0 +1,19 @@
+[1.757s] Invoking command in '/home/ming/ros2_ws/build/speech_processor': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:${CMAKE_PREFIX_PATH} PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/speech_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/speech_processor/build --no-deps symlink_data
+[2.261s] running develop
+[2.573s] running egg_info
+[2.573s] writing speech_processor.egg-info/PKG-INFO
+[2.574s] writing dependency_links to speech_processor.egg-info/dependency_links.txt
+[2.574s] writing entry points to speech_processor.egg-info/entry_points.txt
+[2.575s] writing requirements to speech_processor.egg-info/requires.txt
+[2.575s] writing top-level names to speech_processor.egg-info/top_level.txt
+[2.580s] reading manifest file 'speech_processor.egg-info/SOURCES.txt'
+[2.583s] writing manifest file 'speech_processor.egg-info/SOURCES.txt'
+[2.586s] running build_ext
+[2.586s] Creating /home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages/speech-processor.egg-link (link to .)
+[2.588s] Installing audio_manager script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.588s] Installing speech_synthesizer script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.588s] Installing tts_node script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.589s] 
+[2.589s] Installed /home/ming/ros2_ws/build/speech_processor
+[2.589s] running symlink_data
+[2.709s] Invoked command in '/home/ming/ros2_ws/build/speech_processor' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:${CMAKE_PREFIX_PATH} PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/speech_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/speech_processor/build --no-deps symlink_data

@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/rosidl_generator_c/champ_msgs/msg/detail/point_array__struct.h

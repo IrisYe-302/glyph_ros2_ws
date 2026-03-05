@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/unitree_go2_sim/ament_cmake_environment_hooks/local_setup.bash

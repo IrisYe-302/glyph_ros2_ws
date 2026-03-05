@@ -1,0 +1,9 @@
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Velocities.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/PID.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Imu.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Point.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/PointArray.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Joints.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Contacts.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/ContactsStamped.idl
+/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs:msg/Pose.idl

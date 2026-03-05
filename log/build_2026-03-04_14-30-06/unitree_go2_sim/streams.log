@@ -1,0 +1,47 @@
+[0.051s] Invoking command in '/home/ming/ros2_ws/build/unitree_go2_sim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/unitree_go2_sim -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/install/unitree_go2_sim
+[0.268s] -- The C compiler identification is GNU 11.4.0
+[0.452s] -- The CXX compiler identification is GNU 11.4.0
+[0.479s] -- Detecting C compiler ABI info
+[0.806s] -- Detecting C compiler ABI info - done
+[0.816s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.817s] -- Detecting C compile features
+[0.833s] -- Detecting C compile features - done
+[0.833s] -- Detecting CXX compiler ABI info
+[1.100s] -- Detecting CXX compiler ABI info - done
+[1.114s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.116s] -- Detecting CXX compile features
+[1.117s] -- Detecting CXX compile features - done
+[1.124s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.259s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.260s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[2.339s] -- Configuring done
+[2.339s] -- Generating done
+[2.339s] -- Build files have been written to: /home/ming/ros2_ws/build/unitree_go2_sim
+[2.340s] Invoked command in '/home/ming/ros2_ws/build/unitree_go2_sim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/unitree_go2_sim -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/install/unitree_go2_sim
+[2.343s] Invoking command in '/home/ming/ros2_ws/build/unitree_go2_sim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/unitree_go2_sim -- -j6 -l6
+[2.936s] Invoked command in '/home/ming/ros2_ws/build/unitree_go2_sim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/unitree_go2_sim -- -j6 -l6
+[2.938s] Invoking command in '/home/ming/ros2_ws/build/unitree_go2_sim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/unitree_go2_sim
+[2.962s] -- Install configuration: ""
+[2.962s] -- Execute custom install script
+[2.962s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/launch/unitree_go2_launch.py
+[2.981s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/gait/gait.yaml
+[3.002s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/joints/joints.yaml
+[3.022s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/links/links.yaml
+[3.054s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/ros_control/ros_control.yaml
+[3.079s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/rviz/rviz.rviz
+[3.096s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/package_run_dependencies/unitree_go2_sim
+[3.114s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/parent_prefix_path/unitree_go2_sim
+[3.141s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/ament_prefix_path.sh
+[3.169s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/ament_prefix_path.dsv
+[3.191s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/path.sh
+[3.215s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/path.dsv
+[3.252s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.bash
+[3.287s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.sh
+[3.356s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.zsh
+[3.368s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.dsv
+[3.400s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/package.dsv
+[3.422s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/packages/unitree_go2_sim
+[3.464s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/cmake/unitree_go2_simConfig.cmake
+[3.498s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/cmake/unitree_go2_simConfig-version.cmake
+[3.532s] -- Symlinking: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/package.xml
+[3.571s] Invoked command in '/home/ming/ros2_ws/build/unitree_go2_sim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/unitree_go2_sim

@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/build/go2_interfaces/rosidl_generator_c/go2_interfaces/msg/detail/go2_rpy_cmd__functions.h

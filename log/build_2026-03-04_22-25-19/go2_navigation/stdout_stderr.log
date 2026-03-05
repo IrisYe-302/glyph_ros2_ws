@@ -1,0 +1,33 @@
+running egg_info
+creating ../../build/go2_navigation/go2_navigation.egg-info
+writing ../../build/go2_navigation/go2_navigation.egg-info/PKG-INFO
+writing dependency_links to ../../build/go2_navigation/go2_navigation.egg-info/dependency_links.txt
+writing entry points to ../../build/go2_navigation/go2_navigation.egg-info/entry_points.txt
+writing requirements to ../../build/go2_navigation/go2_navigation.egg-info/requires.txt
+writing top-level names to ../../build/go2_navigation/go2_navigation.egg-info/top_level.txt
+writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+package init file 'go2_navigation/__init__.py' not found (or not a regular file)
+reading manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ming/ros2_ws/build/go2_navigation/build
+creating /home/ming/ros2_ws/build/go2_navigation/build/lib
+creating /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation
+copying go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation
+running install
+running install_lib
+creating /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation
+copying /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation
+byte-compiling /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/location_subscriber.py to location_subscriber.cpython-310.pyc
+running install_data
+creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index
+creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index
+creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages
+copying resource/go2_navigation -> /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages
+copying package.xml -> /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation
+running install_egg_info
+Copying ../../build/go2_navigation/go2_navigation.egg-info to /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info
+running install_scripts
+Installing location_subscriber script to /home/ming/ros2_ws/install/go2_navigation/bin
+writing list of installed files to '/home/ming/ros2_ws/build/go2_navigation/install.log'

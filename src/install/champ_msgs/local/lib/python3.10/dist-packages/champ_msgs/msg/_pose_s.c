@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/rosidl_generator_py/champ_msgs/msg/_pose_s.c

@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/build/go2_interfaces/rosidl_generator_py/go2_interfaces/_go2_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c

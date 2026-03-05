@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/rosidl_typesupport_fastrtps_cpp/champ_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h

@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/lidar_processor_cpp/ament_cmake_environment_hooks/local_setup.zsh

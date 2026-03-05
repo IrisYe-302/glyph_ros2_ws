@@ -1,0 +1,35 @@
+[1.388s] Invoking command in '/home/ming/ros2_ws/src/go2_navigation': PYTHONPATH=/home/ming/ros2_ws/build/go2_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/go2_navigation build --build-base /home/ming/ros2_ws/build/go2_navigation/build install --record /home/ming/ros2_ws/build/go2_navigation/install.log --single-version-externally-managed install_data
+[1.859s] running egg_info
+[1.859s] creating ../../build/go2_navigation/go2_navigation.egg-info
+[1.860s] writing ../../build/go2_navigation/go2_navigation.egg-info/PKG-INFO
+[1.860s] writing dependency_links to ../../build/go2_navigation/go2_navigation.egg-info/dependency_links.txt
+[1.860s] writing entry points to ../../build/go2_navigation/go2_navigation.egg-info/entry_points.txt
+[1.861s] writing requirements to ../../build/go2_navigation/go2_navigation.egg-info/requires.txt
+[1.861s] writing top-level names to ../../build/go2_navigation/go2_navigation.egg-info/top_level.txt
+[1.861s] writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+[1.864s] package init file 'go2_navigation/__init__.py' not found (or not a regular file)
+[1.865s] reading manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+[1.867s] writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+[1.867s] running build
+[1.867s] running build_py
+[1.868s] creating /home/ming/ros2_ws/build/go2_navigation/build
+[1.868s] creating /home/ming/ros2_ws/build/go2_navigation/build/lib
+[1.868s] creating /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation
+[1.868s] copying go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation
+[1.868s] running install
+[1.869s] running install_lib
+[1.871s] creating /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation
+[1.871s] copying /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation
+[1.872s] byte-compiling /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/location_subscriber.py to location_subscriber.cpython-310.pyc
+[1.873s] running install_data
+[1.873s] creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index
+[1.874s] creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index
+[1.874s] creating /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages
+[1.874s] copying resource/go2_navigation -> /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages
+[1.874s] copying package.xml -> /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation
+[1.874s] running install_egg_info
+[1.878s] Copying ../../build/go2_navigation/go2_navigation.egg-info to /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info
+[1.879s] running install_scripts
+[1.921s] Installing location_subscriber script to /home/ming/ros2_ws/install/go2_navigation/bin
+[1.922s] writing list of installed files to '/home/ming/ros2_ws/build/go2_navigation/install.log'
+[1.991s] Invoked command in '/home/ming/ros2_ws/src/go2_navigation' returned '0': PYTHONPATH=/home/ming/ros2_ws/build/go2_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/go2_navigation build --build-base /home/ming/ros2_ws/build/go2_navigation/build install --record /home/ming/ros2_ws/build/go2_navigation/install.log --single-version-externally-managed install_data

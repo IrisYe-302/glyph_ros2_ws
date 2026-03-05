@@ -1,0 +1,17 @@
+[1.751s] Invoking command in '/home/ming/ros2_ws/build/go2_robot_sdk': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:${CMAKE_PREFIX_PATH} PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/go2_robot_sdk/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/go2_robot_sdk/build --no-deps symlink_data
+[2.251s] running develop
+[2.549s] running egg_info
+[2.549s] writing go2_robot_sdk.egg-info/PKG-INFO
+[2.550s] writing dependency_links to go2_robot_sdk.egg-info/dependency_links.txt
+[2.551s] writing entry points to go2_robot_sdk.egg-info/entry_points.txt
+[2.551s] writing requirements to go2_robot_sdk.egg-info/requires.txt
+[2.551s] writing top-level names to go2_robot_sdk.egg-info/top_level.txt
+[2.558s] reading manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'
+[2.564s] writing manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'
+[2.568s] running build_ext
+[2.569s] Creating /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2-robot-sdk.egg-link (link to .)
+[2.571s] Installing go2_driver_node script to /home/ming/ros2_ws/install/go2_robot_sdk/lib/go2_robot_sdk
+[2.572s] 
+[2.572s] Installed /home/ming/ros2_ws/build/go2_robot_sdk
+[2.572s] running symlink_data
+[2.680s] Invoked command in '/home/ming/ros2_ws/build/go2_robot_sdk' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:${CMAKE_PREFIX_PATH} PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/go2_robot_sdk/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/go2_robot_sdk/build --no-deps symlink_data

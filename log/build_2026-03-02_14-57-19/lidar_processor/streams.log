@@ -1,0 +1,18 @@
+[1.874s] Invoking command in '/home/ming/ros2_ws/build/lidar_processor': PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/lidar_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/lidar_processor/build --no-deps symlink_data
+[2.386s] running develop
+[2.701s] running egg_info
+[2.701s] writing lidar_processor.egg-info/PKG-INFO
+[2.702s] writing dependency_links to lidar_processor.egg-info/dependency_links.txt
+[2.703s] writing entry points to lidar_processor.egg-info/entry_points.txt
+[2.703s] writing requirements to lidar_processor.egg-info/requires.txt
+[2.703s] writing top-level names to lidar_processor.egg-info/top_level.txt
+[2.708s] reading manifest file 'lidar_processor.egg-info/SOURCES.txt'
+[2.710s] writing manifest file 'lidar_processor.egg-info/SOURCES.txt'
+[2.714s] running build_ext
+[2.714s] Creating /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar-processor.egg-link (link to .)
+[2.716s] Installing lidar_to_pointcloud script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+[2.716s] Installing pointcloud_aggregator script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+[2.716s] 
+[2.717s] Installed /home/ming/ros2_ws/build/lidar_processor
+[2.717s] running symlink_data
+[2.840s] Invoked command in '/home/ming/ros2_ws/build/lidar_processor' returned '0': PS1=(.venv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/ming/ros2_ws/build/lidar_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ming/ros2_ws/build/lidar_processor/build --no-deps symlink_data

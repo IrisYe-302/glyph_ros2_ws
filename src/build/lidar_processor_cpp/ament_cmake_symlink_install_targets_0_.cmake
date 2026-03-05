@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ming/ros2_ws/src/build/lidar_processor_cpp/lidar_to_pointcloud_node" "/home/ming/ros2_ws/src/build/lidar_processor_cpp/pointcloud_aggregator_node" "TARGETS" "lidar_to_pointcloud_node" "pointcloud_aggregator_node" "DESTINATION" "lib/lidar_processor_cpp")

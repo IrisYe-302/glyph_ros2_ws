@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/build/go2_interfaces/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/time_spec__rosidl_typesupport_fastrtps_c.h

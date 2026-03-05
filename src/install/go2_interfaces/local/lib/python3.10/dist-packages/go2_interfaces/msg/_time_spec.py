@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_py/go2_interfaces/msg/_time_spec.py

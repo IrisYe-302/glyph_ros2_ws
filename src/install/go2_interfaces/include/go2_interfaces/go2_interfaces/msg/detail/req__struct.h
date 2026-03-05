@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_c/go2_interfaces/msg/detail/req__struct.h

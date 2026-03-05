@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/go2_interfaces/msg/Res.msg

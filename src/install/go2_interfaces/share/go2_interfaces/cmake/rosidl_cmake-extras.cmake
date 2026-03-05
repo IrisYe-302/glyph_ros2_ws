@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_cmake/rosidl_cmake-extras.cmake

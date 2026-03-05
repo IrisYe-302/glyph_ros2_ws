@@ -1,0 +1,95 @@
+[0.074s] Invoking command in '/home/ming/ros2_ws/src/build/champ_base': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ_base -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/champ_base
+[0.183s] -- The C compiler identification is GNU 11.4.0
+[0.283s] -- The CXX compiler identification is GNU 11.4.0
+[0.301s] -- Detecting C compiler ABI info
+[0.447s] -- Detecting C compiler ABI info - done
+[0.460s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.461s] -- Detecting C compile features
+[0.462s] -- Detecting C compile features - done
+[0.468s] -- Detecting CXX compiler ABI info
+[0.619s] -- Detecting CXX compiler ABI info - done
+[0.632s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.633s] -- Detecting CXX compile features
+[0.635s] -- Detecting CXX compile features - done
+[0.653s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.110s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.347s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.408s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[1.501s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.511s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.529s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.553s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.611s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.719s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.724s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.769s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.787s] -- Looking for pthread.h
+[1.953s] -- Looking for pthread.h - found
+[1.953s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.135s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.137s] -- Found Threads: TRUE  
+[2.313s] -- Found rclpy: 3.3.20 (/opt/ros/humble/share/rclpy/cmake)
+[2.315s] -- Found champ_msgs: 0.1.0 (/home/ming/ros2_ws/src/install/champ_msgs/share/champ_msgs/cmake)
+[2.417s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[2.573s] -- Found trajectory_msgs: 4.9.1 (/opt/ros/humble/share/trajectory_msgs/cmake)
+[2.693s] -- Found nav_msgs: 4.9.1 (/opt/ros/humble/share/nav_msgs/cmake)
+[2.771s] -- Found tf2_ros: 0.25.19 (/opt/ros/humble/share/tf2_ros/cmake)
+[3.010s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[3.110s] -- Found champ: 0.1.0 (/home/ming/ros2_ws/src/install/champ/share/champ/cmake)
+[3.343s] -- Configuring done
+[3.459s] -- Generating done
+[3.493s] -- Build files have been written to: /home/ming/ros2_ws/src/build/champ_base
+[3.525s] Invoked command in '/home/ming/ros2_ws/src/build/champ_base' returned '0': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ_base -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/champ_base
+[3.528s] Invoking command in '/home/ming/ros2_ws/src/build/champ_base': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ming/ros2_ws/src/build/champ_base -- -j6 -l6
+[3.630s] [  8%] [32mBuilding CXX object CMakeFiles/quadruped_controller.dir/src/quadruped_controller.cpp.o[0m
+[34.096s] [ 16%] [32m[1mLinking CXX shared library libquadruped_controller.so[0m
+[35.868s] [ 16%] Built target quadruped_controller
+[35.917s] [ 25%] [32mBuilding CXX object CMakeFiles/state_estimation.dir/src/state_estimation.cpp.o[0m
+[76.799s] [ 33%] [32m[1mLinking CXX shared library libstate_estimation.so[0m
+[79.416s] [ 33%] Built target state_estimation
+[79.453s] [ 50%] [32mBuilding CXX object CMakeFiles/message_relay.dir/src/message_relay.cpp.o[0m
+[79.453s] [ 50%] [32mBuilding CXX object CMakeFiles/quadruped_controller_node.dir/src/quadruped_controller_node.cpp.o[0m
+[86.602s] [ 58%] [32m[1mLinking CXX executable quadruped_controller_node[0m
+[87.578s] [ 58%] Built target quadruped_controller_node
+[87.650s] [ 66%] [32mBuilding CXX object CMakeFiles/state_estimation_node.dir/src/state_estimation_node.cpp.o[0m
+[102.595s] [ 75%] [32m[1mLinking CXX executable state_estimation_node[0m
+[103.919s] [ 75%] Built target state_estimation_node
+[115.151s] [ 83%] [32m[1mLinking CXX shared library libmessage_relay.so[0m
+[117.252s] [ 83%] Built target message_relay
+[117.289s] [ 91%] [32mBuilding CXX object CMakeFiles/message_relay_node.dir/src/message_relay_node.cpp.o[0m
+[124.720s] [100%] [32m[1mLinking CXX executable message_relay_node[0m
+[125.856s] [100%] Built target message_relay_node
+[125.880s] Invoked command in '/home/ming/ros2_ws/src/build/champ_base' returned '0': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ming/ros2_ws/src/build/champ_base -- -j6 -l6
+[125.882s] Invoking command in '/home/ming/ros2_ws/src/build/champ_base': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ming/ros2_ws/src/build/champ_base
+[125.897s] -- Install configuration: ""
+[125.897s] -- Execute custom install script
+[125.899s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/config/ekf/base_to_footprint.yaml
+[125.915s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/config/ekf/footprint_to_odom.yaml
+[125.931s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/config/velocity_smoother/velocity_smoother.yaml
+[125.946s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/libquadruped_controller.so
+[125.961s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/bin/quadruped_controller_node
+[125.976s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/libmessage_relay.so
+[125.993s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/bin/message_relay_node
+[126.008s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/libstate_estimation.so
+[126.023s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/bin/state_estimation_node
+[126.040s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/champ_base/quadruped_controller_node
+[126.055s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/champ_base/message_relay_node
+[126.077s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/lib/champ_base/state_estimation_node
+[126.094s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/ament_index/resource_index/package_run_dependencies/champ_base
+[126.114s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/ament_index/resource_index/parent_prefix_path/champ_base
+[126.130s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/environment/ament_prefix_path.sh
+[126.147s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/environment/ament_prefix_path.dsv
+[126.163s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/environment/path.sh
+[126.179s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/environment/path.dsv
+[126.196s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/local_setup.bash
+[126.213s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/local_setup.sh
+[126.228s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/local_setup.zsh
+[126.245s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/local_setup.dsv
+[126.260s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/package.dsv
+[126.277s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/ament_index/resource_index/packages/champ_base
+[126.293s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/cmake/ament_cmake_export_include_directories-extras.cmake
+[126.308s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/cmake/ament_cmake_export_dependencies-extras.cmake
+[126.324s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/cmake/champ_baseConfig.cmake
+[126.342s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/cmake/champ_baseConfig-version.cmake
+[126.358s] -- Symlinking: /home/ming/ros2_ws/src/install/champ_base/share/champ_base/package.xml
+[126.382s] Invoked command in '/home/ming/ros2_ws/src/build/champ_base' returned '0': AMENT_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ming/ros2_ws/src/install/champ_msgs:/home/ming/ros2_ws/src/install/champ:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/src/install/champ_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ming/ros2_ws/src/install/champ_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/ming/ros2_ws/src/build/champ_base

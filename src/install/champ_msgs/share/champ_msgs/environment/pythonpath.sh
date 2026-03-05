@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/champ_msgs/ament_cmake_environment_hooks/pythonpath.sh

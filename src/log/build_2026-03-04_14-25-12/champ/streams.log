@@ -1,0 +1,75 @@
+[0.066s] Invoking command in '/home/ming/ros2_ws/src/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/champ
+[1.282s] -- The C compiler identification is GNU 11.4.0
+[1.570s] -- The CXX compiler identification is GNU 11.4.0
+[1.606s] -- Detecting C compiler ABI info
+[1.824s] -- Detecting C compiler ABI info - done
+[1.835s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.837s] -- Detecting C compile features
+[1.837s] -- Detecting C compile features - done
+[1.854s] -- Detecting CXX compiler ABI info
+[2.089s] -- Detecting CXX compiler ABI info - done
+[2.108s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.109s] -- Detecting CXX compile features
+[2.110s] -- Detecting CXX compile features - done
+[2.115s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.797s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.994s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[3.119s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[3.294s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.312s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.333s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.362s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.423s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.570s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.595s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[3.714s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[3.757s] -- Looking for pthread.h
+[4.069s] -- Looking for pthread.h - found
+[4.070s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[4.249s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[4.251s] -- Found Threads: TRUE  
+[4.486s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[4.743s] -- Configuring done
+[4.755s] -- Generating done
+[4.768s] -- Build files have been written to: /home/ming/ros2_ws/src/build/champ
+[4.800s] Invoked command in '/home/ming/ros2_ws/src/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/src/install/champ
+[4.801s] Invoking command in '/home/ming/ros2_ws/src/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/src/build/champ -- -j6 -l6
+[5.691s] Invoked command in '/home/ming/ros2_ws/src/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/src/build/champ -- -j6 -l6
+[5.711s] Invoking command in '/home/ming/ros2_ws/src/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/src/build/champ
+[5.732s] -- Install configuration: ""
+[5.740s] -- Execute custom install script
+[5.740s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/LICENSE
+[5.798s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/README.md
+[5.814s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/bla/basic_linear_algebra.h
+[5.851s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/bla/memory_delegate.h
+[5.857s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/body_controller/body_controller.h
+[5.876s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/geometry/geometry.h
+[5.899s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/kinematics/kinematics.h
+[5.917s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/leg_controller/leg_controller.h
+[5.939s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/leg_controller/phase_generator.h
+[5.955s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/leg_controller/trajectory_planner.h
+[5.979s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/macros/macros.h
+[5.995s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/odometry/odometry.h
+[6.050s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/quadruped_base/quadruped_base.h
+[6.101s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/quadruped_base/quadruped_components.h
+[6.138s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/quadruped_base/quadruped_joint.h
+[6.155s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/quadruped_base/quadruped_leg.h
+[6.197s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/utils/urdf_loader.h
+[6.237s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/include/champ/utils/xmlrpc_helpers.h
+[6.254s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/ament_index/resource_index/package_run_dependencies/champ
+[6.317s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/ament_index/resource_index/parent_prefix_path/champ
+[6.348s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/environment/ament_prefix_path.sh
+[6.385s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/environment/ament_prefix_path.dsv
+[6.403s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/environment/path.sh
+[6.434s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/environment/path.dsv
+[6.469s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/local_setup.bash
+[6.500s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/local_setup.sh
+[6.536s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/local_setup.zsh
+[6.558s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/local_setup.dsv
+[6.579s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/package.dsv
+[6.611s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/ament_index/resource_index/packages/champ
+[6.627s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/cmake/ament_cmake_export_include_directories-extras.cmake
+[6.656s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/cmake/champConfig.cmake
+[6.686s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/cmake/champConfig-version.cmake
+[6.702s] -- Symlinking: /home/ming/ros2_ws/src/install/champ/share/champ/package.xml
+[6.730s] Invoked command in '/home/ming/ros2_ws/src/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/src/build/champ

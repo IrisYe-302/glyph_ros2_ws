@@ -1,0 +1,1 @@
+/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_cpp/go2_interfaces/msg/detail/path_point__struct.hpp

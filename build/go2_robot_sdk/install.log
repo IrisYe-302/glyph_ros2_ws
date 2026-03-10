@@ -118,4 +118,4 @@
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/PKG-INFO
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/dependency_links.txt
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/top_level.txt
-/home/ming/ros2_ws/install/go2_robot_sdk/lib/go2_robot_sdk/go2_driver_node
+/home/ming/ros2_ws/install/go2_robot_sdk/bin/go2_driver_node

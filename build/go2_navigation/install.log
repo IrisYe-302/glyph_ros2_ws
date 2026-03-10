@@ -1,5 +1,7 @@
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/location_subscriber.py
+/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/__init__.py
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/__pycache__/location_subscriber.cpython-310.pyc
+/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/__pycache__/__init__.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages/go2_navigation
 /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/package.xml
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/entry_points.txt
@@ -9,4 +11,4 @@
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/PKG-INFO
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/dependency_links.txt
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/top_level.txt
-/home/ming/ros2_ws/install/go2_navigation/bin/location_subscriber
+/home/ming/ros2_ws/install/go2_navigation/lib/go2_navigation/location_subscriber

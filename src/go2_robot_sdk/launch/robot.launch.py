@@ -6,7 +6,7 @@ from typing import List
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import FrontendLaunchDescriptionSource, PythonLaunchDescriptionSource
@@ -57,7 +57,11 @@ class Go2LaunchConfig:
     
     def _get_urdf_file(self) -> str:
         """Get appropriate URDF file"""
-        return 'go2.urdf' if self.conn_mode == 'single' else 'multi_go2.urdf'
+        # Use xacro from unitree_go2_description for full joint model (same as simulation)
+        return os.path.join(
+            get_package_share_directory('unitree_go2_description'),
+            'urdf', 'unitree_go2_robot.xacro'
+        )
     
     def _get_config_paths(self) -> dict:
         """Get all configuration file paths"""
@@ -67,7 +71,7 @@ class Go2LaunchConfig:
             'slam': os.path.join(self.package_dir, 'config', 'mapper_params_online_async.yaml'),
             'nav2': os.path.join(self.package_dir, 'config', 'nav2_params.yaml'),
             'rviz': os.path.join(self.package_dir, 'config', self.rviz_config),
-            'urdf': os.path.join(self.package_dir, 'urdf', self.urdf_file),
+            'urdf': self.urdf_file,  # Now points to xacro in unitree_go2_description
         }
 
 
@@ -94,8 +98,8 @@ class Go2NodeFactory:
         use_sim_time = LaunchConfiguration('use_sim_time', default='false')
         
         if self.config.conn_mode == 'single':
-            # Single robot configuration
-            robot_desc = self._load_urdf_content(self.config.config_paths['urdf'])
+            # Single robot configuration - use xacro to generate URDF (same as simulation)
+            robot_desc = Command(['xacro ', self.config.config_paths['urdf']])
             
             nodes.extend([
                 Node(
@@ -107,16 +111,13 @@ class Go2NodeFactory:
                         'use_sim_time': use_sim_time,
                         'robot_description': robot_desc
                     }],
-                    arguments=[self.config.config_paths['urdf']]
                 ),
                 self._create_pointcloud_to_laserscan_node()
             ])
         else:
-            # Multi-robot configuration
-            base_urdf = self._load_urdf_content(self.config.config_paths['urdf'])
-            
+            # Multi-robot configuration - use xacro with namespace substitution
             for i, _ in enumerate(self.config.robot_ip_list):
-                robot_desc = base_urdf.format(robot_num=f"robot{i}")
+                robot_desc = Command(['xacro ', self.config.config_paths['urdf'], ' robot_name:=robot', str(i)])
                 
                 nodes.extend([
                     Node(
@@ -129,7 +130,6 @@ class Go2NodeFactory:
                             'use_sim_time': use_sim_time,
                             'robot_description': robot_desc
                         }],
-                        arguments=[self.config.config_paths['urdf']]
                     ),
                     self._create_pointcloud_to_laserscan_node(f"robot{i}")
                 ])

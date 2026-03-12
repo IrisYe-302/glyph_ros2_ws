@@ -1,0 +1,101 @@
+[0.000000] (-) TimerEvent: {}
+[0.001014] (-) JobUnselected: {'identifier': 'champ'}
+[0.001395] (-) JobUnselected: {'identifier': 'champ_base'}
+[0.001818] (-) JobUnselected: {'identifier': 'champ_msgs'}
+[0.001948] (-) JobUnselected: {'identifier': 'coco_detector'}
+[0.002018] (-) JobUnselected: {'identifier': 'go2_interfaces'}
+[0.002079] (-) JobUnselected: {'identifier': 'go2_navigation'}
+[0.002178] (-) JobUnselected: {'identifier': 'lidar_processor'}
+[0.002243] (-) JobUnselected: {'identifier': 'lidar_processor_cpp'}
+[0.002301] (-) JobUnselected: {'identifier': 'speech_processor'}
+[0.002356] (-) JobUnselected: {'identifier': 'unitree_go2_description'}
+[0.002414] (-) JobUnselected: {'identifier': 'unitree_go2_sim'}
+[0.002479] (go2_robot_sdk) JobQueued: {'identifier': 'go2_robot_sdk', 'dependencies': OrderedDict([('go2_interfaces', '/home/ming/ros2_ws/install/go2_interfaces')])}
+[0.002553] (go2_robot_sdk) JobStarted: {'identifier': 'go2_robot_sdk'}
+[0.098436] (-) TimerEvent: {}
+[0.198816] (-) TimerEvent: {}
+[0.299222] (-) TimerEvent: {}
+[0.399660] (-) TimerEvent: {}
+[0.500089] (-) TimerEvent: {}
+[0.600509] (-) TimerEvent: {}
+[0.700917] (-) TimerEvent: {}
+[0.801268] (-) TimerEvent: {}
+[0.901621] (-) TimerEvent: {}
+[1.001997] (-) TimerEvent: {}
+[1.102394] (-) TimerEvent: {}
+[1.202832] (-) TimerEvent: {}
+[1.303265] (-) TimerEvent: {}
+[1.403655] (-) TimerEvent: {}
+[1.504039] (-) TimerEvent: {}
+[1.604354] (-) TimerEvent: {}
+[1.704701] (-) TimerEvent: {}
+[1.805091] (-) TimerEvent: {}
+[1.831123] (go2_robot_sdk) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/ming/ros2_ws/build/go2_robot_sdk/build', '--no-deps', 'symlink_data', '--force'], 'cwd': '/home/ming/ros2_ws/build/go2_robot_sdk', 'env': {'ROBOT_IP': '100.119.26.68', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ming', 'SSH_CLIENT': '100.107.88.37 60991 22', 'AGENT': '1', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/home/ming/ros2_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ming', 'CYCLONEDDS_URI': 'file:///home/ming/cyclonedds.xml', 'OLDPWD': '/home/ming', 'SSH_TTY': '/dev/pts/1', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/ming/ros2_ws/install:/home/ming/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'ming', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '226', 'ROS_LOCALHOST_ONLY': '0', 'OPENCODE': '1', 'PATH': '/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/go2_navigation/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'OPENCODE_PID': '1402125', 'LANG': 'en_US.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_cyclonedds_cpp', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'ROS_DOMAIN_ID': '0', 'AMENT_PREFIX_PATH': '/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/ming/ros2_ws/build/go2_robot_sdk', 'SSH_CONNECTION': '100.107.88.37 60991 100.119.26.68 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/ming/ros2_ws/build/go2_robot_sdk/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/build/speech_processor:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/build/lidar_processor:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/build/coco_detector:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'CONN_TYPE': 'cyclonedds', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ'}, 'shell': False}
+[1.905251] (-) TimerEvent: {}
+[2.005590] (-) TimerEvent: {}
+[2.105940] (-) TimerEvent: {}
+[2.206272] (-) TimerEvent: {}
+[2.306615] (-) TimerEvent: {}
+[2.383265] (go2_robot_sdk) StdoutLine: {'line': b'running develop\n'}
+[2.406765] (-) TimerEvent: {}
+[2.507102] (-) TimerEvent: {}
+[2.607449] (-) TimerEvent: {}
+[2.707795] (-) TimerEvent: {}
+[2.723615] (go2_robot_sdk) StdoutLine: {'line': b'running egg_info\n'}
+[2.724168] (go2_robot_sdk) StdoutLine: {'line': b'writing go2_robot_sdk.egg-info/PKG-INFO\n'}
+[2.724599] (go2_robot_sdk) StdoutLine: {'line': b'writing dependency_links to go2_robot_sdk.egg-info/dependency_links.txt\n'}
+[2.724987] (go2_robot_sdk) StdoutLine: {'line': b'writing entry points to go2_robot_sdk.egg-info/entry_points.txt\n'}
+[2.725337] (go2_robot_sdk) StdoutLine: {'line': b'writing requirements to go2_robot_sdk.egg-info/requires.txt\n'}
+[2.725609] (go2_robot_sdk) StdoutLine: {'line': b'writing top-level names to go2_robot_sdk.egg-info/top_level.txt\n'}
+[2.732606] (go2_robot_sdk) StdoutLine: {'line': b"reading manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'\n"}
+[2.736033] (go2_robot_sdk) StdoutLine: {'line': b"writing manifest file 'go2_robot_sdk.egg-info/SOURCES.txt'\n"}
+[2.739455] (go2_robot_sdk) StdoutLine: {'line': b'running build_ext\n'}
+[2.739884] (go2_robot_sdk) StdoutLine: {'line': b'Creating /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2-robot-sdk.egg-link (link to .)\n'}
+[2.741496] (go2_robot_sdk) StdoutLine: {'line': b'Installing go2_driver_node script to /home/ming/ros2_ws/install/go2_robot_sdk/bin\n'}
+[2.742174] (go2_robot_sdk) StdoutLine: {'line': b'\n'}
+[2.742363] (go2_robot_sdk) StdoutLine: {'line': b'Installed /home/ming/ros2_ws/build/go2_robot_sdk\n'}
+[2.742488] (go2_robot_sdk) StdoutLine: {'line': b'running symlink_data\n'}
+[2.742720] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/resource/go2_robot_sdk -> /home/ming/ros2_ws/install/go2_robot_sdk/share/ament_index/resource_index/packages\n'}
+[2.743020] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/package.xml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk\n'}
+[2.743807] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/launch/robot.launch.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/launch\n'}
+[2.744391] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/launch/webrtc_web.launch.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/launch\n'}
+[2.745136] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/launch/robot_cpp.launch.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/launch\n'}
+[2.745761] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/urdf/go2_with_realsense.urdf -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/urdf\n'}
+[2.746364] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/urdf/go2.urdf -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/urdf\n'}
+[2.747070] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/urdf/go2_on_steroids.urdf -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/urdf\n'}
+[2.747671] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/urdf/multi_go2.urdf -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/urdf\n'}
+[2.749583] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/thigh_mirror.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.751324] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/calf_mirror.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.753540] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/hip.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.755157] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/calf.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.757188] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/thigh.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.758230] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/foot.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.761156] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/dae/base.dae -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/dae\n'}
+[2.761891] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/meshes/base.STL -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/meshes\n'}
+[2.762542] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/meshes/left_d_camera.STL -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/meshes\n'}
+[2.763206] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/meshes/front_d_camera.STL -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/meshes\n'}
+[2.764416] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/meshes/right_d_camera.STL -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/meshes\n'}
+[2.765003] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/meshes/lidar_link.STL -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/meshes\n'}
+[2.765605] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/cyclonedds_config.rviz -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.766201] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/twist_mux.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.766766] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/single_robot_conf.rviz -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.767345] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/nav2_params.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.767902] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/joystick.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.768392] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/mapper_params_online_async.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.768955] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/config/multi_robot_conf.rviz -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/config\n'}
+[2.769538] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/calibration/front_camera_1080.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/calibration\n'}
+[2.770089] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/calibration/front_camera_720.yaml -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/calibration\n'}
+[2.770855] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/libvoxel.wasm -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib\n'}
+[2.771456] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/py.typed -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.772007] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/stun.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.772566] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/candidate.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.773109] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/ice.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.773651] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/mdns.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.774247] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/turn.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.774786] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/__init__.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.775345] (go2_robot_sdk) StdoutLine: {'line': b'symbolically linking /home/ming/ros2_ws/build/go2_robot_sdk/external_lib/aioice/src/aioice/utils.py -> /home/ming/ros2_ws/install/go2_robot_sdk/share/go2_robot_sdk/external_lib/aioice\n'}
+[2.807972] (-) TimerEvent: {}
+[2.869766] (go2_robot_sdk) CommandEnded: {'returncode': 0}
+[2.908084] (-) TimerEvent: {}
+[2.924626] (go2_robot_sdk) JobEnded: {'identifier': 'go2_robot_sdk', 'rc': 0}
+[2.925787] (-) EventReactorShutdown: {}

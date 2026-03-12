@@ -1,0 +1,36 @@
+running develop
+Removing /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar-processor.egg-link (link to .)
+running egg_info
+writing ../../build/lidar_processor/lidar_processor.egg-info/PKG-INFO
+writing dependency_links to ../../build/lidar_processor/lidar_processor.egg-info/dependency_links.txt
+writing entry points to ../../build/lidar_processor/lidar_processor.egg-info/entry_points.txt
+writing requirements to ../../build/lidar_processor/lidar_processor.egg-info/requires.txt
+writing top-level names to ../../build/lidar_processor/lidar_processor.egg-info/top_level.txt
+reading manifest file '../../build/lidar_processor/lidar_processor.egg-info/SOURCES.txt'
+writing manifest file '../../build/lidar_processor/lidar_processor.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ming/ros2_ws/build/lidar_processor/build
+creating /home/ming/ros2_ws/build/lidar_processor/build/lib
+creating /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor
+copying lidar_processor/pointcloud_aggregator_node.py -> /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor
+copying lidar_processor/__init__.py -> /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor
+copying lidar_processor/lidar_to_pointcloud_node.py -> /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor
+running install
+running install_lib
+creating /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor
+copying /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor/pointcloud_aggregator_node.py -> /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor
+copying /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor/__init__.py -> /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor
+copying /home/ming/ros2_ws/build/lidar_processor/build/lib/lidar_processor/lidar_to_pointcloud_node.py -> /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor
+byte-compiling /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor/pointcloud_aggregator_node.py to pointcloud_aggregator_node.cpython-310.pyc
+byte-compiling /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor/lidar_to_pointcloud_node.py to lidar_to_pointcloud_node.cpython-310.pyc
+running install_data
+copying resource/lidar_processor -> /home/ming/ros2_ws/install/lidar_processor/share/ament_index/resource_index/packages
+copying package.xml -> /home/ming/ros2_ws/install/lidar_processor/share/lidar_processor
+running install_egg_info
+Copying ../../build/lidar_processor/lidar_processor.egg-info to /home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages/lidar_processor-1.0.0-py3.10.egg-info
+running install_scripts
+Installing lidar_to_pointcloud script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+Installing pointcloud_aggregator script to /home/ming/ros2_ws/install/lidar_processor/lib/lidar_processor
+writing list of installed files to '/home/ming/ros2_ws/build/lidar_processor/install.log'

@@ -69,7 +69,7 @@ def generate_launch_description():
     )
     declare_world_init_x = DeclareLaunchArgument("world_init_x", default_value="0.0")
     declare_world_init_y = DeclareLaunchArgument("world_init_y", default_value="0.0")
-    declare_world_init_z = DeclareLaunchArgument("world_init_z", default_value="0.375")
+    declare_world_init_z = DeclareLaunchArgument("world_init_z", default_value="0.50")
     declare_world_init_heading = DeclareLaunchArgument(
         "world_init_heading", default_value="0.0"
     )
@@ -103,7 +103,12 @@ def generate_launch_description():
         ],
     )
     
-    # CHAMP controller nodes
+    declare_use_champ_state_estimation = DeclareLaunchArgument(
+        "use_champ_state_estimation",
+        default_value="false",
+        description="Enable CHAMP state estimation and EKF stack instead of raw Gazebo odom",
+    )
+
     quadruped_controller_node = Node(
         package="champ_base",
         executable="quadruped_controller_node",
@@ -126,10 +131,16 @@ def generate_launch_description():
         remappings=[("/cmd_vel/smooth", "/cmd_vel")],
     )
 
+    quadruped_controller_start = TimerAction(
+        period=5.5,
+        actions=[quadruped_controller_node],
+    )
+
     state_estimator_node = Node(
         package="champ_base",
         executable="state_estimation_node",
         output="screen",
+        condition=IfCondition(LaunchConfiguration("use_champ_state_estimation")),
         parameters=[
             {"use_sim_time": use_sim_time},
             {"orientation_from_imu": True},
@@ -145,6 +156,7 @@ def generate_launch_description():
         executable="ekf_node",
         name="base_to_footprint_ekf",
         output="screen",
+        condition=IfCondition(LaunchConfiguration("use_champ_state_estimation")),
         parameters=[
             {"base_link_frame": base_frame},
             {"use_sim_time": use_sim_time},
@@ -163,6 +175,7 @@ def generate_launch_description():
         executable="ekf_node",
         name="footprint_to_odom_ekf",
         output="screen",
+        condition=IfCondition(LaunchConfiguration("use_champ_state_estimation")),
         parameters=[
             {"use_sim_time": use_sim_time},
             {"base_link_frame": "base_footprint"},
@@ -198,6 +211,7 @@ def generate_launch_description():
         package='tf2_ros',
         name='base_footprint_to_base_link_tf_node',
         executable='static_transform_publisher',
+        condition=IfCondition(LaunchConfiguration("use_champ_state_estimation")),
         parameters=[{'use_sim_time': use_sim_time}],
         arguments=[
             '--x', '0', '--y', '0', '--z', '0',
@@ -289,7 +303,7 @@ def generate_launch_description():
     
     # Spawn controllers shortly after the robot is created so /cmd_vel starts working promptly.
     controller_spawner_js = TimerAction(
-        period=6.0,
+        period=3.0,
         actions=[
             ExecuteProcess(
                 cmd=[
@@ -304,7 +318,7 @@ def generate_launch_description():
     )
 
     controller_spawner_effort = TimerAction(
-        period=8.0,
+        period=4.0,
         actions=[
             ExecuteProcess(
                 cmd=[
@@ -319,16 +333,6 @@ def generate_launch_description():
     )
     
     # Shell script to manually check controller status 
-    controller_status_check = TimerAction(
-        period=10.0,
-        actions=[
-            ExecuteProcess(
-                cmd=["bash", "-c", "echo '=== Controller Status ===' && ros2 control list_controllers"],
-                output='screen',
-            )
-        ]
-    )
-    
     return LaunchDescription(
         [
             # Launch arguments
@@ -341,6 +345,7 @@ def generate_launch_description():
             declare_gui,
             declare_foxglove,
             declare_static_map_tf,
+            declare_use_champ_state_estimation,
             declare_world_init_x,
             declare_world_init_y,
             declare_world_init_z,
@@ -360,7 +365,7 @@ def generate_launch_description():
             gazebo_bridge,
             
             # CHAMP controller nodes
-            quadruped_controller_node,
+            quadruped_controller_start,
             state_estimator_node,
             
             # EKF nodes for localization
@@ -374,8 +379,6 @@ def generate_launch_description():
             # Controller spawners that handle the complete lifecycle
             controller_spawner_js,
             controller_spawner_effort,
-            controller_status_check,
-            
             # Visualization (only if rviz flag is set)
             rviz2,
             foxglove_bridge,

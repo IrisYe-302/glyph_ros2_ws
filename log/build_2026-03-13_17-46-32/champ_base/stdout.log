@@ -1,0 +1,5 @@
+[ 16%] Built target message_relay
+[ 25%] Building CXX object CMakeFiles/quadruped_controller.dir/src/quadruped_controller.cpp.o
+[ 41%] Built target state_estimation
+[ 58%] Built target message_relay_node
+[ 75%] Built target state_estimation_node

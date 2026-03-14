@@ -1,0 +1,23 @@
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:54:43: error: ‘Twist’ in namespace ‘geometry’ does not name a type
+   54 | bool isNearlyZeroVelocity(const geometry::Twist &req_vel)
+      |                                           ^~~~~
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp: In function ‘bool {anonymous}::isNearlyZeroVelocity(const int&)’:
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:56:29: error: request for member ‘linear’ in ‘req_vel’, which is of non-class type ‘const int’
+   56 |     return std::abs(req_vel.linear.x) < 1e-4f &&
+      |                             ^~~~~~
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:57:29: error: request for member ‘linear’ in ‘req_vel’, which is of non-class type ‘const int’
+   57 |            std::abs(req_vel.linear.y) < 1e-4f &&
+      |                             ^~~~~~
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:58:29: error: request for member ‘angular’ in ‘req_vel’, which is of non-class type ‘const int’
+   58 |            std::abs(req_vel.angular.z) < 1e-4f;
+      |                             ^~~~~~~
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp: In member function ‘void QuadrupedController::controlLoop_()’:
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:159:30: error: invalid initialization of reference of type ‘const int&’ from expression of type ‘champ::Velocities’
+  159 |     if (isNearlyZeroVelocity(req_vel_))
+      |                              ^~~~~~~~
+/home/ming/ros2_ws/src/unitree_go2/champ_base/src/quadruped_controller.cpp:54:50: note: in passing argument 1 of ‘bool {anonymous}::isNearlyZeroVelocity(const int&)’
+   54 | bool isNearlyZeroVelocity(const geometry::Twist &req_vel)
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+gmake[2]: *** [CMakeFiles/quadruped_controller.dir/build.make:76: CMakeFiles/quadruped_controller.dir/src/quadruped_controller.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:147: CMakeFiles/quadruped_controller.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

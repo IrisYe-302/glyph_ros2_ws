@@ -1,0 +1,86 @@
+[0.052s] Invoking command in '/home/ming/ros2_ws/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/install/champ
+[1.713s] -- The C compiler identification is GNU 11.4.0
+[1.713s] -- The CXX compiler identification is GNU 11.4.0
+[1.714s] -- Detecting C compiler ABI info
+[1.715s] -- Detecting C compiler ABI info - done
+[1.715s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.715s] -- Detecting C compile features
+[1.716s] -- Detecting C compile features - done
+[1.716s] -- Detecting CXX compiler ABI info
+[1.716s] -- Detecting CXX compiler ABI info - done
+[1.718s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.718s] -- Detecting CXX compile features
+[1.718s] -- Detecting CXX compile features - done
+[1.718s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.718s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.718s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[1.718s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.719s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.719s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.719s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.719s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.719s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.719s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.719s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.722s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.804s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.832s] -- Looking for pthread.h
+[1.995s] -- Looking for pthread.h - found
+[1.996s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.156s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.158s] -- Found Threads: TRUE  
+[2.323s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[2.495s] -- Configuring done
+[2.509s] -- Generating done
+[2.517s] -- Build files have been written to: /home/ming/ros2_ws/build/champ
+[2.553s] Invoked command in '/home/ming/ros2_ws/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/ming/ros2_ws/src/unitree_go2/champ -DCMAKE_INSTALL_PREFIX=/home/ming/ros2_ws/install/champ
+[2.554s] Invoking command in '/home/ming/ros2_ws/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/ming/ros2_ws/build/champ -- -j6 -l6
+[2.645s] Invoked command in '/home/ming/ros2_ws/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/ming/ros2_ws/build/champ -- -j6 -l6
+[2.664s] Invoking command in '/home/ming/ros2_ws/build/champ': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/ming/ros2_ws/build/champ
+[3.116s] -- Install configuration: ""
+[3.116s] -- Installing: /home/ming/ros2_ws/install/champ/include
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/LICENSE
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/macros
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/macros/macros.h
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/odometry
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/odometry/odometry.h
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/utils
+[3.117s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/utils/xmlrpc_helpers.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/utils/urdf_loader.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/body_controller
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/body_controller/body_controller.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/geometry
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/geometry/geometry.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/kinematics
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/kinematics/kinematics.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/bla
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/bla/memory_delegate.h
+[3.118s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/bla/basic_linear_algebra.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/leg_controller
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/leg_controller/trajectory_planner.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/leg_controller/phase_generator.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/leg_controller/leg_controller.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/README.md
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/quadruped_base
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/quadruped_base/quadruped_base.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/quadruped_base/quadruped_leg.h
+[3.119s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/quadruped_base/quadruped_joint.h
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/include/champ/quadruped_base/quadruped_components.h
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/ament_index/resource_index/package_run_dependencies/champ
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/ament_index/resource_index/parent_prefix_path/champ
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/environment/ament_prefix_path.sh
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/environment/ament_prefix_path.dsv
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/environment/path.sh
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/environment/path.dsv
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/local_setup.bash
+[3.120s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/local_setup.sh
+[3.121s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/local_setup.zsh
+[3.121s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/local_setup.dsv
+[3.121s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/package.dsv
+[3.122s] -- Installing: /home/ming/ros2_ws/install/champ/share/ament_index/resource_index/packages/champ
+[3.123s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/cmake/ament_cmake_export_include_directories-extras.cmake
+[3.123s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/cmake/champConfig.cmake
+[3.124s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/cmake/champConfig-version.cmake
+[3.125s] -- Installing: /home/ming/ros2_ws/install/champ/share/champ/package.xml
+[3.170s] Invoked command in '/home/ming/ros2_ws/build/champ' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/ming/ros2_ws/build/champ

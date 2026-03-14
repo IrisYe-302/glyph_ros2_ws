@@ -1,1 +1,3 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/Point.msg
+float32 x
+float32 y
+float32 z

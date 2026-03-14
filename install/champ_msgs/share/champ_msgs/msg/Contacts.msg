@@ -1,1 +1,1 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/Contacts.msg
+bool[] contacts

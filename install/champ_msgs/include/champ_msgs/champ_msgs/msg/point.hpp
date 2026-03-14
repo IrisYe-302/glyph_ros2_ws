@@ -1,1 +1,12 @@
-/home/ming/ros2_ws/build/champ_msgs/rosidl_generator_cpp/champ_msgs/msg/point.hpp
+// generated from rosidl_generator_cpp/resource/idl.hpp.em
+// generated code does not contain a copyright notice
+
+#ifndef CHAMP_MSGS__MSG__POINT_HPP_
+#define CHAMP_MSGS__MSG__POINT_HPP_
+
+#include "champ_msgs/msg/detail/point__struct.hpp"
+#include "champ_msgs/msg/detail/point__builder.hpp"
+#include "champ_msgs/msg/detail/point__traits.hpp"
+#include "champ_msgs/msg/detail/point__type_support.hpp"
+
+#endif  // CHAMP_MSGS__MSG__POINT_HPP_

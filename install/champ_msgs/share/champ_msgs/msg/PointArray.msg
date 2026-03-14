@@ -1,1 +1,4 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/PointArray.msg
+champ_msgs/Point lf
+champ_msgs/Point rf
+champ_msgs/Point lh
+champ_msgs/Point rh

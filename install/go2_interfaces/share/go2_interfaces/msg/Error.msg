@@ -1,1 +1,2 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/Error.msg
+uint32 source
+uint32 state

@@ -1,1 +1,13 @@
-/home/ming/ros2_ws/build/go2_interfaces/rosidl_adapter/go2_interfaces/msg/MotorStates.idl
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from go2_interfaces/msg/MotorStates.msg
+// generated code does not contain a copyright notice
+
+#include "go2_interfaces/msg/MotorState.idl"
+
+module go2_interfaces {
+  module msg {
+    struct MotorStates {
+      sequence<go2_interfaces::msg::MotorState> states;
+    };
+  };
+};

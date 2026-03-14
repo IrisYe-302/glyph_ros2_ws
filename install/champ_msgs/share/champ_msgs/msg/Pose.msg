@@ -1,1 +1,6 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/Pose.msg
+float32 x
+float32 y
+float32 z
+float32 roll
+float32 pitch
+float32 yaw

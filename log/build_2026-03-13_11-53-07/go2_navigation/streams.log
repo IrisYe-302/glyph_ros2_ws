@@ -1,0 +1,21 @@
+[3.047s] Invoking command in '/home/ming/ros2_ws/src/go2_navigation': PYTHONPATH=/home/ming/ros2_ws/build/go2_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/go2_navigation build --build-base /home/ming/ros2_ws/build/go2_navigation/build install --record /home/ming/ros2_ws/build/go2_navigation/install.log --single-version-externally-managed install_data
+[3.539s] running egg_info
+[3.540s] writing ../../build/go2_navigation/go2_navigation.egg-info/PKG-INFO
+[3.543s] writing dependency_links to ../../build/go2_navigation/go2_navigation.egg-info/dependency_links.txt
+[3.543s] writing entry points to ../../build/go2_navigation/go2_navigation.egg-info/entry_points.txt
+[3.544s] writing requirements to ../../build/go2_navigation/go2_navigation.egg-info/requires.txt
+[3.544s] writing top-level names to ../../build/go2_navigation/go2_navigation.egg-info/top_level.txt
+[3.548s] reading manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+[3.550s] writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'
+[3.550s] running build
+[3.550s] running build_py
+[3.561s] running install
+[3.562s] running install_lib
+[3.563s] running install_data
+[3.564s] running install_egg_info
+[3.572s] removing '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info' (and everything under it)
+[3.572s] Copying ../../build/go2_navigation/go2_navigation.egg-info to /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info
+[3.575s] running install_scripts
+[3.621s] Installing location_subscriber script to /home/ming/ros2_ws/install/go2_navigation/lib/go2_navigation
+[3.622s] writing list of installed files to '/home/ming/ros2_ws/build/go2_navigation/install.log'
+[3.732s] Invoked command in '/home/ming/ros2_ws/src/go2_navigation' returned '0': PYTHONPATH=/home/ming/ros2_ws/build/go2_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/go2_navigation build --build-base /home/ming/ros2_ws/build/go2_navigation/build install --record /home/ming/ros2_ws/build/go2_navigation/install.log --single-version-externally-managed install_data

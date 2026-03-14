@@ -1,1 +1,16 @@
-/home/ming/ros2_ws/build/champ_msgs/rosidl_adapter/champ_msgs/msg/PID.idl
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from champ_msgs/msg/PID.msg
+// generated code does not contain a copyright notice
+
+
+module champ_msgs {
+  module msg {
+    struct PID {
+      float p;
+
+      float d;
+
+      float i;
+    };
+  };
+};

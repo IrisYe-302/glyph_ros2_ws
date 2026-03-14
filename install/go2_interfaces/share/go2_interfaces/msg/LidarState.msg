@@ -1,1 +1,17 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/LidarState.msg
+float64 stamp
+string firmware_version
+string software_version
+string sdk_version
+float32 sys_rotation_speed
+float32 com_rotation_speed
+uint8 error_state
+float32 cloud_frequency
+float32 cloud_packet_loss_rate
+uint32 cloud_size
+uint32 cloud_scan_num
+float32 imu_frequency
+float32 imu_packet_loss_rate
+float32[3] imu_rpy
+float64 serial_recv_stamp
+uint32 serial_buffer_size
+uint32 serial_buffer_read

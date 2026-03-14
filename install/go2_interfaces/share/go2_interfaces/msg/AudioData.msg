@@ -1,1 +1,2 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/AudioData.msg
+uint64 time_frame
+uint8[] data

@@ -1,1 +1,12 @@
-/home/ming/ros2_ws/build/go2_interfaces/rosidl_generator_c/go2_interfaces/msg/bms_state.h
+// generated from rosidl_generator_c/resource/idl.h.em
+// with input from go2_interfaces:msg/BmsState.idl
+// generated code does not contain a copyright notice
+
+#ifndef GO2_INTERFACES__MSG__BMS_STATE_H_
+#define GO2_INTERFACES__MSG__BMS_STATE_H_
+
+#include "go2_interfaces/msg/detail/bms_state__struct.h"
+#include "go2_interfaces/msg/detail/bms_state__functions.h"
+#include "go2_interfaces/msg/detail/bms_state__type_support.h"
+
+#endif  // GO2_INTERFACES__MSG__BMS_STATE_H_

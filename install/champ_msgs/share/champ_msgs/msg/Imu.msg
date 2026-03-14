@@ -1,1 +1,4 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/Imu.msg
+geometry_msgs/Quaternion orientation
+geometry_msgs/Vector3 linear_acceleration
+geometry_msgs/Vector3 angular_velocity
+geometry_msgs/Vector3 magnetic_field

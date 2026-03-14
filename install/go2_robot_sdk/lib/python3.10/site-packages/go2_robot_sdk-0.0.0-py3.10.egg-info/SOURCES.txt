@@ -70,6 +70,7 @@ go2_robot_sdk/infrastructure/webrtc/webrtc_adapter.py
 go2_robot_sdk/infrastructure/webrtc/crypto/__init__.py
 go2_robot_sdk/infrastructure/webrtc/crypto/encryption.py
 go2_robot_sdk/presentation/__init__.py
+go2_robot_sdk/presentation/cyclonedds_bridge_node.py
 go2_robot_sdk/presentation/go2_driver_node.py
 launch/robot.launch.py
 launch/robot_cpp.launch.py

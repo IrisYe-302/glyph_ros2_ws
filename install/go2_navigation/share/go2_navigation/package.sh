@@ -78,9 +78,7 @@ _colcon_package_sh_source_script() {
 }
 
 # source sh hooks
-_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/go2_navigation/hook/path.sh"
 _colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/go2_navigation/hook/pythonpath.sh"
-_colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/go2_navigation/hook/pythonscriptspath.sh"
 _colcon_package_sh_source_script "$COLCON_CURRENT_PREFIX/share/go2_navigation/hook/ament_prefix_path.sh"
 
 unset _colcon_package_sh_source_script

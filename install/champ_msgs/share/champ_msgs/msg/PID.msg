@@ -1,1 +1,3 @@
-/home/ming/ros2_ws/src/unitree_go2/champ_msgs/msg/PID.msg
+float32 p
+float32 d
+float32 i

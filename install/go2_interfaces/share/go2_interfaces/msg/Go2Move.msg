@@ -1,1 +1,3 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/Go2Move.msg
+float32 x
+float32 y
+float32 z

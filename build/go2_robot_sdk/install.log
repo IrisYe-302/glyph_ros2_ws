@@ -3,6 +3,7 @@
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/infrastructure/__init__.py
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/domain/__init__.py
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/application/__init__.py
+/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/cyclonedds_bridge_node.py
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/go2_driver_node.py
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/__init__.py
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/infrastructure/sensors/lidar_decoder.py
@@ -40,6 +41,7 @@
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/infrastructure/__pycache__/__init__.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/domain/__pycache__/__init__.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/application/__pycache__/__init__.cpython-310.pyc
+/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/__pycache__/cyclonedds_bridge_node.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/__pycache__/go2_driver_node.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/presentation/__pycache__/__init__.cpython-310.pyc
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk/infrastructure/sensors/__pycache__/lidar_decoder.cpython-310.pyc
@@ -118,4 +120,5 @@
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/PKG-INFO
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/dependency_links.txt
 /home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages/go2_robot_sdk-0.0.0-py3.10.egg-info/top_level.txt
-/home/ming/ros2_ws/install/go2_robot_sdk/bin/go2_driver_node
+/home/ming/ros2_ws/install/go2_robot_sdk/lib/go2_robot_sdk/cyclonedds_bridge_node
+/home/ming/ros2_ws/install/go2_robot_sdk/lib/go2_robot_sdk/go2_driver_node

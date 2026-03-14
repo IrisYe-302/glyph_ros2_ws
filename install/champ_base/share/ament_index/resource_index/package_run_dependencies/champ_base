@@ -1,1 +1,1 @@
-/home/ming/ros2_ws/build/champ_base/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/champ_base
+rclcpp;rclpy;champ;champ_msgs;visualization_msgs;geometry_msgs;sensor_msgs;trajectory_msgs;nav_msgs;tf2_ros;urdf;message_filters

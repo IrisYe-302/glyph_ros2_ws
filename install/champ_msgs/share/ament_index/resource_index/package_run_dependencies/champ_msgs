@@ -1,1 +1,1 @@
-/home/ming/ros2_ws/build/champ_msgs/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/champ_msgs
+std_msgs;geometry_msgs;common_interfaces;builtin_interfaces;rosidl_default_runtime

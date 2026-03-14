@@ -1,0 +1,3 @@
+[console_scripts]
+go2_unitree_bridge_node = go2_unitree_bridge.bridge_node:main
+

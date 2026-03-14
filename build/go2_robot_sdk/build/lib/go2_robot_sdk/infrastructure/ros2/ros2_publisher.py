@@ -114,17 +114,17 @@ class ROS2Publisher(IRobotDataPublisher):
             # Define joint names
             if self.config.conn_mode == 'single':
                 joint_state.name = [
-                    'FL_hip_joint', 'FL_thigh_joint', 'FL_calf_joint',
-                    'FR_hip_joint', 'FR_thigh_joint', 'FR_calf_joint',
-                    'RL_hip_joint', 'RL_thigh_joint', 'RL_calf_joint',
-                    'RR_hip_joint', 'RR_thigh_joint', 'RR_calf_joint',
+                    'lf_hip_joint', 'lf_upper_leg_joint', 'lf_lower_leg_joint',
+                    'rf_hip_joint', 'rf_upper_leg_joint', 'rf_lower_leg_joint',
+                    'lh_hip_joint', 'lh_upper_leg_joint', 'lh_lower_leg_joint',
+                    'rh_hip_joint', 'rh_upper_leg_joint', 'rh_lower_leg_joint',
                 ]
             else:
                 joint_state.name = [
-                    f'robot{robot_data.robot_id}/FL_hip_joint', f'robot{robot_data.robot_id}/FL_thigh_joint', f'robot{robot_data.robot_id}/FL_calf_joint',
-                    f'robot{robot_data.robot_id}/FR_hip_joint', f'robot{robot_data.robot_id}/FR_thigh_joint', f'robot{robot_data.robot_id}/FR_calf_joint',
-                    f'robot{robot_data.robot_id}/RL_hip_joint', f'robot{robot_data.robot_id}/RL_thigh_joint', f'robot{robot_data.robot_id}/RL_calf_joint',
-                    f'robot{robot_data.robot_id}/RR_hip_joint', f'robot{robot_data.robot_id}/RR_thigh_joint', f'robot{robot_data.robot_id}/RR_calf_joint'
+                    f'robot{robot_data.robot_id}/lf_hip_joint', f'robot{robot_data.robot_id}/lf_upper_leg_joint', f'robot{robot_data.robot_id}/lf_lower_leg_joint',
+                    f'robot{robot_data.robot_id}/rf_hip_joint', f'robot{robot_data.robot_id}/rf_upper_leg_joint', f'robot{robot_data.robot_id}/rf_lower_leg_joint',
+                    f'robot{robot_data.robot_id}/lh_hip_joint', f'robot{robot_data.robot_id}/lh_upper_leg_joint', f'robot{robot_data.robot_id}/lh_lower_leg_joint',
+                    f'robot{robot_data.robot_id}/rh_hip_joint', f'robot{robot_data.robot_id}/rh_upper_leg_joint', f'robot{robot_data.robot_id}/rh_lower_leg_joint'
                 ]
 
             motor_state = robot_data.joint_data.motor_state

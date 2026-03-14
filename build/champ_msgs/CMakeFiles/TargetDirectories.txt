@@ -9,7 +9,7 @@
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/champ_msgs__rosidl_typesupport_fastrtps_cpp.dir
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/champ_msgs__rosidl_typesupport_introspection_cpp.dir
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/champ_msgs__rosidl_typesupport_cpp.dir
-/home/ming/ros2_ws/build/champ_msgs/CMakeFiles/ament_cmake_python_symlink_champ_msgs.dir
+/home/ming/ros2_ws/build/champ_msgs/CMakeFiles/ament_cmake_python_copy_champ_msgs.dir
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/ament_cmake_python_build_champ_msgs_egg.dir
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/champ_msgs__rosidl_generator_py.dir
 /home/ming/ros2_ws/build/champ_msgs/CMakeFiles/champ_msgs__rosidl_typesupport_fastrtps_c__pyext.dir

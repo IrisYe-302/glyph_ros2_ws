@@ -6,7 +6,7 @@ from typing import List
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.conditions import IfCondition
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import FrontendLaunchDescriptionSource, PythonLaunchDescriptionSource
@@ -44,11 +44,11 @@ class Go2LaunchConfig:
     
     def _determine_connection_mode(self) -> str:
         """Determine connection mode based on IP list and connection type"""
-        return "single" if len(self.robot_ip_list) == 1 and self.conn_type != "cyclonedx" else "multi"
+        return "single" if len(self.robot_ip_list) == 1 else "multi"
     
     def _get_rviz_config(self) -> str:
         """Get appropriate RViz configuration file"""
-        if self.conn_type == 'cyclonedx':
+        if self.conn_type == 'cyclonedds':
             return "cyclonedx_config.rviz"
         elif self.conn_mode == 'single':
             return "single_robot_conf.rviz"
@@ -84,12 +84,15 @@ class Go2NodeFactory:
     def create_launch_arguments(self) -> List[DeclareLaunchArgument]:
         """Create all launch arguments"""
         return [
-            DeclareLaunchArgument('rviz2', default_value='true', description='Launch RViz2'),
-            DeclareLaunchArgument('nav2', default_value='true', description='Launch Nav2'),
-            DeclareLaunchArgument('slam', default_value='true', description='Launch SLAM'),
-            DeclareLaunchArgument('foxglove', default_value='true', description='Launch Foxglove Bridge'),
-            DeclareLaunchArgument('joystick', default_value='true', description='Launch joystick'),
-            DeclareLaunchArgument('teleop', default_value='true', description='Launch teleoperation'),
+            DeclareLaunchArgument('mode', default_value='webrtc', description='Robot transport mode: webrtc or cyclonedds'),
+            DeclareLaunchArgument('unsafe_dds', default_value='false', description='Allow experimental CycloneDDS bridge launch'),
+            DeclareLaunchArgument('rviz2', default_value='false', description='Launch RViz2'),
+            DeclareLaunchArgument('nav2', default_value='false', description='Launch Nav2'),
+            DeclareLaunchArgument('slam', default_value='false', description='Launch SLAM'),
+            DeclareLaunchArgument('foxglove', default_value='false', description='Launch Foxglove Bridge'),
+            DeclareLaunchArgument('joystick', default_value='false', description='Launch joystick'),
+            DeclareLaunchArgument('teleop', default_value='false', description='Launch teleoperation'),
+            DeclareLaunchArgument('tts', default_value='true', description='Launch text to speech'),
         ]
     
     def create_robot_state_nodes(self) -> List[Node]:
@@ -178,7 +181,25 @@ class Go2NodeFactory:
     
     def create_core_nodes(self) -> List[Node]:
         """Create core Go2 robot nodes"""
-        return [
+        with_tts = LaunchConfiguration('tts', default='true')
+        mode = LaunchConfiguration('mode', default='webrtc')
+        unsafe_dds = LaunchConfiguration('unsafe_dds', default='false')
+        nodes = [
+            Node(
+                package='go2_robot_sdk',
+                executable='cyclonedds_bridge_node',
+                name='cyclonedds_bridge_node',
+                output='screen',
+                parameters=[{
+                    'robot_ip': self.config.robot_ip,
+                }],
+                condition=IfCondition(PythonExpression([
+                    "'", mode, "' == 'cyclonedds' and '", unsafe_dds, "' == 'true'"
+                ])),
+            ),
+        ]
+
+        nodes.extend([
             # Main robot driver (clean architecture)
             Node(
                 package='go2_robot_sdk',
@@ -188,8 +209,9 @@ class Go2NodeFactory:
                 parameters=[{
                     'robot_ip': self.config.robot_ip,
                     'token': self.config.robot_token,
-                    'conn_type': self.config.conn_type
+                    'conn_type': mode
                 }],
+                condition=IfCondition(PythonExpression(["'", mode, "' == 'webrtc'"])),
             ),
             # LiDAR processing node (new separate package)
             Node(
@@ -201,6 +223,7 @@ class Go2NodeFactory:
                     'map_name': self.config.map_name,
                     'map_save': self.config.save_map
                 }],
+                condition=IfCondition(PythonExpression(["'", mode, "' == 'webrtc'"])),
             ),
             # Advanced point cloud aggregator
             Node(
@@ -215,12 +238,16 @@ class Go2NodeFactory:
                     'downsample_rate': 5,
                     'publish_rate': 10.0
                 }],
+                condition=IfCondition(PythonExpression(["'", mode, "' == 'webrtc'"])),
             ),
             # TTS Node (new separate package)
             Node(
                 package='speech_processor',
                 executable='tts_node',
                 name='tts_node',
+                condition=IfCondition(PythonExpression([
+                    "'", mode, "' == 'webrtc' and '", with_tts, "' == 'true'"
+                ])),
                 parameters=[{
                     'api_key': os.getenv('ELEVENLABS_API_KEY', ''),
                     'provider': 'elevenlabs',
@@ -230,7 +257,8 @@ class Go2NodeFactory:
                     'audio_quality': 'standard'
                 }],
             ),
-        ]
+        ])
+        return nodes
     
     def create_teleop_nodes(self) -> List[Node]:
         """Create teleoperation and joystick nodes"""
@@ -263,9 +291,6 @@ class Go2NodeFactory:
                 parameters=[
                     {'use_sim_time': use_sim_time},
                     self.config.config_paths['twist_mux']
-                ],
-                remappings=[
-                    ('/cmd_vel_out', '/robot0/cmd_vel_out')
                 ],
             ),
         ]
@@ -304,6 +329,11 @@ class Go2NodeFactory:
             IncludeLaunchDescription(
                 FrontendLaunchDescriptionSource(foxglove_launch),
                 condition=IfCondition(with_foxglove),
+                launch_arguments={
+                    'topic_whitelist': "['^/tf$', '^/tf_static$', '^/joint_states$', '^/imu/data$', '^/odom$', '^/scan$', '^/cmd_vel$', '^/cmd_vel_out$', '^/point_cloud2$', '^/map$', '^/map_metadata$', '^/robot_description$', '^/parameter_events$', '^/rosout$', '^/diagnostics$']",
+                    'capabilities': '[clientPublish,assets]',
+                    'ignore_unresponsive_param_nodes': 'true',
+                }.items(),
             ),
             # SLAM Toolbox
             IncludeLaunchDescription(

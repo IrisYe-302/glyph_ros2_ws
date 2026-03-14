@@ -1,1 +1,3 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/InterfaceConfig.msg
+uint8 mode
+uint8 value
+uint8[2] reserve

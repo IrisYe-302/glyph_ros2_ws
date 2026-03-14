@@ -1,1 +1,1 @@
-/home/ming/ros2_ws/build/lidar_processor_cpp/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/lidar_processor_cpp
+rclcpp;sensor_msgs;geometry_msgs;std_msgs;pcl_ros;pcl_conversions;tf2;tf2_ros;ament_lint_auto;ament_lint_common

@@ -1,1 +1,3 @@
-/home/ming/ros2_ws/src/go2_interfaces/msg/Go2RpyCmd.msg
+float32 roll
+float32 pitch
+float32 yaw

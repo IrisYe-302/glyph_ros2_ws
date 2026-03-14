@@ -1,12 +1,6 @@
-source;share/go2_navigation/hook/path.ps1
-source;share/go2_navigation/hook/path.dsv
-source;share/go2_navigation/hook/path.sh
 source;share/go2_navigation/hook/pythonpath.ps1
 source;share/go2_navigation/hook/pythonpath.dsv
 source;share/go2_navigation/hook/pythonpath.sh
-source;share/go2_navigation/hook/pythonscriptspath.ps1
-source;share/go2_navigation/hook/pythonscriptspath.dsv
-source;share/go2_navigation/hook/pythonscriptspath.sh
 source;share/go2_navigation/hook/ament_prefix_path.ps1
 source;share/go2_navigation/hook/ament_prefix_path.dsv
 source;share/go2_navigation/hook/ament_prefix_path.sh

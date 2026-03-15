@@ -55,7 +55,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/unitree_go2_sim" TYPE PROGRAM FILES "/home/ming/ros2_ws/src/unitree_go2/unitree_go2_sim/scripts/robot_description_publisher.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/unitree_go2_sim" TYPE PROGRAM FILES
+    "/home/ming/ros2_ws/src/unitree_go2/unitree_go2_sim/scripts/robot_description_publisher.py"
+    "/home/ming/ros2_ws/src/unitree_go2/unitree_go2_sim/scripts/odom_tf_broadcaster.py"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

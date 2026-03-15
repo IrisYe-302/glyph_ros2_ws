@@ -39,6 +39,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace champ
 {
+    namespace
+    {
+        constexpr float kGo2ThighMin = -1.5708f;
+        constexpr float kGo2ThighMax = 3.4907f;
+        constexpr float kGo2CalfMin = -2.7227f;
+        constexpr float kGo2CalfMax = -0.83776f;
+    }
+
     class Kinematics
     {
         champ::QuadrupedBase *base_;
@@ -107,26 +115,55 @@ namespace champ
                     return;
 
                 //source: https://robotacademy.net.au/lesson/inverse-kinematics-for-a-2-joint-robot-arm-using-geometry/
-                lower_leg_joint = leg.knee_direction() * acosf((pow(z, 2) + pow(x, 2) - pow(l1 ,2) - pow(l2 ,2)) / (2 * l1 * l2));
-                upper_leg_joint = (atanf(x / z) - atanf((l2 * sinf(lower_leg_joint)) / (l1 + (l2 * cosf(lower_leg_joint)))));
-                lower_leg_joint += ik_beta - ik_alpha;
-                upper_leg_joint += ik_alpha;
+                const float knee_term = acosf((pow(z, 2) + pow(x, 2) - pow(l1 ,2) - pow(l2 ,2)) / (2 * l1 * l2));
 
-                // //switch back the upper leg joint angle to a sane angle once the target is unreachable
-                // //TODO: create unreachability checks
-                if(leg.knee_direction() < 0)
+                auto solve_branch = [&](int branch_direction, float &upper_out, float &lower_out)
                 {
-                    if(upper_leg_joint < 0)
+                    lower_out = branch_direction * knee_term;
+                    upper_out = (atanf(x / z) - atanf((l2 * sinf(lower_out)) / (l1 + (l2 * cosf(lower_out)))));
+                    lower_out += ik_beta - ik_alpha;
+                    upper_out += ik_alpha;
+
+                    if(branch_direction < 0)
                     {
-                        upper_leg_joint = upper_leg_joint +  M_PI;
+                        if(upper_out < 0)
+                        {
+                            upper_out = upper_out + M_PI;
+                        }
                     }
+                    else
+                    {
+                        if(upper_out > 0)
+                        {
+                            upper_out = upper_out + M_PI;
+                        }
+                    }
+                };
+
+                float preferred_upper = 0.0f;
+                float preferred_lower = 0.0f;
+                float alternate_upper = 0.0f;
+                float alternate_lower = 0.0f;
+
+                solve_branch(leg.knee_direction(), preferred_upper, preferred_lower);
+                solve_branch(-leg.knee_direction(), alternate_upper, alternate_lower);
+
+                const bool preferred_valid =
+                    preferred_upper >= kGo2ThighMin && preferred_upper <= kGo2ThighMax &&
+                    preferred_lower >= kGo2CalfMin && preferred_lower <= kGo2CalfMax;
+                const bool alternate_valid =
+                    alternate_upper >= kGo2ThighMin && alternate_upper <= kGo2ThighMax &&
+                    alternate_lower >= kGo2CalfMin && alternate_lower <= kGo2CalfMax;
+
+                if(preferred_valid || !alternate_valid)
+                {
+                    upper_leg_joint = preferred_upper;
+                    lower_leg_joint = preferred_lower;
                 }
-                else 
+                else
                 {
-                    if(upper_leg_joint > 0)
-                    {
-                        upper_leg_joint = upper_leg_joint +  M_PI;
-                    }
+                    upper_leg_joint = alternate_upper;
+                    lower_leg_joint = alternate_lower;
                 }
             }
 

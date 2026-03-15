@@ -1,0 +1,497 @@
+[0.000000] (-) TimerEvent: {}
+[0.000188] (-) JobUnselected: {'identifier': 'champ'}
+[0.000635] (-) JobUnselected: {'identifier': 'champ_msgs'}
+[0.001198] (-) JobUnselected: {'identifier': 'coco_detector'}
+[0.002273] (-) JobUnselected: {'identifier': 'go2_interfaces'}
+[0.002593] (-) JobUnselected: {'identifier': 'go2_navigation'}
+[0.002792] (-) JobUnselected: {'identifier': 'go2_robot_sdk'}
+[0.002871] (-) JobUnselected: {'identifier': 'go2_unitree_bridge'}
+[0.002911] (-) JobUnselected: {'identifier': 'lidar_processor'}
+[0.003118] (-) JobUnselected: {'identifier': 'lidar_processor_cpp'}
+[0.003313] (-) JobUnselected: {'identifier': 'speech_processor'}
+[0.003630] (-) JobUnselected: {'identifier': 'unitree_go2_description'}
+[0.003797] (unitree_go2_sim) JobQueued: {'identifier': 'unitree_go2_sim', 'dependencies': OrderedDict()}
+[0.003874] (champ_base) JobQueued: {'identifier': 'champ_base', 'dependencies': OrderedDict([('champ', '/home/ming/ros2_ws/install/champ'), ('champ_msgs', '/home/ming/ros2_ws/install/champ_msgs')])}
+[0.003963] (unitree_go2_sim) JobStarted: {'identifier': 'unitree_go2_sim'}
+[0.017358] (champ_base) JobStarted: {'identifier': 'champ_base'}
+[0.029774] (unitree_go2_sim) JobProgress: {'identifier': 'unitree_go2_sim', 'progress': 'cmake'}
+[0.030970] (unitree_go2_sim) JobProgress: {'identifier': 'unitree_go2_sim', 'progress': 'build'}
+[0.032250] (unitree_go2_sim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ming/ros2_ws/build/unitree_go2_sim', '--', '-j6', '-l6'], 'cwd': '/home/ming/ros2_ws/build/unitree_go2_sim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CODEX_CI', '1'), ('USER', 'ming'), ('SSH_CLIENT', '100.107.88.37 53801 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/home/ming/ros2_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ming'), ('OLDPWD', '/home/ming'), ('SSH_TTY', '/dev/pts/5'), ('ROS_PYTHON_VERSION', '3'), ('PAGER', 'cat'), ('LC_CTYPE', 'C.UTF-8'), ('NO_COLOR', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', ''), ('COLCON_PREFIX_PATH', '/home/ming/ros2_ws/install:/home/ming/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ming'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '145'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ming/.local/bin:/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0dXitft:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('CODEX_SANDBOX_NETWORK_DISABLED', '1'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CODEX_THREAD_ID', '019ce5a1-076d-7491-9113-5b34f40b5e49'), ('GIT_PAGER', 'cat'), ('PWD', '/home/ming/ros2_ws/build/unitree_go2_sim'), ('LC_ALL', 'C.UTF-8'), ('SSH_CONNECTION', '100.107.88.37 53801 100.119.26.68 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('CMAKE_PREFIX_PATH', '/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble')]), 'shell': False}
+[0.045612] (champ_base) JobProgress: {'identifier': 'champ_base', 'progress': 'cmake'}
+[0.049224] (champ_base) JobProgress: {'identifier': 'champ_base', 'progress': 'build'}
+[0.050119] (champ_base) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ming/ros2_ws/build/champ_base', '--', '-j6', '-l6'], 'cwd': '/home/ming/ros2_ws/build/champ_base', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CODEX_CI', '1'), ('USER', 'ming'), ('SSH_CLIENT', '100.107.88.37 53801 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ming'), ('OLDPWD', '/home/ming'), ('SSH_TTY', '/dev/pts/5'), ('ROS_PYTHON_VERSION', '3'), ('PAGER', 'cat'), ('LC_CTYPE', 'C.UTF-8'), ('NO_COLOR', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', ''), ('COLCON_PREFIX_PATH', '/home/ming/ros2_ws/install:/home/ming/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ming'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '145'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ming/.local/bin:/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0dXitft:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('CODEX_SANDBOX_NETWORK_DISABLED', '1'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CODEX_THREAD_ID', '019ce5a1-076d-7491-9113-5b34f40b5e49'), ('GIT_PAGER', 'cat'), ('PWD', '/home/ming/ros2_ws/build/champ_base'), ('LC_ALL', 'C.UTF-8'), ('SSH_CONNECTION', '100.107.88.37 53801 100.119.26.68 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('CMAKE_PREFIX_PATH', '/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble')]), 'shell': False}
+[0.099149] (-) TimerEvent: {}
+[0.146746] (unitree_go2_sim) CommandEnded: {'returncode': 0}
+[0.147700] (unitree_go2_sim) JobProgress: {'identifier': 'unitree_go2_sim', 'progress': 'install'}
+[0.189950] (unitree_go2_sim) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ming/ros2_ws/build/unitree_go2_sim'], 'cwd': '/home/ming/ros2_ws/build/unitree_go2_sim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CODEX_CI', '1'), ('USER', 'ming'), ('SSH_CLIENT', '100.107.88.37 53801 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/home/ming/ros2_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ming'), ('OLDPWD', '/home/ming'), ('SSH_TTY', '/dev/pts/5'), ('ROS_PYTHON_VERSION', '3'), ('PAGER', 'cat'), ('LC_CTYPE', 'C.UTF-8'), ('NO_COLOR', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', ''), ('COLCON_PREFIX_PATH', '/home/ming/ros2_ws/install:/home/ming/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ming'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '145'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ming/.local/bin:/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0dXitft:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('CODEX_SANDBOX_NETWORK_DISABLED', '1'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CODEX_THREAD_ID', '019ce5a1-076d-7491-9113-5b34f40b5e49'), ('GIT_PAGER', 'cat'), ('PWD', '/home/ming/ros2_ws/build/unitree_go2_sim'), ('LC_ALL', 'C.UTF-8'), ('SSH_CONNECTION', '100.107.88.37 53801 100.119.26.68 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('CMAKE_PREFIX_PATH', '/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble')]), 'shell': False}
+[0.199315] (-) TimerEvent: {}
+[0.200548] (champ_base) StdoutLine: {'line': b'Consolidate compiler generated dependencies of target quadruped_controller\n'}
+[0.211930] (champ_base) StdoutLine: {'line': b'[ 16%] Built target state_estimation\n'}
+[0.214948] (unitree_go2_sim) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.215426] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/launch\n'}
+[0.215614] (unitree_go2_sim) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/launch/unitree_go2_launch.py\n'}
+[0.216029] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config\n'}
+[0.216173] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/joints\n'}
+[0.216296] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/joints/joints.yaml\n'}
+[0.216402] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/links\n'}
+[0.216530] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/links/links.yaml\n'}
+[0.216630] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/ros_control\n'}
+[0.216728] (unitree_go2_sim) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/ros_control/ros_control.yaml\n'}
+[0.217152] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/gait\n'}
+[0.217293] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/config/gait/gait.yaml\n'}
+[0.217404] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/rviz\n'}
+[0.217509] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/rviz/rviz.rviz\n'}
+[0.217609] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/lib/unitree_go2_sim/robot_description_publisher.py\n'}
+[0.217707] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/package_run_dependencies/unitree_go2_sim\n'}
+[0.217804] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/parent_prefix_path/unitree_go2_sim\n'}
+[0.217901] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/ament_prefix_path.sh\n'}
+[0.217994] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/ament_prefix_path.dsv\n'}
+[0.218088] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/path.sh\n'}
+[0.218182] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/environment/path.dsv\n'}
+[0.218498] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.bash\n'}
+[0.218634] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.sh\n'}
+[0.218737] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.zsh\n'}
+[0.218836] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/local_setup.dsv\n'}
+[0.218961] (unitree_go2_sim) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/package.dsv\n'}
+[0.219063] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/ament_index/resource_index/packages/unitree_go2_sim\n'}
+[0.219159] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/cmake/unitree_go2_simConfig.cmake\n'}
+[0.219252] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/cmake/unitree_go2_simConfig-version.cmake\n'}
+[0.219347] (unitree_go2_sim) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_sim/share/unitree_go2_sim/package.xml\n'}
+[0.227672] (unitree_go2_sim) CommandEnded: {'returncode': 0}
+[0.282333] (unitree_go2_sim) JobEnded: {'identifier': 'unitree_go2_sim', 'rc': 0}
+[0.285520] (champ_base) StdoutLine: {'line': b'[ 25%] Building CXX object CMakeFiles/quadruped_controller.dir/src/quadruped_controller.cpp.o\n'}
+[0.285899] (champ_base) StdoutLine: {'line': b'[ 41%] Built target message_relay\n'}
+[0.287964] (champ_base) StdoutLine: {'line': b'[ 58%] Built target state_estimation_node\n'}
+[0.299544] (-) TimerEvent: {}
+[0.340462] (champ_base) StdoutLine: {'line': b'[ 75%] Built target message_relay_node\n'}
+[0.399722] (-) TimerEvent: {}
+[0.500126] (-) TimerEvent: {}
+[0.600523] (-) TimerEvent: {}
+[0.700932] (-) TimerEvent: {}
+[0.801321] (-) TimerEvent: {}
+[0.901681] (-) TimerEvent: {}
+[1.002039] (-) TimerEvent: {}
+[1.102387] (-) TimerEvent: {}
+[1.202781] (-) TimerEvent: {}
+[1.303212] (-) TimerEvent: {}
+[1.403594] (-) TimerEvent: {}
+[1.504006] (-) TimerEvent: {}
+[1.604460] (-) TimerEvent: {}
+[1.705193] (-) TimerEvent: {}
+[1.805793] (-) TimerEvent: {}
+[1.906265] (-) TimerEvent: {}
+[2.006902] (-) TimerEvent: {}
+[2.107251] (-) TimerEvent: {}
+[2.207619] (-) TimerEvent: {}
+[2.308037] (-) TimerEvent: {}
+[2.408441] (-) TimerEvent: {}
+[2.508855] (-) TimerEvent: {}
+[2.609282] (-) TimerEvent: {}
+[2.709745] (-) TimerEvent: {}
+[2.810176] (-) TimerEvent: {}
+[2.910558] (-) TimerEvent: {}
+[3.010931] (-) TimerEvent: {}
+[3.111297] (-) TimerEvent: {}
+[3.211752] (-) TimerEvent: {}
+[3.312210] (-) TimerEvent: {}
+[3.412621] (-) TimerEvent: {}
+[3.513034] (-) TimerEvent: {}
+[3.613490] (-) TimerEvent: {}
+[3.713925] (-) TimerEvent: {}
+[3.814329] (-) TimerEvent: {}
+[3.914834] (-) TimerEvent: {}
+[4.015177] (-) TimerEvent: {}
+[4.115580] (-) TimerEvent: {}
+[4.215958] (-) TimerEvent: {}
+[4.316357] (-) TimerEvent: {}
+[4.416750] (-) TimerEvent: {}
+[4.517146] (-) TimerEvent: {}
+[4.617543] (-) TimerEvent: {}
+[4.717976] (-) TimerEvent: {}
+[4.818388] (-) TimerEvent: {}
+[4.918754] (-) TimerEvent: {}
+[5.019092] (-) TimerEvent: {}
+[5.119486] (-) TimerEvent: {}
+[5.219843] (-) TimerEvent: {}
+[5.320234] (-) TimerEvent: {}
+[5.420620] (-) TimerEvent: {}
+[5.521258] (-) TimerEvent: {}
+[5.621825] (-) TimerEvent: {}
+[5.722261] (-) TimerEvent: {}
+[5.822696] (-) TimerEvent: {}
+[5.923514] (-) TimerEvent: {}
+[6.023878] (-) TimerEvent: {}
+[6.124298] (-) TimerEvent: {}
+[6.224679] (-) TimerEvent: {}
+[6.325076] (-) TimerEvent: {}
+[6.425492] (-) TimerEvent: {}
+[6.525892] (-) TimerEvent: {}
+[6.626287] (-) TimerEvent: {}
+[6.726658] (-) TimerEvent: {}
+[6.827034] (-) TimerEvent: {}
+[6.927427] (-) TimerEvent: {}
+[7.027867] (-) TimerEvent: {}
+[7.128266] (-) TimerEvent: {}
+[7.228629] (-) TimerEvent: {}
+[7.329007] (-) TimerEvent: {}
+[7.429412] (-) TimerEvent: {}
+[7.529810] (-) TimerEvent: {}
+[7.630197] (-) TimerEvent: {}
+[7.730615] (-) TimerEvent: {}
+[7.831029] (-) TimerEvent: {}
+[7.931404] (-) TimerEvent: {}
+[8.031763] (-) TimerEvent: {}
+[8.132149] (-) TimerEvent: {}
+[8.239620] (-) TimerEvent: {}
+[8.340282] (-) TimerEvent: {}
+[8.440849] (-) TimerEvent: {}
+[8.541357] (-) TimerEvent: {}
+[8.641983] (-) TimerEvent: {}
+[8.742505] (-) TimerEvent: {}
+[8.843230] (-) TimerEvent: {}
+[8.943668] (-) TimerEvent: {}
+[9.044024] (-) TimerEvent: {}
+[9.144366] (-) TimerEvent: {}
+[9.244750] (-) TimerEvent: {}
+[9.345169] (-) TimerEvent: {}
+[9.445569] (-) TimerEvent: {}
+[9.545987] (-) TimerEvent: {}
+[9.646420] (-) TimerEvent: {}
+[9.746821] (-) TimerEvent: {}
+[9.847237] (-) TimerEvent: {}
+[9.947677] (-) TimerEvent: {}
+[10.048026] (-) TimerEvent: {}
+[10.148383] (-) TimerEvent: {}
+[10.248762] (-) TimerEvent: {}
+[10.349154] (-) TimerEvent: {}
+[10.449565] (-) TimerEvent: {}
+[10.549966] (-) TimerEvent: {}
+[10.650403] (-) TimerEvent: {}
+[10.750798] (-) TimerEvent: {}
+[10.851193] (-) TimerEvent: {}
+[10.951578] (-) TimerEvent: {}
+[11.051952] (-) TimerEvent: {}
+[11.152356] (-) TimerEvent: {}
+[11.252820] (-) TimerEvent: {}
+[11.353213] (-) TimerEvent: {}
+[11.453615] (-) TimerEvent: {}
+[11.554023] (-) TimerEvent: {}
+[11.654493] (-) TimerEvent: {}
+[11.754904] (-) TimerEvent: {}
+[11.855347] (-) TimerEvent: {}
+[11.955741] (-) TimerEvent: {}
+[12.056110] (-) TimerEvent: {}
+[12.156472] (-) TimerEvent: {}
+[12.256901] (-) TimerEvent: {}
+[12.357327] (-) TimerEvent: {}
+[12.459144] (-) TimerEvent: {}
+[12.559642] (-) TimerEvent: {}
+[12.660059] (-) TimerEvent: {}
+[12.760453] (-) TimerEvent: {}
+[12.861007] (-) TimerEvent: {}
+[12.961367] (-) TimerEvent: {}
+[13.061774] (-) TimerEvent: {}
+[13.162131] (-) TimerEvent: {}
+[13.262517] (-) TimerEvent: {}
+[13.362920] (-) TimerEvent: {}
+[13.463309] (-) TimerEvent: {}
+[13.563724] (-) TimerEvent: {}
+[13.664145] (-) TimerEvent: {}
+[13.764596] (-) TimerEvent: {}
+[13.865216] (-) TimerEvent: {}
+[13.965611] (-) TimerEvent: {}
+[14.066279] (-) TimerEvent: {}
+[14.166640] (-) TimerEvent: {}
+[14.267049] (-) TimerEvent: {}
+[14.367469] (-) TimerEvent: {}
+[14.467872] (-) TimerEvent: {}
+[14.568290] (-) TimerEvent: {}
+[14.668698] (-) TimerEvent: {}
+[14.769100] (-) TimerEvent: {}
+[14.869486] (-) TimerEvent: {}
+[14.969854] (-) TimerEvent: {}
+[15.070479] (-) TimerEvent: {}
+[15.170865] (-) TimerEvent: {}
+[15.271426] (-) TimerEvent: {}
+[15.371857] (-) TimerEvent: {}
+[15.472252] (-) TimerEvent: {}
+[15.572645] (-) TimerEvent: {}
+[15.673043] (-) TimerEvent: {}
+[15.773431] (-) TimerEvent: {}
+[15.873799] (-) TimerEvent: {}
+[15.974164] (-) TimerEvent: {}
+[16.074532] (-) TimerEvent: {}
+[16.174923] (-) TimerEvent: {}
+[16.275317] (-) TimerEvent: {}
+[16.375755] (-) TimerEvent: {}
+[16.476198] (-) TimerEvent: {}
+[16.576587] (-) TimerEvent: {}
+[16.677224] (-) TimerEvent: {}
+[16.777614] (-) TimerEvent: {}
+[16.878043] (-) TimerEvent: {}
+[16.978469] (-) TimerEvent: {}
+[17.078830] (-) TimerEvent: {}
+[17.179288] (-) TimerEvent: {}
+[17.279697] (-) TimerEvent: {}
+[17.380085] (-) TimerEvent: {}
+[17.480597] (-) TimerEvent: {}
+[17.581108] (-) TimerEvent: {}
+[17.681536] (-) TimerEvent: {}
+[17.781999] (-) TimerEvent: {}
+[17.882432] (-) TimerEvent: {}
+[17.983782] (-) TimerEvent: {}
+[18.084141] (-) TimerEvent: {}
+[18.184528] (-) TimerEvent: {}
+[18.285589] (-) TimerEvent: {}
+[18.386019] (-) TimerEvent: {}
+[18.486558] (-) TimerEvent: {}
+[18.586977] (-) TimerEvent: {}
+[18.687423] (-) TimerEvent: {}
+[18.787933] (-) TimerEvent: {}
+[18.888323] (-) TimerEvent: {}
+[18.988668] (-) TimerEvent: {}
+[19.089021] (-) TimerEvent: {}
+[19.189606] (-) TimerEvent: {}
+[19.290003] (-) TimerEvent: {}
+[19.390601] (-) TimerEvent: {}
+[19.491069] (-) TimerEvent: {}
+[19.591769] (-) TimerEvent: {}
+[19.693137] (-) TimerEvent: {}
+[19.793547] (-) TimerEvent: {}
+[19.893939] (-) TimerEvent: {}
+[19.994321] (-) TimerEvent: {}
+[20.094720] (-) TimerEvent: {}
+[20.195126] (-) TimerEvent: {}
+[20.295569] (-) TimerEvent: {}
+[20.396023] (-) TimerEvent: {}
+[20.496457] (-) TimerEvent: {}
+[20.596905] (-) TimerEvent: {}
+[20.697425] (-) TimerEvent: {}
+[20.797809] (-) TimerEvent: {}
+[20.898165] (-) TimerEvent: {}
+[20.998507] (-) TimerEvent: {}
+[21.098885] (-) TimerEvent: {}
+[21.199279] (-) TimerEvent: {}
+[21.299884] (-) TimerEvent: {}
+[21.400269] (-) TimerEvent: {}
+[21.501126] (-) TimerEvent: {}
+[21.601604] (-) TimerEvent: {}
+[21.702026] (-) TimerEvent: {}
+[21.802446] (-) TimerEvent: {}
+[21.902834] (-) TimerEvent: {}
+[22.003203] (-) TimerEvent: {}
+[22.103580] (-) TimerEvent: {}
+[22.204186] (-) TimerEvent: {}
+[22.304615] (-) TimerEvent: {}
+[22.405000] (-) TimerEvent: {}
+[22.505398] (-) TimerEvent: {}
+[22.605791] (-) TimerEvent: {}
+[22.706158] (-) TimerEvent: {}
+[22.806539] (-) TimerEvent: {}
+[22.906888] (-) TimerEvent: {}
+[23.007221] (-) TimerEvent: {}
+[23.107568] (-) TimerEvent: {}
+[23.207917] (-) TimerEvent: {}
+[23.308286] (-) TimerEvent: {}
+[23.408667] (-) TimerEvent: {}
+[23.509251] (-) TimerEvent: {}
+[23.609603] (-) TimerEvent: {}
+[23.709962] (-) TimerEvent: {}
+[23.810350] (-) TimerEvent: {}
+[23.910689] (-) TimerEvent: {}
+[24.011021] (-) TimerEvent: {}
+[24.111340] (-) TimerEvent: {}
+[24.212247] (-) TimerEvent: {}
+[24.312855] (-) TimerEvent: {}
+[24.413362] (-) TimerEvent: {}
+[24.513813] (-) TimerEvent: {}
+[24.614192] (-) TimerEvent: {}
+[24.714650] (-) TimerEvent: {}
+[24.815252] (-) TimerEvent: {}
+[24.915635] (-) TimerEvent: {}
+[25.015972] (-) TimerEvent: {}
+[25.116437] (-) TimerEvent: {}
+[25.216841] (-) TimerEvent: {}
+[25.317263] (-) TimerEvent: {}
+[25.417636] (-) TimerEvent: {}
+[25.518018] (-) TimerEvent: {}
+[25.618426] (-) TimerEvent: {}
+[25.718894] (-) TimerEvent: {}
+[25.819269] (-) TimerEvent: {}
+[25.919676] (-) TimerEvent: {}
+[26.020033] (-) TimerEvent: {}
+[26.120390] (-) TimerEvent: {}
+[26.220729] (-) TimerEvent: {}
+[26.321093] (-) TimerEvent: {}
+[26.421503] (-) TimerEvent: {}
+[26.521877] (-) TimerEvent: {}
+[26.622254] (-) TimerEvent: {}
+[26.722778] (-) TimerEvent: {}
+[26.823171] (-) TimerEvent: {}
+[26.923555] (-) TimerEvent: {}
+[27.023883] (-) TimerEvent: {}
+[27.124272] (-) TimerEvent: {}
+[27.224648] (-) TimerEvent: {}
+[27.325056] (-) TimerEvent: {}
+[27.425434] (-) TimerEvent: {}
+[27.525813] (-) TimerEvent: {}
+[27.626205] (-) TimerEvent: {}
+[27.726819] (-) TimerEvent: {}
+[27.827210] (-) TimerEvent: {}
+[27.927585] (-) TimerEvent: {}
+[28.027936] (-) TimerEvent: {}
+[28.128268] (-) TimerEvent: {}
+[28.228639] (-) TimerEvent: {}
+[28.329021] (-) TimerEvent: {}
+[28.429414] (-) TimerEvent: {}
+[28.529804] (-) TimerEvent: {}
+[28.630216] (-) TimerEvent: {}
+[28.730619] (-) TimerEvent: {}
+[28.831045] (-) TimerEvent: {}
+[28.931419] (-) TimerEvent: {}
+[29.031864] (-) TimerEvent: {}
+[29.132398] (-) TimerEvent: {}
+[29.232801] (-) TimerEvent: {}
+[29.335595] (-) TimerEvent: {}
+[29.435964] (-) TimerEvent: {}
+[29.536352] (-) TimerEvent: {}
+[29.636760] (-) TimerEvent: {}
+[29.737169] (-) TimerEvent: {}
+[29.837558] (-) TimerEvent: {}
+[29.937962] (-) TimerEvent: {}
+[30.038307] (-) TimerEvent: {}
+[30.138639] (-) TimerEvent: {}
+[30.239020] (-) TimerEvent: {}
+[30.339398] (-) TimerEvent: {}
+[30.439811] (-) TimerEvent: {}
+[30.540190] (-) TimerEvent: {}
+[30.640587] (-) TimerEvent: {}
+[30.740978] (-) TimerEvent: {}
+[30.841377] (-) TimerEvent: {}
+[30.941989] (-) TimerEvent: {}
+[31.042331] (-) TimerEvent: {}
+[31.142689] (-) TimerEvent: {}
+[31.243042] (-) TimerEvent: {}
+[31.343426] (-) TimerEvent: {}
+[31.443852] (-) TimerEvent: {}
+[31.544218] (-) TimerEvent: {}
+[31.645250] (-) TimerEvent: {}
+[31.745635] (-) TimerEvent: {}
+[31.846027] (-) TimerEvent: {}
+[31.946402] (-) TimerEvent: {}
+[32.046718] (-) TimerEvent: {}
+[32.147292] (-) TimerEvent: {}
+[32.248211] (-) TimerEvent: {}
+[32.348581] (-) TimerEvent: {}
+[32.448976] (-) TimerEvent: {}
+[32.549392] (-) TimerEvent: {}
+[32.650217] (-) TimerEvent: {}
+[32.750721] (-) TimerEvent: {}
+[32.851126] (-) TimerEvent: {}
+[32.951544] (-) TimerEvent: {}
+[33.051892] (-) TimerEvent: {}
+[33.152253] (-) TimerEvent: {}
+[33.252641] (-) TimerEvent: {}
+[33.353038] (-) TimerEvent: {}
+[33.453475] (-) TimerEvent: {}
+[33.554136] (-) TimerEvent: {}
+[33.654543] (-) TimerEvent: {}
+[33.754945] (-) TimerEvent: {}
+[33.855336] (-) TimerEvent: {}
+[33.959735] (-) TimerEvent: {}
+[34.060084] (-) TimerEvent: {}
+[34.160446] (-) TimerEvent: {}
+[34.260830] (-) TimerEvent: {}
+[34.361287] (-) TimerEvent: {}
+[34.461738] (-) TimerEvent: {}
+[34.562173] (-) TimerEvent: {}
+[34.662595] (-) TimerEvent: {}
+[34.763040] (-) TimerEvent: {}
+[34.863471] (-) TimerEvent: {}
+[34.963824] (-) TimerEvent: {}
+[35.064188] (-) TimerEvent: {}
+[35.164562] (-) TimerEvent: {}
+[35.264960] (-) TimerEvent: {}
+[35.365364] (-) TimerEvent: {}
+[35.465762] (-) TimerEvent: {}
+[35.466570] (champ_base) StdoutLine: {'line': b'[ 83%] Linking CXX shared library libquadruped_controller.so\n'}
+[35.565940] (-) TimerEvent: {}
+[35.666367] (-) TimerEvent: {}
+[35.767218] (-) TimerEvent: {}
+[35.867654] (-) TimerEvent: {}
+[35.968473] (-) TimerEvent: {}
+[36.068963] (-) TimerEvent: {}
+[36.169413] (-) TimerEvent: {}
+[36.269820] (-) TimerEvent: {}
+[36.370286] (-) TimerEvent: {}
+[36.470760] (-) TimerEvent: {}
+[36.571192] (-) TimerEvent: {}
+[36.671608] (-) TimerEvent: {}
+[36.772025] (-) TimerEvent: {}
+[36.872403] (-) TimerEvent: {}
+[36.972775] (-) TimerEvent: {}
+[37.073188] (-) TimerEvent: {}
+[37.173647] (-) TimerEvent: {}
+[37.274106] (-) TimerEvent: {}
+[37.374519] (-) TimerEvent: {}
+[37.474908] (-) TimerEvent: {}
+[37.575278] (-) TimerEvent: {}
+[37.671048] (champ_base) StdoutLine: {'line': b'[ 83%] Built target quadruped_controller\n'}
+[37.675463] (-) TimerEvent: {}
+[37.741794] (champ_base) StdoutLine: {'line': b'[ 91%] Linking CXX executable quadruped_controller_node\n'}
+[37.775640] (-) TimerEvent: {}
+[37.876020] (-) TimerEvent: {}
+[37.976382] (-) TimerEvent: {}
+[38.076740] (-) TimerEvent: {}
+[38.177126] (-) TimerEvent: {}
+[38.277616] (-) TimerEvent: {}
+[38.378046] (-) TimerEvent: {}
+[38.478507] (-) TimerEvent: {}
+[38.578912] (-) TimerEvent: {}
+[38.679379] (-) TimerEvent: {}
+[38.779825] (-) TimerEvent: {}
+[38.880317] (-) TimerEvent: {}
+[38.913008] (champ_base) StdoutLine: {'line': b'[100%] Built target quadruped_controller_node\n'}
+[38.938134] (champ_base) CommandEnded: {'returncode': 0}
+[38.944676] (champ_base) JobProgress: {'identifier': 'champ_base', 'progress': 'install'}
+[38.944854] (champ_base) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ming/ros2_ws/build/champ_base'], 'cwd': '/home/ming/ros2_ws/build/champ_base', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CODEX_CI', '1'), ('USER', 'ming'), ('SSH_CLIENT', '100.107.88.37 53801 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/ming'), ('OLDPWD', '/home/ming'), ('SSH_TTY', '/dev/pts/5'), ('ROS_PYTHON_VERSION', '3'), ('PAGER', 'cat'), ('LC_CTYPE', 'C.UTF-8'), ('NO_COLOR', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', ''), ('COLCON_PREFIX_PATH', '/home/ming/ros2_ws/install:/home/ming/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ming'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '145'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ming/.local/bin:/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0dXitft:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('CODEX_SANDBOX_NETWORK_DISABLED', '1'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CODEX_THREAD_ID', '019ce5a1-076d-7491-9113-5b34f40b5e49'), ('GIT_PAGER', 'cat'), ('PWD', '/home/ming/ros2_ws/build/champ_base'), ('LC_ALL', 'C.UTF-8'), ('SSH_CONNECTION', '100.107.88.37 53801 100.119.26.68 22'), ('XDG_DATA_DIRS', '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('CMAKE_PREFIX_PATH', '/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble')]), 'shell': False}
+[38.960736] (champ_base) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[38.961637] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config\n'}
+[38.961842] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/velocity_smoother\n'}
+[38.961980] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/velocity_smoother/velocity_smoother.yaml\n'}
+[38.962103] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf\n'}
+[38.962210] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf/base_to_footprint.yaml\n'}
+[38.962341] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf/footprint_to_odom.yaml\n'}
+[38.962451] (champ_base) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/champ_base/lib/libquadruped_controller.so\n'}
+[38.980482] (-) TimerEvent: {}
+[38.990584] (champ_base) StdoutLine: {'line': b'-- Set runtime path of "/home/ming/ros2_ws/install/champ_base/lib/libquadruped_controller.so" to ""\n'}
+[38.991259] (champ_base) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/champ_base/bin/quadruped_controller_node\n'}
+[38.992437] (champ_base) StdoutLine: {'line': b'-- Set runtime path of "/home/ming/ros2_ws/install/champ_base/bin/quadruped_controller_node" to ""\n'}
+[38.993292] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/libmessage_relay.so\n'}
+[38.993729] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/bin/message_relay_node\n'}
+[38.994867] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/libstate_estimation.so\n'}
+[38.995717] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/bin/state_estimation_node\n'}
+[38.996470] (champ_base) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/champ_base/lib/champ_base/quadruped_controller_node\n'}
+[38.998257] (champ_base) StdoutLine: {'line': b'-- Set runtime path of "/home/ming/ros2_ws/install/champ_base/lib/champ_base/quadruped_controller_node" to ""\n'}
+[38.998974] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/champ_base/message_relay_node\n'}
+[39.000043] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/champ_base/state_estimation_node\n'}
+[39.000817] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/package_run_dependencies/champ_base\n'}
+[39.001380] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/parent_prefix_path/champ_base\n'}
+[39.001890] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/ament_prefix_path.sh\n'}
+[39.002374] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/ament_prefix_path.dsv\n'}
+[39.002883] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/path.sh\n'}
+[39.003364] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/path.dsv\n'}
+[39.003916] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.bash\n'}
+[39.004413] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.sh\n'}
+[39.004881] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.zsh\n'}
+[39.005313] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.dsv\n'}
+[39.005729] (champ_base) StdoutLine: {'line': b'-- Installing: /home/ming/ros2_ws/install/champ_base/share/champ_base/package.dsv\n'}
+[39.006597] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/packages/champ_base\n'}
+[39.007120] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[39.007621] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[39.008071] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/champ_baseConfig.cmake\n'}
+[39.008440] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/champ_baseConfig-version.cmake\n'}
+[39.008853] (champ_base) StdoutLine: {'line': b'-- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/package.xml\n'}
+[39.019537] (champ_base) CommandEnded: {'returncode': 0}
+[39.068778] (champ_base) JobEnded: {'identifier': 'champ_base', 'rc': 0}
+[39.070585] (-) EventReactorShutdown: {}

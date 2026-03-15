@@ -10,8 +10,10 @@ from launch.actions import (
     ExecuteProcess,
     IncludeLaunchDescription,
     GroupAction,
+    RegisterEventHandler,
     TimerAction,
 )
+from launch.event_handlers import OnProcessExit
 from launch.conditions import IfCondition
 from launch.launch_description_sources import FrontendLaunchDescriptionSource, PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution
@@ -102,6 +104,13 @@ def generate_launch_description():
             {"use_sim_time": use_sim_time}
         ],
     )
+
+    odom_tf_broadcaster_node = Node(
+        package="unitree_go2_sim",
+        executable="odom_tf_broadcaster.py",
+        output="screen",
+        parameters=[{"use_sim_time": use_sim_time}],
+    )
     
     declare_use_champ_state_estimation = DeclareLaunchArgument(
         "use_champ_state_estimation",
@@ -119,7 +128,7 @@ def generate_launch_description():
             {"publish_joint_states": True},
             {"publish_joint_control": True},
             {"publish_foot_contacts": False},
-            {"joint_controller_topic": "joint_group_effort_controller/joint_trajectory"},
+            {"joint_controller_topic": "joint_group_effort_controller/commands"},
             {"urdf": Command(['xacro ', LaunchConfiguration('unitree_go2_description_path')])},
             joints_config,
             links_config,
@@ -129,11 +138,6 @@ def generate_launch_description():
             {"close_loop_odom": True},
         ],
         remappings=[("/cmd_vel/smooth", "/cmd_vel")],
-    )
-
-    quadruped_controller_start = TimerAction(
-        period=5.5,
-        actions=[quadruped_controller_node],
     )
 
     state_estimator_node = Node(
@@ -286,8 +290,6 @@ def generate_launch_description():
             # Gazebo to ROS
             '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
             '/imu/data@sensor_msgs/msg/Imu[gz.msgs.IMU',
-            '/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
-            '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
             '/velodyne_points/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
             '/unitree_lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
             # '/velodyne_points@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
@@ -302,34 +304,41 @@ def generate_launch_description():
     )
     
     # Spawn controllers shortly after the robot is created so /cmd_vel starts working promptly.
+    spawner_joint_states = ExecuteProcess(
+        cmd=[
+            "/opt/ros/humble/lib/controller_manager/spawner",
+            "joint_states_controller",
+            "--controller-manager-timeout",
+            "120",
+        ],
+        output='screen',
+    )
+
     controller_spawner_js = TimerAction(
-        period=3.0,
-        actions=[
-            ExecuteProcess(
-                cmd=[
-                    "/opt/ros/humble/lib/controller_manager/spawner",
-                    "joint_states_controller",
-                    "--controller-manager-timeout",
-                    "120",
-                ],
-                output='screen',
-            )
-        ]
+        period=2.5,
+        actions=[spawner_joint_states]
+    )
+
+    spawner_joint_group_effort = ExecuteProcess(
+        cmd=[
+            "/opt/ros/humble/lib/controller_manager/spawner",
+            "joint_group_effort_controller",
+            "--controller-manager-timeout",
+            "120",
+        ],
+        output='screen',
     )
 
     controller_spawner_effort = TimerAction(
-        period=4.0,
-        actions=[
-            ExecuteProcess(
-                cmd=[
-                    "/opt/ros/humble/lib/controller_manager/spawner",
-                    "joint_group_effort_controller",
-                    "--controller-manager-timeout",
-                    "120",
-                ],
-                output='screen',
-            )
-        ]
+        period=3.2,
+        actions=[spawner_joint_group_effort]
+    )
+
+    # The controller spawner can linger as a node even after the controller is
+    # active, so starting the gait node strictly on process exit is unreliable.
+    quadruped_controller_start = TimerAction(
+        period=4.5,
+        actions=[quadruped_controller_node],
     )
     
     # Shell script to manually check controller status 
@@ -356,6 +365,7 @@ def generate_launch_description():
             gz_sim,
             robot_description_publisher,
             robot_state_publisher_node,
+            odom_tf_broadcaster_node,
             
             # Wait for robot_description to be published before spawning
             TimerAction(

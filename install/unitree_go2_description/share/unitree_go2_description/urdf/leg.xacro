@@ -176,6 +176,7 @@
                 <plugin>gz_ros2_control/GazeboSimSystem</plugin>
             </hardware>
             <joint name="${name}_hip_joint">
+                <param name="position_proportional_gain">8.0</param>
                 <command_interface name="velocity"/>
                 <command_interface name="position"/>
                 <command_interface name="effort"/>
@@ -184,6 +185,7 @@
             </joint>
         
             <joint name="${name}_upper_leg_joint">
+                <param name="position_proportional_gain">8.0</param>
                 <command_interface name="velocity"/>
                 <command_interface name="position"/>
                 <command_interface name="effort"/>
@@ -192,6 +194,7 @@
             </joint>
         
             <joint name="${name}_lower_leg_joint">
+                <param name="position_proportional_gain">8.0</param>
                 <command_interface name="velocity"/>
                 <command_interface name="position"/>
                 <command_interface name="effort"/>

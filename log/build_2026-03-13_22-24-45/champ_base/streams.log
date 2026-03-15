@@ -1,0 +1,51 @@
+[0.031s] Invoking command in '/home/ming/ros2_ws/build/champ_base': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ming/ros2_ws/build/champ_base -- -j6 -l6
+[0.173s] Consolidate compiler generated dependencies of target quadruped_controller
+[0.186s] [ 16%] Built target message_relay
+[0.197s] [ 25%] Building CXX object CMakeFiles/quadruped_controller.dir/src/quadruped_controller.cpp.o
+[0.202s] [ 41%] Built target state_estimation
+[0.271s] [ 58%] Built target message_relay_node
+[0.286s] [ 75%] Built target state_estimation_node
+[35.357s] [ 83%] Linking CXX shared library libquadruped_controller.so
+[37.579s] [ 83%] Built target quadruped_controller
+[37.635s] [ 91%] Building CXX object CMakeFiles/quadruped_controller_node.dir/src/quadruped_controller_node.cpp.o
+[45.834s] [100%] Linking CXX executable quadruped_controller_node
+[47.207s] [100%] Built target quadruped_controller_node
+[47.242s] Invoked command in '/home/ming/ros2_ws/build/champ_base' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ming/ros2_ws/build/champ_base -- -j6 -l6
+[47.243s] Invoking command in '/home/ming/ros2_ws/build/champ_base': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/ming/ros2_ws/build/champ_base
+[47.262s] -- Install configuration: ""
+[47.262s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config
+[47.264s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/velocity_smoother
+[47.264s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/velocity_smoother/velocity_smoother.yaml
+[47.264s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf
+[47.265s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf/base_to_footprint.yaml
+[47.265s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/config/ekf/footprint_to_odom.yaml
+[47.265s] -- Installing: /home/ming/ros2_ws/install/champ_base/lib/libquadruped_controller.so
+[47.292s] -- Set runtime path of "/home/ming/ros2_ws/install/champ_base/lib/libquadruped_controller.so" to ""
+[47.293s] -- Installing: /home/ming/ros2_ws/install/champ_base/bin/quadruped_controller_node
+[47.294s] -- Set runtime path of "/home/ming/ros2_ws/install/champ_base/bin/quadruped_controller_node" to ""
+[47.294s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/libmessage_relay.so
+[47.294s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/bin/message_relay_node
+[47.295s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/libstate_estimation.so
+[47.295s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/bin/state_estimation_node
+[47.296s] -- Installing: /home/ming/ros2_ws/install/champ_base/lib/champ_base/quadruped_controller_node
+[47.298s] -- Set runtime path of "/home/ming/ros2_ws/install/champ_base/lib/champ_base/quadruped_controller_node" to ""
+[47.298s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/champ_base/message_relay_node
+[47.298s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/lib/champ_base/state_estimation_node
+[47.298s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/package_run_dependencies/champ_base
+[47.299s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/parent_prefix_path/champ_base
+[47.299s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/ament_prefix_path.sh
+[47.299s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/ament_prefix_path.dsv
+[47.300s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/path.sh
+[47.300s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/environment/path.dsv
+[47.300s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.bash
+[47.300s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.sh
+[47.300s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.zsh
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/local_setup.dsv
+[47.301s] -- Installing: /home/ming/ros2_ws/install/champ_base/share/champ_base/package.dsv
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/ament_index/resource_index/packages/champ_base
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/ament_cmake_export_include_directories-extras.cmake
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/ament_cmake_export_dependencies-extras.cmake
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/champ_baseConfig.cmake
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/cmake/champ_baseConfig-version.cmake
+[47.301s] -- Up-to-date: /home/ming/ros2_ws/install/champ_base/share/champ_base/package.xml
+[47.305s] Invoked command in '/home/ming/ros2_ws/build/champ_base' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble LD_LIBRARY_PATH=/home/ming/ros2_ws/install/champ_msgs/lib:/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/ming/ros2_ws/build/champ_base

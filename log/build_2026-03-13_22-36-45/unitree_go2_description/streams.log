@@ -1,0 +1,44 @@
+[0.103s] Invoking command in '/home/ming/ros2_ws/build/unitree_go2_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/unitree_go2_description -- -j6 -l6
+[0.776s] Invoked command in '/home/ming/ros2_ws/build/unitree_go2_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/unitree_go2_description -- -j6 -l6
+[0.782s] Invoking command in '/home/ming/ros2_ws/build/unitree_go2_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/unitree_go2_description
+[0.806s] -- Install configuration: ""
+[0.807s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/worlds
+[0.810s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/worlds/default.sdf
+[0.810s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes
+[0.815s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/L1_4D_Lidar.dae
+[0.815s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/thigh_mirror.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/calf_mirror.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/VLP16_base_2.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/hokuyo.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/VLP16_base_1.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/VLP16_scan.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/hip.dae
+[0.816s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/trunk.dae
+[0.817s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/calf.dae
+[0.817s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/thigh.dae
+[0.817s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/meshes/foot.dae
+[0.817s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf
+[0.820s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/materials.xacro
+[0.820s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/unitree_go2_gazebo.xacro
+[0.820s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/leg.xacro
+[0.820s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/lidar_4D_lidar.xacro
+[0.820s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/velodyne.xacro
+[0.821s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/realsense_d455.xacro
+[0.821s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/const.xacro
+[0.821s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/urdf/unitree_go2_robot.xacro
+[0.821s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/ament_index/resource_index/package_run_dependencies/unitree_go2_description
+[0.822s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/ament_index/resource_index/parent_prefix_path/unitree_go2_description
+[0.822s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/environment/ament_prefix_path.sh
+[0.822s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/environment/ament_prefix_path.dsv
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/environment/path.sh
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/environment/path.dsv
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/local_setup.bash
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/local_setup.sh
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/local_setup.zsh
+[0.823s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/local_setup.dsv
+[0.823s] -- Installing: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/package.dsv
+[0.830s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/ament_index/resource_index/packages/unitree_go2_description
+[0.831s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/cmake/unitree_go2_descriptionConfig.cmake
+[0.831s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/cmake/unitree_go2_descriptionConfig-version.cmake
+[0.832s] -- Up-to-date: /home/ming/ros2_ws/install/unitree_go2_description/share/unitree_go2_description/package.xml
+[0.959s] Invoked command in '/home/ming/ros2_ws/build/unitree_go2_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/unitree_go2_description

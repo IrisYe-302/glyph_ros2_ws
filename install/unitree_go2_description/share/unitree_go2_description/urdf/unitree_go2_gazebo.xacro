@@ -32,17 +32,15 @@
     </plugin>
   </gazebo>
 
-        <!-- Odometry plugin - DISABLED (broken on this system)
         <gazebo>
-            <plugin filename="gz-sim-odometry-publisher-system"
-                name="gz::sim::systems::OdometryPublisher">
+            <plugin filename="ignition-gazebo-odometry-publisher-system"
+                name="ignition::gazebo::systems::OdometryPublisher">
                 <odom_frame>odom</odom_frame>
                 <robot_base_frame>base_link</robot_base_frame>
                 <odom_topic>/odom</odom_topic>
                 <odom_publish_frequency>50</odom_publish_frequency>
             </plugin>
         </gazebo>
-        -->
 
         <!-- IMU plugin -->
         <gazebo reference="imu_link">
@@ -139,19 +137,19 @@
         <gazebo reference="lf_upper_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
         <gazebo reference="lf_lower_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
         </gazebo>
         <gazebo reference="lf_foot_link">
-            <mu1>0.6</mu1>
-            <mu2>0.6</mu2>
-            <self_collide>1</self_collide>
+            <mu1>1.8</mu1>
+            <mu2>1.8</mu2>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
@@ -164,19 +162,19 @@
         <gazebo reference="rf_upper_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
         <gazebo reference="rf_lower_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
         </gazebo>
         <gazebo reference="rf_foot_link">
-            <mu1>0.6</mu1>
-            <mu2>0.6</mu2>
-            <self_collide>1</self_collide>
+            <mu1>1.8</mu1>
+            <mu2>1.8</mu2>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
@@ -189,19 +187,19 @@
         <gazebo reference="lh_upper_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
         <gazebo reference="lh_lower_leg_link">
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
-            <self_collide>1</self_collide>
+            <self_collide>0</self_collide>
         </gazebo>
         <gazebo reference="lh_foot_link">
-            <mu1>0.6</mu1>
-            <mu2>0.6</mu2>
-            <self_collide>1</self_collide>
+            <mu1>1.8</mu1>
+            <mu2>1.8</mu2>
+            <self_collide>0</self_collide>
             <kp>10000.0</kp>
             <kd>1.0</kd>
         </gazebo>
@@ -214,19 +212,19 @@
   <gazebo reference="rh_upper_leg_link">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
+    <self_collide>0</self_collide>
     <kp>10000.0</kp>
     <kd>1.0</kd>
   </gazebo>
   <gazebo reference="rh_lower_leg_link">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
+    <self_collide>0</self_collide>
   </gazebo>
   <gazebo reference="rh_foot_link">
-    <mu1>0.6</mu1>
-    <mu2>0.6</mu2>
-    <self_collide>1</self_collide>
+    <mu1>1.8</mu1>
+    <mu2>1.8</mu2>
+    <self_collide>0</self_collide>
     <kp>10000.0</kp>
     <kd>1.0</kd>
   </gazebo>

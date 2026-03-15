@@ -1,0 +1,28 @@
+[1.132s] Invoking command in '/home/ming/ros2_ws/build/lidar_processor_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/lidar_processor_cpp -- -j6 -l6
+[1.649s] [ 50%] Built target pointcloud_aggregator_node
+[1.672s] [100%] Built target lidar_to_pointcloud_node
+[2.102s] Invoked command in '/home/ming/ros2_ws/build/lidar_processor_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --build /home/ming/ros2_ws/build/lidar_processor_cpp -- -j6 -l6
+[2.107s] Invoking command in '/home/ming/ros2_ws/build/lidar_processor_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/lidar_processor_cpp
+[2.149s] -- Install configuration: ""
+[2.149s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/lib/lidar_processor_cpp/lidar_to_pointcloud_node
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/lib/lidar_processor_cpp/pointcloud_aggregator_node
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/include/
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/include//lidar_processor_cpp
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/include//lidar_processor_cpp/lidar_to_pointcloud_node.hpp
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/include//lidar_processor_cpp/pointcloud_aggregator_node.hpp
+[2.150s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/ament_index/resource_index/package_run_dependencies/lidar_processor_cpp
+[2.151s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/ament_index/resource_index/parent_prefix_path/lidar_processor_cpp
+[2.151s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/environment/ament_prefix_path.sh
+[2.151s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/environment/ament_prefix_path.dsv
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/environment/path.sh
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/environment/path.dsv
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/local_setup.bash
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/local_setup.sh
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/local_setup.zsh
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/local_setup.dsv
+[2.152s] -- Installing: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/package.dsv
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/ament_index/resource_index/packages/lidar_processor_cpp
+[2.152s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/cmake/lidar_processor_cppConfig.cmake
+[2.153s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/cmake/lidar_processor_cppConfig-version.cmake
+[2.153s] -- Up-to-date: /home/ming/ros2_ws/install/lidar_processor_cpp/share/lidar_processor_cpp/package.xml
+[2.200s] Invoked command in '/home/ming/ros2_ws/build/lidar_processor_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/coco_detector:/home/ming/install/go2_navigation:/opt/ros/humble /usr/bin/cmake --install /home/ming/ros2_ws/build/lidar_processor_cpp

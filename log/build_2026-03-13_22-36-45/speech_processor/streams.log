@@ -1,0 +1,23 @@
+[1.487s] Invoking command in '/home/ming/ros2_ws/src/speech_processor': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ PYTHONPATH=/home/ming/ros2_ws/build/speech_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/speech_processor build --build-base /home/ming/ros2_ws/build/speech_processor/build install --record /home/ming/ros2_ws/build/speech_processor/install.log --single-version-externally-managed install_data
+[1.962s] running egg_info
+[1.963s] writing ../../build/speech_processor/speech_processor.egg-info/PKG-INFO
+[1.971s] writing dependency_links to ../../build/speech_processor/speech_processor.egg-info/dependency_links.txt
+[1.971s] writing entry points to ../../build/speech_processor/speech_processor.egg-info/entry_points.txt
+[1.971s] writing requirements to ../../build/speech_processor/speech_processor.egg-info/requires.txt
+[1.971s] writing top-level names to ../../build/speech_processor/speech_processor.egg-info/top_level.txt
+[1.977s] reading manifest file '../../build/speech_processor/speech_processor.egg-info/SOURCES.txt'
+[1.979s] writing manifest file '../../build/speech_processor/speech_processor.egg-info/SOURCES.txt'
+[1.979s] running build
+[1.979s] running build_py
+[1.983s] running install
+[1.984s] running install_lib
+[1.987s] running install_data
+[1.987s] running install_egg_info
+[1.991s] removing '/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages/speech_processor-1.0.0-py3.10.egg-info' (and everything under it)
+[1.992s] Copying ../../build/speech_processor/speech_processor.egg-info to /home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages/speech_processor-1.0.0-py3.10.egg-info
+[1.994s] running install_scripts
+[2.032s] Installing audio_manager script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.032s] Installing speech_synthesizer script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.033s] Installing tts_node script to /home/ming/ros2_ws/install/speech_processor/lib/speech_processor
+[2.033s] writing list of installed files to '/home/ming/ros2_ws/build/speech_processor/install.log'
+[2.128s] Invoked command in '/home/ming/ros2_ws/src/speech_processor' returned '0': CMAKE_PREFIX_PATH=/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ PYTHONPATH=/home/ming/ros2_ws/build/speech_processor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/speech_processor build --build-base /home/ming/ros2_ws/build/speech_processor/build install --record /home/ming/ros2_ws/build/speech_processor/install.log --single-version-externally-managed install_data

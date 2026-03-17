@@ -25,6 +25,7 @@ setup(
     entry_points={
         "console_scripts": [
             "go2_unitree_bridge_node = go2_unitree_bridge.bridge_node:main",
+            "go2_mujoco_bridge_node = go2_unitree_bridge.mujoco_bridge_node:main",
         ],
     },
 )

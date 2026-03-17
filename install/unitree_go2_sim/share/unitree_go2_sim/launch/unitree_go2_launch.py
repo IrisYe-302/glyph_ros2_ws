@@ -66,6 +66,9 @@ def generate_launch_description():
     declare_foxglove = DeclareLaunchArgument(
         "foxglove", default_value="true", description="Launch foxglove bridge"
     )
+    declare_publish_odom_path = DeclareLaunchArgument(
+        "publish_odom_path", default_value="false", description="Publish /odom_path for visualization"
+    )
     declare_static_map_tf = DeclareLaunchArgument(
         "static_map_tf", default_value="true", description="Publish static map to odom transform"
     )
@@ -109,13 +112,24 @@ def generate_launch_description():
         package="unitree_go2_sim",
         executable="odom_tf_broadcaster.py",
         output="screen",
-        parameters=[{"use_sim_time": use_sim_time}],
+        parameters=[
+            {"use_sim_time": use_sim_time},
+            {"publish_odom_path": LaunchConfiguration("publish_odom_path")},
+            {"max_path_points": 300},
+            {"path_publish_period": 0.20},
+            {"path_min_distance": 0.04},
+        ],
     )
     
     declare_use_champ_state_estimation = DeclareLaunchArgument(
         "use_champ_state_estimation",
         default_value="false",
         description="Enable CHAMP state estimation and EKF stack instead of raw Gazebo odom",
+    )
+    declare_stand_only = DeclareLaunchArgument(
+        "stand_only",
+        default_value="false",
+        description="Hold a stable stand pose and ignore cmd_vel for stand tuning",
     )
 
     quadruped_controller_node = Node(
@@ -136,6 +150,8 @@ def generate_launch_description():
             {"hardware_connected": False},
             {"publish_foot_contacts": False},
             {"close_loop_odom": True},
+            {"stand_only": LaunchConfiguration("stand_only")},
+            {"log_stand_diagnostics": True},
         ],
         remappings=[("/cmd_vel/smooth", "/cmd_vel")],
     )
@@ -248,6 +264,7 @@ def generate_launch_description():
             'client_topic_whitelist': "['^/clicked_point$', '^/initialpose$', '^/move_base_simple/goal$']",
             'capabilities': '[clientPublish,assets]',
             'ignore_unresponsive_param_nodes': 'true',
+            'max_qos_depth': '400',
         }.items(),
     )
     
@@ -353,8 +370,10 @@ def generate_launch_description():
             declare_gazebo_world,
             declare_gui,
             declare_foxglove,
+            declare_publish_odom_path,
             declare_static_map_tf,
             declare_use_champ_state_estimation,
+            declare_stand_only,
             declare_world_init_x,
             declare_world_init_y,
             declare_world_init_z,

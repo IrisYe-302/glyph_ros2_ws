@@ -10,5 +10,7 @@ setup.py
 ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/zip-safe
 go2_unitree_bridge/__init__.py
 go2_unitree_bridge/bridge_node.py
+go2_unitree_bridge/mujoco_bridge_node.py
+launch/go2_mujoco_bridge.launch.py
 launch/go2_unitree_bridge.launch.py
 resource/go2_unitree_bridge

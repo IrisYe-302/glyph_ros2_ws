@@ -21,15 +21,11 @@ class RLSarScanNode(Node):
         self.range_max = 6.0
         self.scan_rate_hz = 10.0
 
+        # Match the synthetic scan geometry to the saved rlsar_scene occupancy map.
         self.obstacles: List[Rectangle] = [
-            (1.1, 1.3, -2.0, 2.0),
-            (1.5, 1.7, -2.0, 2.0),
-            (2.1, 2.5, -2.0, 2.0),
-            (2.38, 2.82, -2.0, 2.0),
-            (2.57, 3.03, -2.0, 2.0),
-            (2.76, 3.24, -2.0, 2.0),
-            (2.95, 3.45, -2.0, 2.0),
-            (3.14, 3.66, -2.0, 2.0),
+            (-1.0, -0.35, 0.64, 1.79),
+            (1.4, 2.05, 0.54, 1.79),
+            (1.3, 2.05, -2.96, -1.81),
         ]
 
         self.latest_odom = None
@@ -109,7 +105,7 @@ class RLSarScanNode(Node):
 
         scan = LaserScan()
         scan.header.stamp = self.latest_odom.header.stamp
-        scan.header.frame_id = "base_link"
+        scan.header.frame_id = "base_footprint"
         scan.angle_min = self.angle_min
         scan.angle_max = self.angle_max
         scan.angle_increment = self.angle_increment

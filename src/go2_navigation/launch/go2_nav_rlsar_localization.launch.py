@@ -2,10 +2,10 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 
 
@@ -13,6 +13,7 @@ def generate_launch_description() -> LaunchDescription:
     foxglove = LaunchConfiguration("foxglove")
     map_yaml = LaunchConfiguration("map")
     use_nav2 = LaunchConfiguration("nav2")
+    use_perfect_localization = LaunchConfiguration("perfect_localization")
     publish_initial_pose = LaunchConfiguration("publish_initial_pose")
     initial_pose_x = LaunchConfiguration("initial_pose_x")
     initial_pose_y = LaunchConfiguration("initial_pose_y")
@@ -20,6 +21,7 @@ def generate_launch_description() -> LaunchDescription:
     initial_pose_delay = LaunchConfiguration("initial_pose_delay")
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
+    nav2_start_delay = LaunchConfiguration("nav2_start_delay")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -46,6 +48,7 @@ def generate_launch_description() -> LaunchDescription:
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("nav2", default_value="true"),
+            DeclareLaunchArgument("perfect_localization", default_value="true"),
             DeclareLaunchArgument("publish_initial_pose", default_value="true"),
             DeclareLaunchArgument("initial_pose_x", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_y", default_value="0.0"),
@@ -53,6 +56,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("target_topic", default_value="/target_location"),
+            DeclareLaunchArgument("nav2_start_delay", default_value="8.0"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml",
@@ -61,56 +65,112 @@ def generate_launch_description() -> LaunchDescription:
                 PythonLaunchDescriptionSource(sim_launch),
                 launch_arguments={"foxglove": foxglove}.items(),
             ),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(localization_launch),
-                condition=IfCondition(use_nav2),
-                launch_arguments={
-                    "map": map_yaml,
-                    "use_sim_time": "False",
-                    "autostart": "True",
-                    "params_file": nav2_params,
-                    "use_composition": "False",
-                }.items(),
-            ),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(navigation_launch),
-                condition=IfCondition(use_nav2),
-                launch_arguments={
-                    "use_sim_time": "False",
-                    "autostart": "True",
-                    "params_file": nav2_params,
-                    "use_composition": "False",
-                }.items(),
-            ),
-            Node(
-                package="go2_navigation",
-                executable="initial_pose_publisher",
-                name="go2_initial_pose_publisher",
-                condition=IfCondition(publish_initial_pose),
-                parameters=[
-                    {
-                        "topic": "/initialpose",
-                        "frame_id": "map",
-                        "x": initial_pose_x,
-                        "y": initial_pose_y,
-                        "yaw": initial_pose_yaw,
-                        "delay_sec": initial_pose_delay,
-                    }
+            TimerAction(
+                period=nav2_start_delay,
+                actions=[
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource(localization_launch),
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_nav2, "' == 'true' and '", use_perfect_localization, "' != 'true'"]
+                            )
+                        ),
+                        launch_arguments={
+                            "map": map_yaml,
+                            "use_sim_time": "False",
+                            "autostart": "True",
+                            "params_file": nav2_params,
+                            "use_composition": "False",
+                        }.items(),
+                    ),
+                    Node(
+                        package="nav2_map_server",
+                        executable="map_server",
+                        name="map_server",
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_nav2, "' == 'true' and '", use_perfect_localization, "' == 'true'"]
+                            )
+                        ),
+                        output="screen",
+                        parameters=[
+                            {
+                                "use_sim_time": False,
+                                "yaml_filename": map_yaml,
+                            }
+                        ],
+                    ),
+                    Node(
+                        package="nav2_lifecycle_manager",
+                        executable="lifecycle_manager",
+                        name="lifecycle_manager_localization",
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_nav2, "' == 'true' and '", use_perfect_localization, "' == 'true'"]
+                            )
+                        ),
+                        output="screen",
+                        parameters=[
+                            {
+                                "use_sim_time": False,
+                                "autostart": True,
+                                "node_names": ["map_server"],
+                            }
+                        ],
+                    ),
+                    Node(
+                        package="tf2_ros",
+                        executable="static_transform_publisher",
+                        name="map_to_odom_tf",
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_nav2, "' == 'true' and '", use_perfect_localization, "' == 'true'"]
+                            )
+                        ),
+                        arguments=["0", "0", "0", "0", "0", "0", "map", "odom"],
+                        output="screen",
+                    ),
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource(navigation_launch),
+                        condition=IfCondition(use_nav2),
+                        launch_arguments={
+                            "use_sim_time": "False",
+                            "autostart": "True",
+                            "params_file": nav2_params,
+                            "use_composition": "False",
+                        }.items(),
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="initial_pose_publisher",
+                        name="go2_initial_pose_publisher",
+                        condition=IfCondition(publish_initial_pose),
+                        parameters=[
+                            {
+                                "topic": "/initialpose",
+                                "frame_id": "map",
+                                "x": initial_pose_x,
+                                "y": initial_pose_y,
+                                "yaw": initial_pose_yaw,
+                                "delay_sec": initial_pose_delay,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber",
+                        condition=IfCondition(use_location_subscriber),
+                        parameters=[
+                            {
+                                "target_topic": target_topic,
+                                "use_sim_time": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
                 ],
-                output="screen",
-            ),
-            Node(
-                package="go2_navigation",
-                executable="location_subscriber",
-                name="go2_location_subscriber",
-                condition=IfCondition(use_location_subscriber),
-                parameters=[
-                    {
-                        "target_topic": target_topic,
-                        "use_sim_time": False,
-                    }
-                ],
-                output="screen",
             ),
         ]
     )

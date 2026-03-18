@@ -21,10 +21,15 @@ def generate_launch_description() -> LaunchDescription:
         "launch",
         "go2_nav_robot.launch.py",
     )
-    bringup_launch = os.path.join(
+    localization_launch = os.path.join(
         get_package_share_directory("nav2_bringup"),
         "launch",
-        "bringup_launch.py",
+        "localization_launch.py",
+    )
+    navigation_launch = os.path.join(
+        get_package_share_directory("nav2_bringup"),
+        "launch",
+        "navigation_launch.py",
     )
     nav2_params = os.path.join(
         get_package_share_directory("go2_navigation"),
@@ -47,13 +52,24 @@ def generate_launch_description() -> LaunchDescription:
                 launch_arguments={"foxglove": foxglove}.items(),
             ),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(bringup_launch),
+                PythonLaunchDescriptionSource(localization_launch),
                 condition=IfCondition(use_nav2),
                 launch_arguments={
-                    "slam": "False",
                     "map": map_yaml,
                     "use_sim_time": "False",
+                    "autostart": "True",
                     "params_file": nav2_params,
+                    "use_composition": "False",
+                }.items(),
+            ),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(navigation_launch),
+                condition=IfCondition(use_nav2),
+                launch_arguments={
+                    "use_sim_time": "False",
+                    "autostart": "True",
+                    "params_file": nav2_params,
+                    "use_composition": "False",
                 }.items(),
             ),
             Node(

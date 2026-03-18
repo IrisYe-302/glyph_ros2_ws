@@ -13,6 +13,11 @@ def generate_launch_description() -> LaunchDescription:
     foxglove = LaunchConfiguration("foxglove")
     map_yaml = LaunchConfiguration("map")
     use_nav2 = LaunchConfiguration("nav2")
+    publish_initial_pose = LaunchConfiguration("publish_initial_pose")
+    initial_pose_x = LaunchConfiguration("initial_pose_x")
+    initial_pose_y = LaunchConfiguration("initial_pose_y")
+    initial_pose_yaw = LaunchConfiguration("initial_pose_yaw")
+    initial_pose_delay = LaunchConfiguration("initial_pose_delay")
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
 
@@ -21,10 +26,15 @@ def generate_launch_description() -> LaunchDescription:
         "launch",
         "go2_rlsar_sim.launch.py",
     )
-    bringup_launch = os.path.join(
+    localization_launch = os.path.join(
         get_package_share_directory("nav2_bringup"),
         "launch",
-        "bringup_launch.py",
+        "localization_launch.py",
+    )
+    navigation_launch = os.path.join(
+        get_package_share_directory("nav2_bringup"),
+        "launch",
+        "navigation_launch.py",
     )
     nav2_params = os.path.join(
         get_package_share_directory("go2_navigation"),
@@ -36,6 +46,11 @@ def generate_launch_description() -> LaunchDescription:
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("nav2", default_value="true"),
+            DeclareLaunchArgument("publish_initial_pose", default_value="true"),
+            DeclareLaunchArgument("initial_pose_x", default_value="0.0"),
+            DeclareLaunchArgument("initial_pose_y", default_value="0.0"),
+            DeclareLaunchArgument("initial_pose_yaw", default_value="0.0"),
+            DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("target_topic", default_value="/target_location"),
             DeclareLaunchArgument(
@@ -47,14 +62,42 @@ def generate_launch_description() -> LaunchDescription:
                 launch_arguments={"foxglove": foxglove}.items(),
             ),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(bringup_launch),
+                PythonLaunchDescriptionSource(localization_launch),
                 condition=IfCondition(use_nav2),
                 launch_arguments={
-                    "slam": "False",
                     "map": map_yaml,
                     "use_sim_time": "False",
+                    "autostart": "True",
                     "params_file": nav2_params,
+                    "use_composition": "False",
                 }.items(),
+            ),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(navigation_launch),
+                condition=IfCondition(use_nav2),
+                launch_arguments={
+                    "use_sim_time": "False",
+                    "autostart": "True",
+                    "params_file": nav2_params,
+                    "use_composition": "False",
+                }.items(),
+            ),
+            Node(
+                package="go2_navigation",
+                executable="initial_pose_publisher",
+                name="go2_initial_pose_publisher",
+                condition=IfCondition(publish_initial_pose),
+                parameters=[
+                    {
+                        "topic": "/initialpose",
+                        "frame_id": "map",
+                        "x": initial_pose_x,
+                        "y": initial_pose_y,
+                        "yaw": initial_pose_yaw,
+                        "delay_sec": initial_pose_delay,
+                    }
+                ],
+                output="screen",
             ),
             Node(
                 package="go2_navigation",

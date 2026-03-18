@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_py/go2_interfaces/msg/_go2_front_video_data_s.c

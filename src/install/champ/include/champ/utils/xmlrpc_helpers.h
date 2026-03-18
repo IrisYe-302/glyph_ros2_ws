@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/unitree_go2/champ/include/champ/utils/xmlrpc_helpers.h

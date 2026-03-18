@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/speech_processor/setup.py

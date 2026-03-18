@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_typesupport_fastrtps_c/go2_interfaces/msg/detail/voxel_height_map_state__rosidl_typesupport_fastrtps_c.h

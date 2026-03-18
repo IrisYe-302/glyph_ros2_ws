@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/ament_cmake_environment_hooks/local_setup.zsh

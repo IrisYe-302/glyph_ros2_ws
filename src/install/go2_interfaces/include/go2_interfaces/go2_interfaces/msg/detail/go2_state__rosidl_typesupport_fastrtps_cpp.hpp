@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/go2_state__rosidl_typesupport_fastrtps_cpp.hpp

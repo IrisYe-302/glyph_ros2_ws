@@ -1,4 +1,0 @@
-[console_scripts]
-cyclonedds_bridge_node = go2_robot_sdk.presentation.cyclonedds_bridge_node:main
-go2_driver_node = go2_robot_sdk.main:main
-

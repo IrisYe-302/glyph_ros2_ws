@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_generator_cpp/go2_interfaces/msg/detail/sport_mode_state__builder.hpp

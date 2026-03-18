@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/champ/ament_cmake_core/champConfig-version.cmake

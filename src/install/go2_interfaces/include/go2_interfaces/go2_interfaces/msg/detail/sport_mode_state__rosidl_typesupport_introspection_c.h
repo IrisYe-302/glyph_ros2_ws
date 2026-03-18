@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_typesupport_introspection_c/go2_interfaces/msg/detail/sport_mode_state__rosidl_typesupport_introspection_c.h

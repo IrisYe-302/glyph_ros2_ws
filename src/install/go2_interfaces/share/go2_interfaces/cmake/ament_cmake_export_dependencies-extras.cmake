@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake

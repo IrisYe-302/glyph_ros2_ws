@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_typesupport_fastrtps_cpp/go2_interfaces/msg/detail/height_map__rosidl_typesupport_fastrtps_cpp.hpp

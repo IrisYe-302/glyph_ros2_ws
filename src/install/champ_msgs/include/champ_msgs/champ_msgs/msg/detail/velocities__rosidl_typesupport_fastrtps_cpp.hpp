@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/champ_msgs/rosidl_typesupport_fastrtps_cpp/champ_msgs/msg/detail/velocities__rosidl_typesupport_fastrtps_cpp.hpp

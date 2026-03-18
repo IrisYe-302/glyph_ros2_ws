@@ -1,7 +1,0 @@
-[console_scripts]
-go2_mujoco_bridge_node = go2_unitree_bridge.mujoco_bridge_node:main
-go2_unitree_bridge_node = go2_unitree_bridge.bridge_node:main
-rlsar_scan_node = go2_unitree_bridge.rlsar_scan_node:main
-verify_rlsar_nav2 = go2_unitree_bridge.verify_rlsar_nav2:main
-verify_rlsar_sim = go2_unitree_bridge.verify_rlsar_sim:main
-

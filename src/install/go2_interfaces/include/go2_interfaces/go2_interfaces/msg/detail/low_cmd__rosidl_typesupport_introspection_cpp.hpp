@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/go2_interfaces/rosidl_typesupport_introspection_cpp/go2_interfaces/msg/detail/low_cmd__rosidl_typesupport_introspection_cpp.hpp

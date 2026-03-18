@@ -1,1 +1,0 @@
-/home/ming/ros2_ws/src/build/unitree_go2_sim/ament_cmake_core/unitree_go2_simConfig.cmake

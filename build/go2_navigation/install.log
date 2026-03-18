@@ -5,7 +5,12 @@
 /home/ming/ros2_ws/install/go2_navigation/share/ament_index/resource_index/packages/go2_navigation
 /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/package.xml
 /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch/go2_nav_robot.launch.py
+/home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch/go2_nav_rlsar.launch.py
+/home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch/go2_nav_rlsar_localization.launch.py
 /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch/go2_nav_sim.launch.py
+/home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch/go2_nav_robot_localization.launch.py
+/home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/config/robot_nav2_localization.yaml
+/home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/config/rlsar_nav2_localization.yaml
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/entry_points.txt
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/requires.txt
 /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info/SOURCES.txt

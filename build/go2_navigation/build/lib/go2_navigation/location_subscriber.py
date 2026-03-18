@@ -11,7 +11,9 @@ class LocationSubscriber(Node):
 
         # declare parameter with default and read it safely as a string
         self.declare_parameter('target_topic', '/target_location')
+        self.declare_parameter('goal_frame_id', 'odom')
         target_topic = self.get_parameter('target_topic').get_parameter_value().string_value
+        self.goal_frame_id = self.get_parameter('goal_frame_id').get_parameter_value().string_value
 
         # action client for Nav2
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
@@ -40,8 +42,8 @@ class LocationSubscriber(Node):
     def send_navigation_goal(self, pose: PoseStamped):
         goal_msg = NavigateToPose.Goal()
         goal_msg.pose = pose
-        # ensure frame set
-        goal_msg.pose.header.frame_id = 'map'
+        if not goal_msg.pose.header.frame_id:
+            goal_msg.pose.header.frame_id = self.goal_frame_id
 
         self.get_logger().info('Sending robot to target...')
 

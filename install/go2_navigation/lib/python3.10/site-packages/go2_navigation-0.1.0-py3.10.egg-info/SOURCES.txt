@@ -8,8 +8,13 @@ setup.py
 ../../build/go2_navigation/go2_navigation.egg-info/requires.txt
 ../../build/go2_navigation/go2_navigation.egg-info/top_level.txt
 ../../build/go2_navigation/go2_navigation.egg-info/zip-safe
+config/rlsar_nav2_localization.yaml
+config/robot_nav2_localization.yaml
 go2_navigation/__init__.py
 go2_navigation/location_subscriber.py
+launch/go2_nav_rlsar.launch.py
+launch/go2_nav_rlsar_localization.launch.py
 launch/go2_nav_robot.launch.py
+launch/go2_nav_robot_localization.launch.py
 launch/go2_nav_sim.launch.py
 resource/go2_navigation

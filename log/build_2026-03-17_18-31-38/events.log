@@ -1,0 +1,117 @@
+[0.000000] (-) TimerEvent: {}
+[0.002384] (-) JobUnselected: {'identifier': 'champ'}
+[0.002503] (-) JobUnselected: {'identifier': 'champ_base'}
+[0.002561] (-) JobUnselected: {'identifier': 'champ_msgs'}
+[0.002630] (-) JobUnselected: {'identifier': 'coco_detector'}
+[0.002665] (-) JobUnselected: {'identifier': 'go2_interfaces'}
+[0.002712] (-) JobUnselected: {'identifier': 'go2_robot_sdk'}
+[0.002742] (-) JobUnselected: {'identifier': 'lidar_processor'}
+[0.002784] (-) JobUnselected: {'identifier': 'lidar_processor_cpp'}
+[0.002865] (-) JobUnselected: {'identifier': 'speech_processor'}
+[0.002900] (-) JobUnselected: {'identifier': 'unitree_go2_description'}
+[0.002932] (-) JobUnselected: {'identifier': 'unitree_go2_sim'}
+[0.002970] (go2_unitree_bridge) JobQueued: {'identifier': 'go2_unitree_bridge', 'dependencies': OrderedDict([('unitree_go2_description', '/home/ming/ros2_ws/install/unitree_go2_description')])}
+[0.003018] (go2_navigation) JobQueued: {'identifier': 'go2_navigation', 'dependencies': OrderedDict([('go2_interfaces', '/home/ming/ros2_ws/install/go2_interfaces'), ('unitree_go2_description', '/home/ming/ros2_ws/install/unitree_go2_description'), ('unitree_go2_sim', '/home/ming/ros2_ws/install/unitree_go2_sim'), ('go2_robot_sdk', '/home/ming/ros2_ws/install/go2_robot_sdk'), ('go2_unitree_bridge', '/home/ming/ros2_ws/install/go2_unitree_bridge')])}
+[0.003069] (go2_unitree_bridge) JobStarted: {'identifier': 'go2_unitree_bridge'}
+[0.097613] (-) TimerEvent: {}
+[0.198027] (-) TimerEvent: {}
+[0.298559] (-) TimerEvent: {}
+[0.400904] (-) TimerEvent: {}
+[0.501292] (-) TimerEvent: {}
+[0.601673] (-) TimerEvent: {}
+[0.702118] (-) TimerEvent: {}
+[0.802481] (-) TimerEvent: {}
+[0.902863] (-) TimerEvent: {}
+[1.003254] (-) TimerEvent: {}
+[1.103669] (-) TimerEvent: {}
+[1.204024] (-) TimerEvent: {}
+[1.304386] (-) TimerEvent: {}
+[1.404744] (-) TimerEvent: {}
+[1.505124] (-) TimerEvent: {}
+[1.538608] (go2_unitree_bridge) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/go2_unitree_bridge', 'build', '--build-base', '/home/ming/ros2_ws/build/go2_unitree_bridge/build', 'install', '--record', '/home/ming/ros2_ws/build/go2_unitree_bridge/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ming/ros2_ws/src/go2_unitree_bridge', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'CODEX_CI': '1', 'USER': 'ming', 'SSH_CLIENT': '100.107.88.37 52285 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/home/ming/ros2_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ming', 'OLDPWD': '/home/ming', 'SSH_TTY': '/dev/pts/5', 'ROS_PYTHON_VERSION': '3', 'PAGER': 'cat', 'LC_CTYPE': 'C.UTF-8', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': '', 'COLCON_PREFIX_PATH': '/home/ming/ros2_ws/install:/home/ming/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'ming', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '239', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0wfKpks:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'GH_PAGER': 'cat', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'ROS_DOMAIN_ID': '0', 'AMENT_PREFIX_PATH': '/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '019ce5a1-076d-7491-9113-5b34f40b5e49', 'GIT_PAGER': 'cat', 'PWD': '/home/ming/ros2_ws/build/go2_unitree_bridge', 'LC_ALL': 'C.UTF-8', 'SSH_CONNECTION': '100.107.88.37 52285 100.119.26.68 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/ming/ros2_ws/build/go2_unitree_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CODEX_MANAGED_BY_NPM': '1', 'CMAKE_PREFIX_PATH': '/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ'}, 'shell': False}
+[1.610130] (-) TimerEvent: {}
+[1.710471] (-) TimerEvent: {}
+[1.810844] (-) TimerEvent: {}
+[1.911204] (-) TimerEvent: {}
+[2.011561] (-) TimerEvent: {}
+[2.094472] (go2_unitree_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[2.096440] (go2_unitree_bridge) StdoutLine: {'line': b'writing ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/PKG-INFO\n'}
+[2.097003] (go2_unitree_bridge) StdoutLine: {'line': b'writing dependency_links to ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/dependency_links.txt\n'}
+[2.097593] (go2_unitree_bridge) StdoutLine: {'line': b'writing entry points to ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/entry_points.txt\n'}
+[2.098475] (go2_unitree_bridge) StdoutLine: {'line': b'writing requirements to ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/requires.txt\n'}
+[2.098930] (go2_unitree_bridge) StdoutLine: {'line': b'writing top-level names to ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/top_level.txt\n'}
+[2.104371] (go2_unitree_bridge) StdoutLine: {'line': b"reading manifest file '../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/SOURCES.txt'\n"}
+[2.108242] (go2_unitree_bridge) StdoutLine: {'line': b"writing manifest file '../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info/SOURCES.txt'\n"}
+[2.108582] (go2_unitree_bridge) StdoutLine: {'line': b'running build\n'}
+[2.108718] (go2_unitree_bridge) StdoutLine: {'line': b'running build_py\n'}
+[2.108829] (go2_unitree_bridge) StdoutLine: {'line': b'copying go2_unitree_bridge/rlsar_scan_node.py -> /home/ming/ros2_ws/build/go2_unitree_bridge/build/lib/go2_unitree_bridge\n'}
+[2.109124] (go2_unitree_bridge) StdoutLine: {'line': b'running install\n'}
+[2.109504] (go2_unitree_bridge) StdoutLine: {'line': b'running install_lib\n'}
+[2.111668] (-) TimerEvent: {}
+[2.115614] (go2_unitree_bridge) StdoutLine: {'line': b'copying /home/ming/ros2_ws/build/go2_unitree_bridge/build/lib/go2_unitree_bridge/rlsar_scan_node.py -> /home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages/go2_unitree_bridge\n'}
+[2.117506] (go2_unitree_bridge) StdoutLine: {'line': b'byte-compiling /home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages/go2_unitree_bridge/rlsar_scan_node.py to rlsar_scan_node.cpython-310.pyc\n'}
+[2.120212] (go2_unitree_bridge) StdoutLine: {'line': b'running install_data\n'}
+[2.120661] (go2_unitree_bridge) StdoutLine: {'line': b'copying launch/go2_rlsar_sim.launch.py -> /home/ming/ros2_ws/install/go2_unitree_bridge/share/go2_unitree_bridge/launch\n'}
+[2.120930] (go2_unitree_bridge) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.127896] (go2_unitree_bridge) StdoutLine: {'line': b"removing '/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages/go2_unitree_bridge-0.1.0-py3.10.egg-info' (and everything under it)\n"}
+[2.128455] (go2_unitree_bridge) StdoutLine: {'line': b'Copying ../../build/go2_unitree_bridge/go2_unitree_bridge.egg-info to /home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages/go2_unitree_bridge-0.1.0-py3.10.egg-info\n'}
+[2.130660] (go2_unitree_bridge) StdoutLine: {'line': b'running install_scripts\n'}
+[2.180760] (go2_unitree_bridge) StdoutLine: {'line': b'Installing go2_mujoco_bridge_node script to /home/ming/ros2_ws/install/go2_unitree_bridge/lib/go2_unitree_bridge\n'}
+[2.184114] (go2_unitree_bridge) StdoutLine: {'line': b'Installing go2_unitree_bridge_node script to /home/ming/ros2_ws/install/go2_unitree_bridge/lib/go2_unitree_bridge\n'}
+[2.184762] (go2_unitree_bridge) StdoutLine: {'line': b'Installing rlsar_scan_node script to /home/ming/ros2_ws/install/go2_unitree_bridge/lib/go2_unitree_bridge\n'}
+[2.185038] (go2_unitree_bridge) StdoutLine: {'line': b'Installing verify_rlsar_sim script to /home/ming/ros2_ws/install/go2_unitree_bridge/lib/go2_unitree_bridge\n'}
+[2.186365] (go2_unitree_bridge) StdoutLine: {'line': b"writing list of installed files to '/home/ming/ros2_ws/build/go2_unitree_bridge/install.log'\n"}
+[2.211864] (-) TimerEvent: {}
+[2.272373] (go2_unitree_bridge) CommandEnded: {'returncode': 0}
+[2.305020] (go2_unitree_bridge) JobEnded: {'identifier': 'go2_unitree_bridge', 'rc': 0}
+[2.307110] (go2_navigation) JobStarted: {'identifier': 'go2_navigation'}
+[2.311965] (-) TimerEvent: {}
+[2.412279] (-) TimerEvent: {}
+[2.512633] (-) TimerEvent: {}
+[2.612998] (-) TimerEvent: {}
+[2.713372] (-) TimerEvent: {}
+[2.813801] (-) TimerEvent: {}
+[2.914182] (-) TimerEvent: {}
+[3.014588] (-) TimerEvent: {}
+[3.115331] (-) TimerEvent: {}
+[3.215980] (-) TimerEvent: {}
+[3.316329] (-) TimerEvent: {}
+[3.416742] (-) TimerEvent: {}
+[3.517145] (-) TimerEvent: {}
+[3.617599] (-) TimerEvent: {}
+[3.717951] (-) TimerEvent: {}
+[3.818335] (-) TimerEvent: {}
+[3.841063] (go2_navigation) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/go2_navigation', 'build', '--build-base', '/home/ming/ros2_ws/build/go2_navigation/build', 'install', '--record', '/home/ming/ros2_ws/build/go2_navigation/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ming/ros2_ws/src/go2_navigation', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'CODEX_CI': '1', 'USER': 'ming', 'SSH_CLIENT': '100.107.88.37 52285 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/ming/ros2_ws/install/go2_interfaces/lib:/home/ming/ros2_ws/install/champ_base/lib:/home/ming/ros2_ws/install/champ_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ming', 'OLDPWD': '/home/ming', 'SSH_TTY': '/dev/pts/5', 'ROS_PYTHON_VERSION': '3', 'PAGER': 'cat', 'LC_CTYPE': 'C.UTF-8', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': '', 'COLCON_PREFIX_PATH': '/home/ming/ros2_ws/install:/home/ming/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'ming', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '239', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/ming/ros2_ws/install/go2_robot_sdk/bin:/home/ming/.local/bin:/home/ming/.codex/tmp/arg0/codex-arg0wfKpks:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-arm64/vendor/aarch64-unknown-linux-musl/path:/home/ming/.local/bin:/home/ming/ros2_ws/install/champ_base/bin:/home/ming/install/go2_navigation/bin:/opt/ros/humble/bin:/home/ming/.local/bin:/home/ming/.opencode/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'en_US.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'GH_PAGER': 'cat', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'ROS_DOMAIN_ID': '0', 'AMENT_PREFIX_PATH': '/home/ming/ros2_ws/install/go2_unitree_bridge:/home/ming/ros2_ws/install/go2_robot_sdk:/home/ming/ros2_ws/install/go2_navigation:/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/speech_processor:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/lidar_processor:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/coco_detector:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ:/home/ming/install/go2_navigation:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '019ce5a1-076d-7491-9113-5b34f40b5e49', 'GIT_PAGER': 'cat', 'PWD': '/home/ming/ros2_ws/build/go2_navigation', 'LC_ALL': 'C.UTF-8', 'SSH_CONNECTION': '100.107.88.37 52285 100.119.26.68 22', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/ming/ros2_ws/build/go2_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_unitree_bridge/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_robot_sdk/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages:/home/ming/ros2_ws/install/speech_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/lidar_processor/lib/python3.10/site-packages:/home/ming/ros2_ws/install/go2_interfaces/local/lib/python3.10/dist-packages:/home/ming/ros2_ws/install/coco_detector/lib/python3.10/site-packages:/home/ming/ros2_ws/install/champ_msgs/local/lib/python3.10/dist-packages:/home/ming/install/go2_navigation/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CODEX_MANAGED_BY_NPM': '1', 'CMAKE_PREFIX_PATH': '/home/ming/ros2_ws/install/unitree_go2_sim:/home/ming/ros2_ws/install/unitree_go2_description:/home/ming/ros2_ws/install/go2_interfaces:/home/ming/ros2_ws/install/lidar_processor_cpp:/home/ming/ros2_ws/install/champ_base:/home/ming/ros2_ws/install/champ_msgs:/home/ming/ros2_ws/install/champ'}, 'shell': False}
+[3.918488] (-) TimerEvent: {}
+[4.018852] (-) TimerEvent: {}
+[4.119212] (-) TimerEvent: {}
+[4.219563] (-) TimerEvent: {}
+[4.319929] (-) TimerEvent: {}
+[4.389427] (go2_navigation) StdoutLine: {'line': b'running egg_info\n'}
+[4.391128] (go2_navigation) StdoutLine: {'line': b'writing ../../build/go2_navigation/go2_navigation.egg-info/PKG-INFO\n'}
+[4.391759] (go2_navigation) StdoutLine: {'line': b'writing dependency_links to ../../build/go2_navigation/go2_navigation.egg-info/dependency_links.txt\n'}
+[4.392130] (go2_navigation) StdoutLine: {'line': b'writing entry points to ../../build/go2_navigation/go2_navigation.egg-info/entry_points.txt\n'}
+[4.392407] (go2_navigation) StdoutLine: {'line': b'writing requirements to ../../build/go2_navigation/go2_navigation.egg-info/requires.txt\n'}
+[4.392661] (go2_navigation) StdoutLine: {'line': b'writing top-level names to ../../build/go2_navigation/go2_navigation.egg-info/top_level.txt\n'}
+[4.397145] (go2_navigation) StdoutLine: {'line': b"reading manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'\n"}
+[4.399645] (go2_navigation) StdoutLine: {'line': b"writing manifest file '../../build/go2_navigation/go2_navigation.egg-info/SOURCES.txt'\n"}
+[4.399947] (go2_navigation) StdoutLine: {'line': b'running build\n'}
+[4.400077] (go2_navigation) StdoutLine: {'line': b'running build_py\n'}
+[4.400331] (go2_navigation) StdoutLine: {'line': b'copying go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation\n'}
+[4.400791] (go2_navigation) StdoutLine: {'line': b'running install\n'}
+[4.401652] (go2_navigation) StdoutLine: {'line': b'running install_lib\n'}
+[4.406333] (go2_navigation) StdoutLine: {'line': b'copying /home/ming/ros2_ws/build/go2_navigation/build/lib/go2_navigation/location_subscriber.py -> /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation\n'}
+[4.407799] (go2_navigation) StdoutLine: {'line': b'byte-compiling /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation/location_subscriber.py to location_subscriber.cpython-310.pyc\n'}
+[4.409715] (go2_navigation) StdoutLine: {'line': b'running install_data\n'}
+[4.410114] (go2_navigation) StdoutLine: {'line': b'copying launch/go2_nav_rlsar.launch.py -> /home/ming/ros2_ws/install/go2_navigation/share/go2_navigation/launch\n'}
+[4.410385] (go2_navigation) StdoutLine: {'line': b'running install_egg_info\n'}
+[4.414991] (go2_navigation) StdoutLine: {'line': b"removing '/home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info' (and everything under it)\n"}
+[4.415601] (go2_navigation) StdoutLine: {'line': b'Copying ../../build/go2_navigation/go2_navigation.egg-info to /home/ming/ros2_ws/install/go2_navigation/lib/python3.10/site-packages/go2_navigation-0.1.0-py3.10.egg-info\n'}
+[4.417508] (go2_navigation) StdoutLine: {'line': b'running install_scripts\n'}
+[4.420027] (-) TimerEvent: {}
+[4.462225] (go2_navigation) StdoutLine: {'line': b'Installing location_subscriber script to /home/ming/ros2_ws/install/go2_navigation/lib/go2_navigation\n'}
+[4.463146] (go2_navigation) StdoutLine: {'line': b"writing list of installed files to '/home/ming/ros2_ws/build/go2_navigation/install.log'\n"}
+[4.520709] (-) TimerEvent: {}
+[4.548255] (go2_navigation) CommandEnded: {'returncode': 0}
+[4.561332] (go2_navigation) JobEnded: {'identifier': 'go2_navigation', 'rc': 0}
+[4.562772] (-) EventReactorShutdown: {}

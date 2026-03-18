@@ -14,6 +14,9 @@ def generate_launch_description() -> LaunchDescription:
 
     foxglove = LaunchConfiguration("foxglove")
     foxglove_port = LaunchConfiguration("foxglove_port")
+    foxglove_simple_visuals = LaunchConfiguration("foxglove_simple_visuals")
+    foxglove_include_velodyne = LaunchConfiguration("foxglove_include_velodyne")
+    foxglove_include_realsense = LaunchConfiguration("foxglove_include_realsense")
     robot_name = LaunchConfiguration("robot_name")
     scene_name = LaunchConfiguration("scene_name")
     rlsar_root = LaunchConfiguration("rlsar_root")
@@ -35,6 +38,9 @@ def generate_launch_description() -> LaunchDescription:
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("foxglove_port", default_value="8765"),
+            DeclareLaunchArgument("foxglove_simple_visuals", default_value="false"),
+            DeclareLaunchArgument("foxglove_include_velodyne", default_value="false"),
+            DeclareLaunchArgument("foxglove_include_realsense", default_value="false"),
             DeclareLaunchArgument("robot_name", default_value="go2"),
             DeclareLaunchArgument("scene_name", default_value="scene"),
             DeclareLaunchArgument("rlsar_root", default_value="/home/ming/rl_sar"),
@@ -51,7 +57,18 @@ def generate_launch_description() -> LaunchDescription:
                 output="screen",
                 parameters=[
                     {
-                        "robot_description": Command(["xacro ", xacro_path]),
+                        "robot_description": Command(
+                            [
+                                "xacro ",
+                                xacro_path,
+                                " simple_visuals:=",
+                                foxglove_simple_visuals,
+                                " include_velodyne:=",
+                                foxglove_include_velodyne,
+                                " include_realsense:=",
+                                foxglove_include_realsense,
+                            ]
+                        ),
                         "use_sim_time": False,
                     }
                 ],
@@ -75,6 +92,8 @@ def generate_launch_description() -> LaunchDescription:
                             "^/cmd_vel$",
                             "^/imu/data$",
                             "^/joint_states$",
+                            "^/map$",
+                            "^/map_metadata$",
                             "^/odom$",
                             "^/scan$",
                             "^/parameter_events$",
@@ -83,7 +102,12 @@ def generate_launch_description() -> LaunchDescription:
                             "^/tf$",
                             "^/tf_static$",
                         ],
-                        "capabilities": ["assets"],
+                        "capabilities": [
+                            "assets",
+                            "connectionGraph",
+                            "parameters",
+                            "parametersSubscribe",
+                        ],
                         "ignore_unresponsive_param_nodes": True,
                     }
                 ],

@@ -18,6 +18,9 @@ def generate_launch_description() -> LaunchDescription:
     low_state_fallback_topic = LaunchConfiguration("low_state_fallback_topic")
     foxglove = LaunchConfiguration("foxglove")
     foxglove_port = LaunchConfiguration("foxglove_port")
+    foxglove_simple_visuals = LaunchConfiguration("foxglove_simple_visuals")
+    foxglove_include_velodyne = LaunchConfiguration("foxglove_include_velodyne")
+    foxglove_include_realsense = LaunchConfiguration("foxglove_include_realsense")
 
     return LaunchDescription(
         [
@@ -27,6 +30,9 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("low_state_fallback_topic", default_value="/lowstate"),
             DeclareLaunchArgument("foxglove", default_value="false"),
             DeclareLaunchArgument("foxglove_port", default_value="8765"),
+            DeclareLaunchArgument("foxglove_simple_visuals", default_value="false"),
+            DeclareLaunchArgument("foxglove_include_velodyne", default_value="false"),
+            DeclareLaunchArgument("foxglove_include_realsense", default_value="false"),
             Node(
                 package="robot_state_publisher",
                 executable="robot_state_publisher",
@@ -34,7 +40,18 @@ def generate_launch_description() -> LaunchDescription:
                 output="screen",
                 parameters=[
                     {
-                        "robot_description": Command(["xacro ", xacro_path]),
+                        "robot_description": Command(
+                            [
+                                "xacro ",
+                                xacro_path,
+                                " simple_visuals:=",
+                                foxglove_simple_visuals,
+                                " include_velodyne:=",
+                                foxglove_include_velodyne,
+                                " include_realsense:=",
+                                foxglove_include_realsense,
+                            ]
+                        ),
                         "use_sim_time": False,
                     }
                 ],
@@ -66,6 +83,8 @@ def generate_launch_description() -> LaunchDescription:
                             "^/cmd_vel$",
                             "^/imu/data$",
                             "^/joint_states$",
+                            "^/map$",
+                            "^/map_metadata$",
                             "^/odom$",
                             "^/parameter_events$",
                             "^/robot_description$",
@@ -78,7 +97,13 @@ def generate_launch_description() -> LaunchDescription:
                             "^/initialpose$",
                             "^/move_base_simple/goal$",
                         ],
-                        "capabilities": ["clientPublish", "assets"],
+                        "capabilities": [
+                            "clientPublish",
+                            "assets",
+                            "connectionGraph",
+                            "parameters",
+                            "parametersSubscribe",
+                        ],
                         "ignore_unresponsive_param_nodes": True,
                     }
                 ],

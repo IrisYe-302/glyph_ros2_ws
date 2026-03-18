@@ -1,9 +1,11 @@
 # ros2_ws/src/go2_navigation/go2_navigation/location_subscriber.py
 import rclpy
-from rclpy.node import Node
 from rclpy.action import ActionClient
+from rclpy.duration import Duration
+from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from nav2_msgs.action import NavigateToPose
+from tf2_ros import Buffer, TransformListener
 
 class LocationSubscriber(Node):
     def __init__(self):
@@ -11,12 +13,16 @@ class LocationSubscriber(Node):
 
         # declare parameter with default and read it safely as a string
         self.declare_parameter('target_topic', '/target_location')
-        self.declare_parameter('goal_frame_id', 'odom')
+        self.declare_parameter('goal_frame_id', 'map')
         target_topic = self.get_parameter('target_topic').get_parameter_value().string_value
         self.goal_frame_id = self.get_parameter('goal_frame_id').get_parameter_value().string_value
 
         # action client for Nav2
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
+        self.nav_ready = False
+        self.frame_ready = False
 
         # subscription
         self.subscription = self.create_subscription(
@@ -27,12 +33,35 @@ class LocationSubscriber(Node):
         )
 
         self.get_logger().info(f'Listening for target locations on {target_topic}')
-        self.get_logger().info('Waiting for Nav2 action server...')
-        # wait_for_server() blocks; OK in simple nodes, or change to non-blocking if you prefer
-        self.nav_client.wait_for_server()
-        self.get_logger().info('Nav2 action server connected')
+        self.get_logger().info('Waiting for Nav2 action server and goal frame...')
+        self.readiness_timer = self.create_timer(0.5, self._check_readiness)
+
+    def _check_readiness(self):
+        if not self.nav_ready:
+            self.nav_ready = self.nav_client.wait_for_server(timeout_sec=0.0)
+            if self.nav_ready:
+                self.get_logger().info('Nav2 action server connected')
+
+        if not self.frame_ready:
+            self.frame_ready = self.tf_buffer.can_transform(
+                self.goal_frame_id,
+                'base_link',
+                rclpy.time.Time(),
+                timeout=Duration(seconds=0.0),
+            )
+            if self.frame_ready:
+                self.get_logger().info(f"Goal frame '{self.goal_frame_id}' is available")
+
+        if self.nav_ready and self.frame_ready:
+            self.readiness_timer.cancel()
 
     def location_callback(self, msg: PoseStamped):
+        if not self.nav_ready or not self.frame_ready:
+            self.get_logger().warn(
+                f"Ignoring target until Nav2 and frame '{self.goal_frame_id}' are ready"
+            )
+            return
+
         self.get_logger().info(
             f'Received target: x={msg.pose.position.x:.2f}, '
             f'y={msg.pose.position.y:.2f}, z={msg.pose.position.z:.2f}'

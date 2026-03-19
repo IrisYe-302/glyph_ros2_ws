@@ -41,13 +41,15 @@ def generate_launch_description() -> LaunchDescription:
     nav2_params = os.path.join(
         get_package_share_directory("go2_navigation"),
         "config",
-        "rlsar_nav2_localization.yaml",
+        "rlsar_nav2_localization_mppi.yaml",
     )
+    nav2_params_file = LaunchConfiguration("nav2_params_file")
 
     return LaunchDescription(
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("nav2", default_value="true"),
+            DeclareLaunchArgument("nav2_params_file", default_value=nav2_params),
             DeclareLaunchArgument("perfect_localization", default_value="true"),
             DeclareLaunchArgument("publish_initial_pose", default_value="true"),
             DeclareLaunchArgument("initial_pose_x", default_value="0.0"),
@@ -79,7 +81,7 @@ def generate_launch_description() -> LaunchDescription:
                             "map": map_yaml,
                             "use_sim_time": "False",
                             "autostart": "True",
-                            "params_file": nav2_params,
+                            "params_file": nav2_params_file,
                             "use_composition": "False",
                         }.items(),
                     ),
@@ -136,7 +138,7 @@ def generate_launch_description() -> LaunchDescription:
                         launch_arguments={
                             "use_sim_time": "False",
                             "autostart": "True",
-                            "params_file": nav2_params,
+                            "params_file": nav2_params_file,
                             "use_composition": "False",
                         }.items(),
                     ),

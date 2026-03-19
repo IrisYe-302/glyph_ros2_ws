@@ -57,6 +57,20 @@ def generate_launch_description() -> LaunchDescription:
                 ],
             ),
             Node(
+                package="unitree_go2_sim",
+                executable="robot_description_publisher.py",
+                name="go2_robot_description_publisher",
+                output="screen",
+                parameters=[
+                    {
+                        "xacro_path": xacro_path,
+                        "simple_visuals": foxglove_simple_visuals,
+                        "include_velodyne": foxglove_include_velodyne,
+                        "include_realsense": foxglove_include_realsense,
+                    }
+                ],
+            ),
+            Node(
                 package="go2_unitree_bridge",
                 executable="go2_unitree_bridge_node",
                 name="go2_unitree_bridge",
@@ -71,6 +85,12 @@ def generate_launch_description() -> LaunchDescription:
                 ],
             ),
             Node(
+                package="go2_unitree_bridge",
+                executable="costmap_markers",
+                name="go2_costmap_markers",
+                output="screen",
+            ),
+            Node(
                 package="foxglove_bridge",
                 executable="foxglove_bridge",
                 name="foxglove_bridge",
@@ -83,13 +103,13 @@ def generate_launch_description() -> LaunchDescription:
                             "^/cmd_vel$",
                             "^/imu/data$",
                             "^/joint_states$",
-                            "^/global_costmap/.*$",
-                            "^/local_costmap/.*$",
+                            "^/global_costmap/markers$",
+                            "^/local_costmap/markers$",
+                            "^/local_costmap/published_footprint$",
                             "^/map$",
                             "^/map_metadata$",
                             "^/odom$",
                             "^/scan$",
-                            "^/local_costmap/published_footprint$",
                             "^/parameter_events$",
                             "^/robot_description$",
                             "^/rosout$",

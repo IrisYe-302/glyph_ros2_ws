@@ -5,6 +5,7 @@ from rclpy.duration import Duration
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from nav2_msgs.action import NavigateToPose
+from std_msgs.msg import Empty
 from tf2_ros import Buffer, TransformListener
 
 class LocationSubscriber(Node):
@@ -23,6 +24,7 @@ class LocationSubscriber(Node):
         self.tf_listener = TransformListener(self.tf_buffer, self)
         self.nav_ready = False
         self.frame_ready = False
+        self.base_frame_candidates = ["base_footprint", "base_link"]
 
         # subscription
         self.subscription = self.create_subscription(
@@ -31,6 +33,7 @@ class LocationSubscriber(Node):
             self.location_callback,
             10
         )
+        self.goal_cleared_publisher = self.create_publisher(Empty, '/target_location_cleared', 10)
 
         self.get_logger().info(f'Listening for target locations on {target_topic}')
         self.get_logger().info('Waiting for Nav2 action server and goal frame...')
@@ -43,14 +46,18 @@ class LocationSubscriber(Node):
                 self.get_logger().info('Nav2 action server connected')
 
         if not self.frame_ready:
-            self.frame_ready = self.tf_buffer.can_transform(
-                self.goal_frame_id,
-                'base_link',
-                rclpy.time.Time(),
-                timeout=Duration(seconds=0.0),
-            )
-            if self.frame_ready:
-                self.get_logger().info(f"Goal frame '{self.goal_frame_id}' is available")
+            for base_frame in self.base_frame_candidates:
+                if self.tf_buffer.can_transform(
+                    self.goal_frame_id,
+                    base_frame,
+                    rclpy.time.Time(),
+                    timeout=Duration(seconds=0.0),
+                ):
+                    self.frame_ready = True
+                    self.get_logger().info(
+                        f"Goal frame '{self.goal_frame_id}' is available via '{base_frame}'"
+                    )
+                    break
 
         if self.nav_ready and self.frame_ready:
             self.readiness_timer.cancel()
@@ -87,6 +94,7 @@ class LocationSubscriber(Node):
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().error('Goal rejected')
+            self.goal_cleared_publisher.publish(Empty())
             return
 
         self.get_logger().info('Goal accepted — waiting for result...')
@@ -108,6 +116,7 @@ class LocationSubscriber(Node):
         result = future.result().result
         status = future.result().status
         self.get_logger().info(f'Navigation finished with status {status}: {result}')
+        self.goal_cleared_publisher.publish(Empty())
 
 def main(args=None):
     rclpy.init(args=args)

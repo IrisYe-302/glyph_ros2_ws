@@ -74,6 +74,20 @@ def generate_launch_description() -> LaunchDescription:
                 ],
             ),
             Node(
+                package="unitree_go2_sim",
+                executable="robot_description_publisher.py",
+                name="go2_rlsar_robot_description_publisher",
+                output="screen",
+                parameters=[
+                    {
+                        "xacro_path": xacro_path,
+                        "simple_visuals": foxglove_simple_visuals,
+                        "include_velodyne": foxglove_include_velodyne,
+                        "include_realsense": foxglove_include_realsense,
+                    }
+                ],
+            ),
+            Node(
                 package="go2_unitree_bridge",
                 executable="rlsar_scan_node",
                 name="go2_rlsar_scan",
@@ -83,6 +97,12 @@ def generate_launch_description() -> LaunchDescription:
                 package="go2_unitree_bridge",
                 executable="rlsar_obstacle_markers",
                 name="go2_rlsar_obstacle_markers",
+                output="screen",
+            ),
+            Node(
+                package="go2_unitree_bridge",
+                executable="costmap_markers",
+                name="go2_costmap_markers",
                 output="screen",
             ),
             Node(
@@ -98,14 +118,14 @@ def generate_launch_description() -> LaunchDescription:
                             "^/cmd_vel$",
                             "^/imu/data$",
                             "^/joint_states$",
-                            "^/global_costmap/.*$",
-                            "^/local_costmap/.*$",
+                            "^/global_costmap/markers$",
+                            "^/local_costmap/markers$",
+                            "^/local_costmap/published_footprint$",
                             "^/map$",
                             "^/map_metadata$",
                             "^/obstacle_markers$",
                             "^/odom$",
                             "^/scan$",
-                            "^/local_costmap/published_footprint$",
                             "^/parameter_events$",
                             "^/robot_description$",
                             "^/rosout$",
@@ -113,10 +133,16 @@ def generate_launch_description() -> LaunchDescription:
                             "^/tf_static$",
                         ],
                         "capabilities": [
+                            "clientPublish",
                             "assets",
                             "connectionGraph",
                             "parameters",
                             "parametersSubscribe",
+                        ],
+                        "client_topic_whitelist": [
+                            "^/clicked_point$",
+                            "^/initialpose$",
+                            "^/move_base_simple/goal$",
                         ],
                         "ignore_unresponsive_param_nodes": True,
                     }

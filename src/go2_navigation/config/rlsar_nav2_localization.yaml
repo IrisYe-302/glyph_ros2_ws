@@ -123,19 +123,19 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: nav2_controller::SimpleGoalChecker
-      xy_goal_tolerance: 0.12
+      xy_goal_tolerance: 0.5
       yaw_goal_tolerance: 0.12
     FollowPath:
       plugin: dwb_core::DWBLocalPlanner
       debug_trajectory_details: true
-      min_vel_x: -0.25
+      min_vel_x: -0.15
       min_vel_y: 0.0
-      max_vel_x: 0.35
+      max_vel_x: 0.40
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 1.5
       min_speed_xy: 0.0
-      max_speed_xy: 0.30
-      min_speed_theta: 0.15
+      max_speed_xy: 0.32
+      min_speed_theta: 0.30
       acc_lim_x: 1.0
       acc_lim_y: 0.0
       acc_lim_theta: 2.5
@@ -149,11 +149,11 @@ controller_server:
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.12
+      xy_goal_tolerance: 0.5
       trans_stopped_velocity: 0.05
       short_circuit_trajectory_evaluation: true
       stateful: true
-      critics: [RotateToGoal, Oscillation, BaseObstacle, GoalAlign, PathAlign, PathDist, GoalDist]
+      critics: [RotateToGoal, Oscillation, BaseObstacle, GoalAlign, PathAlign, PathDist, GoalDist, PreferForward]
       BaseObstacle.scale: 7.5
       PathAlign.scale: 3.0
       PathAlign.forward_point_distance: 0.1
@@ -161,9 +161,14 @@ controller_server:
       GoalAlign.forward_point_distance: 0.1
       PathDist.scale: 6.0
       GoalDist.scale: 6.0
-      RotateToGoal.scale: 24.0
+      RotateToGoal.scale: 32.0
       RotateToGoal.slowing_factor: 2.0
       RotateToGoal.lookahead_time: 0.0
+      PreferForward.scale: 0.8
+      PreferForward.penalty: 1.2
+      PreferForward.strafe_x: 0.10
+      PreferForward.strafe_theta: 0.60
+      PreferForward.theta_scale: 1.5
 
 local_costmap:
   local_costmap:
@@ -241,7 +246,7 @@ planner_server:
       max_on_approach_iterations: 1000
       motion_model_for_search: REEDS_SHEPP
       minimum_turning_radius: 0.15
-      reverse_penalty: 1.2
+      reverse_penalty: 1.8
       allow_reverse_expansion: true
       cache_obstacle_heuristic: true
 

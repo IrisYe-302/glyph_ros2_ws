@@ -70,7 +70,7 @@ def generate_launch_description() -> LaunchDescription:
                 ],
                 parameters=[
                     {
-                        "target_frame": "base_link",
+                        "target_frame": "base_footprint",
                         "transform_tolerance": 0.2,
                         "min_height": -0.5,
                         "max_height": 0.5,

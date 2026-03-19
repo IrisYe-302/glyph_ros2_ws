@@ -27,6 +27,7 @@ setup(
         'console_scripts': [
             'location_subscriber = go2_navigation.location_subscriber:main',
             'initial_pose_publisher = go2_navigation.initial_pose_publisher:main',
+            'goal_tolerance_marker = go2_navigation.goal_tolerance_marker:main',
         ],
     },
 )

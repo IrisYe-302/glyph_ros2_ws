@@ -85,5 +85,19 @@ def generate_launch_description() -> LaunchDescription:
                 ],
                 output="screen",
             ),
+            Node(
+                package="go2_navigation",
+                executable="goal_tolerance_marker",
+                name="go2_goal_tolerance_marker",
+                condition=IfCondition(use_location_subscriber),
+                parameters=[
+                    {
+                        "target_topic": target_topic,
+                        "marker_topic": "/target_location_tolerance",
+                        "radius": 0.5,
+                    }
+                ],
+                output="screen",
+            ),
         ]
     )

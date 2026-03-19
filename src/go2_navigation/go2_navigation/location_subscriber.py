@@ -3,6 +3,8 @@ import rclpy
 from rclpy.action import ActionClient
 from rclpy.duration import Duration
 from rclpy.node import Node
+from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
+from rclpy.time import Time
 from geometry_msgs.msg import PoseStamped
 from nav2_msgs.action import NavigateToPose
 from std_msgs.msg import Empty
@@ -25,13 +27,19 @@ class LocationSubscriber(Node):
         self.nav_ready = False
         self.frame_ready = False
         self.base_frame_candidates = ["base_footprint", "base_link"]
+        self.target_qos = QoSProfile(
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.TRANSIENT_LOCAL,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+        )
 
         # subscription
         self.subscription = self.create_subscription(
             PoseStamped,
             target_topic,
             self.location_callback,
-            10
+            self.target_qos
         )
         self.goal_cleared_publisher = self.create_publisher(Empty, '/target_location_cleared', 10)
 
@@ -66,6 +74,14 @@ class LocationSubscriber(Node):
         if not self.nav_ready or not self.frame_ready:
             self.get_logger().warn(
                 f"Ignoring target until Nav2 and frame '{self.goal_frame_id}' are ready"
+            )
+            return
+
+        msg_time = Time.from_msg(msg.header.stamp)
+        goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
+        if goal_age > 2.0:
+            self.get_logger().warn(
+                f"Ignoring stale latched target ({goal_age:.2f}s old)"
             )
             return
 

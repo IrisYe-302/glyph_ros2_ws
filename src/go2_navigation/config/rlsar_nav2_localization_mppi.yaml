@@ -124,10 +124,10 @@ controller_server:
       stateful: true
       plugin: nav2_controller::SimpleGoalChecker
       xy_goal_tolerance: 0.5
-      yaw_goal_tolerance: 0.12
+      yaw_goal_tolerance: 6.283185307179586
     FollowPath:
       plugin: nav2_mppi_controller::MPPIController
-      time_steps: 40
+      time_steps: 32
       model_dt: 0.05
       batch_size: 1000
       iteration_count: 1
@@ -177,7 +177,7 @@ controller_server:
       GoalCritic.threshold_to_consider: 1.4
       GoalAngleCritic.enabled: true
       GoalAngleCritic.cost_power: 1
-      GoalAngleCritic.cost_weight: 7.0
+      GoalAngleCritic.cost_weight: 0.0
       GoalAngleCritic.threshold_to_consider: 1.2
       PathAlignCritic.enabled: true
       PathAlignCritic.cost_power: 1

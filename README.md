@@ -1,11 +1,11 @@
-# `ros2_ws` Workspace Guide
+# `ros2_ws` Workspace Overview
 
 This workspace contains the active Go2 robot bridge, the active RL-sar simulation integration, navigation helpers, and several older or peripheral packages.
 
 ## What Is Actively Used
 
 ### `src/go2_unitree_bridge`
-- Purpose: the active bridge layer for both the real robot and the RL-sar simulator.
+The active bridge layer for both the real robot and the RL-sar simulator.
 - Real robot:
   - `bridge_node.py` converts official `unitree_ros2` topics into standard ROS topics such as `/odom`, `/imu/data`, `/joint_states`, and `/tf`.
   - `launch/go2_unitree_bridge.launch.py` is the main robot bridge launch.
@@ -17,7 +17,7 @@ This workspace contains the active Go2 robot bridge, the active RL-sar simulatio
 - Status: active and supported.
 
 ### `src/go2_navigation`
-- Purpose: high-level navigation workflows for robot and simulator.
+High-level navigation workflows for robot and simulator.
 - Key launches:
   - `go2_nav_robot.launch.py`: robot mapping / live-SLAM Nav2 path
   - `go2_nav_robot_localization.launch.py`: robot localization on a saved static map
@@ -30,7 +30,7 @@ This workspace contains the active Go2 robot bridge, the active RL-sar simulatio
 - Status: active and supported.
 
 ### `src/go2_robot_sdk`
-- Purpose: older general Go2 SDK package with configs, launch files, and utilities.
+Older general Go2 SDK package with configs, launch files, and utilities.
 - What is still useful:
   - config files reused by the robot navigation path, especially Nav2 and SLAM params
   - pointcloud / lidar-related config
@@ -40,11 +40,11 @@ This workspace contains the active Go2 robot bridge, the active RL-sar simulatio
 - Status: partially active. Keep it for configs unless you later migrate those configs into `go2_navigation`.
 
 ### `src/go2_interfaces`
-- Purpose: custom ROS message interfaces used by some Go2-side packages.
+Custom ROS message interfaces used by some Go2-side packages.
 - Status: active dependency, but not usually touched directly.
 
 ### `src/unitree_go2`
-- Purpose: old Go2 sim/description subtree.
+Old Go2 sim/description subtree.
 - What is still used:
   - `unitree_go2_description` supplies the URDF/xacro used by the robot bridge and RL-sar visualization.
 - What is no longer recommended:
@@ -57,24 +57,24 @@ This workspace contains the active Go2 robot bridge, the active RL-sar simulatio
 ## Peripheral Packages
 
 ### `src/coco_detector`
-- Purpose: COCO/object detection experiments.
+COCO/object detection experiments.
 - Status: not part of the robot/sim navigation path.
 
 ### `src/lidar_processor`
-- Purpose: Python LiDAR processing utilities.
-- Status: peripheral; not part of the current main workflow.
+Python LiDAR processing utilities.
+- Status: not part of main workflow.
 
 ### `src/lidar_processor_cpp`
-- Purpose: C++ LiDAR processing utilities.
-- Status: peripheral; not part of the current main workflow.
+C++ LiDAR processing utilities.
+- Status: not part of main workflow.
 
 ### `src/speech_processor`
-- Purpose: speech / TTS-related utilities.
-- Status: peripheral; not part of the current main workflow.
+speech / TTS-related utilities.
+- Status: not part of main workflow.
 
 ### `src/launch`
-- Purpose: older generic launch helpers such as `unified_launch.py`.
-- Status: legacy / exploratory. Not part of the current recommended robot or sim workflow.
+Older generic launch helpers such as `unified_launch.py`.
+- Status: not part of  current robot or sim workflow.
 
 ## Current Recommended Workflows
 
@@ -116,15 +116,3 @@ There are also stray generated directories under `src/` from older work:
 - `src/build/`
 - `src/install/`
 - `src/log/`
-
-They are not part of the source tree and can be removed later if you want a stricter cleanup pass.
-
-## Practical Rule Of Thumb
-
-If you are working on the robot or the current simulator, focus on:
-- `src/go2_unitree_bridge`
-- `src/go2_navigation`
-- `src/go2_robot_sdk` configs
-- `src/unitree_go2/unitree_go2_description`
-
-Everything else is either dependency scaffolding, legacy sim code, or peripheral functionality.

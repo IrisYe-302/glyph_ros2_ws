@@ -1,6 +1,4 @@
-# `ros2_ws` System Guide
-
-This document describes the active Go2 system as it is actually used now, including the pieces that live outside this workspace.
+# `ros2_ws` System Overview
 
 ## Active Roots
 
@@ -194,13 +192,13 @@ Status:
 
 - older Go2 ROS package tree that still contributes important configs to the active robot path
 
-What is still actively used:
+Still actively used:
 
 - robot-side Nav2 parameters
 - SLAM parameters
 - some lidar and pointcloud configuration used by the robot navigation path
 
-What is not part of the main supported path anymore:
+Not part of the main supported path anymore:
 
 - older presentation and experimental launch paths
 - older direct SDK bridging ideas that were superseded by `go2_unitree_bridge`
@@ -221,13 +219,13 @@ Status:
 
 - mixed legacy subtree, but still important because the description package is active
 
-What is still actively used:
+Still actively used:
 
 - `src/unitree_go2/unitree_go2_description`
   - URDF/xacro for visualization and TF
   - Foxglove-compatible robot description path
 
-What is mostly legacy:
+Mostly legacy:
 
 - `champ`
 - `champ_base`
@@ -253,7 +251,7 @@ Current RL-sar map files:
 - `rlsar_scene.pgm`
 - `rlsar_scene.pre_obstacles.pgm`
 
-Recommended mental model:
+Mapping workflow:
 
 - mapping launches:
   - use SLAM and create or update a map
@@ -262,7 +260,7 @@ Recommended mental model:
 
 ## Foxglove Notes
 
-The active launches expose Foxglove-compatible topics for:
+Active launches expose Foxglove-compatible topics for:
 
 - `/map`
 - `/scan`
@@ -281,7 +279,7 @@ The robot model path has been adjusted so that:
 
 ## Deprecated Paths
 
-These are not part of the intended workflow anymore:
+Not part of the intended workflow anymore:
 
 - the old direct MuJoCo bridge helpers (`go2_mj_*`)
 - the old CHAMP/Gazebo locomotion path
@@ -289,7 +287,7 @@ These are not part of the intended workflow anymore:
 
 ## Generated Directories
 
-These are generated build outputs, not source:
+Generated build outputs, not source:
 
 - `~/ros2_ws/build`
 - `~/ros2_ws/install`

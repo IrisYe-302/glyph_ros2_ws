@@ -37,7 +37,7 @@ Older general Go2 SDK package with configs, launch files, and utilities.
 - What is not part of the main current path:
   - optional presentation / CycloneDDS bridge pieces
   - older driver-oriented launch paths
-- Status: partially active. Keep it for configs unless you later migrate those configs into `go2_navigation`.
+- Status: partially active.
 
 ### `src/go2_interfaces`
 Custom ROS message interfaces used by some Go2-side packages.
@@ -47,12 +47,10 @@ Custom ROS message interfaces used by some Go2-side packages.
 Old Go2 sim/description subtree.
 - What is still used:
   - `unitree_go2_description` supplies the URDF/xacro used by the robot bridge and RL-sar visualization.
-- What is no longer recommended:
+- What is no longer used:
   - the old CHAMP / Gazebo sim path in `unitree_go2_sim`
   - `champ`, `champ_base`, and `champ_msgs` as a locomotion solution
 - Status: mixed.
-  - Keep the description package.
-  - Treat the old sim/control path as legacy.
 
 ## Peripheral Packages
 
@@ -71,10 +69,6 @@ C++ LiDAR processing utilities.
 ### `src/speech_processor`
 speech / TTS-related utilities.
 - Status: not part of main workflow.
-
-### `src/launch`
-Older generic launch helpers such as `unified_launch.py`.
-- Status: not part of  current robot or sim workflow.
 
 ## Current Recommended Workflows
 

@@ -22,6 +22,7 @@ def generate_launch_description() -> LaunchDescription:
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
+    auto_recovery = LaunchConfiguration("auto_recovery")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -57,6 +58,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("initial_pose_yaw", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
+            DeclareLaunchArgument("auto_recovery", default_value="true"),
             DeclareLaunchArgument("target_topic", default_value="/target_location"),
             DeclareLaunchArgument("nav2_start_delay", default_value="8.0"),
             DeclareLaunchArgument(
@@ -182,6 +184,20 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": target_topic,
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="sim_fall_recovery",
+                        name="go2_sim_fall_recovery",
+                        condition=IfCondition(auto_recovery),
+                        parameters=[
+                            {
+                                "imu_topic": "/imu/data",
+                                "target_topic": target_topic,
+                                "reset_service": "/go2_rlsar_reset",
                             }
                         ],
                         output="screen",

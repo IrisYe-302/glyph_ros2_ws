@@ -4,7 +4,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.conditions import IfCondition
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command, EnvironmentVariable, LaunchConfiguration
 from launch_ros.actions import Node
 
 
@@ -43,7 +43,12 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("foxglove_include_realsense", default_value="false"),
             DeclareLaunchArgument("robot_name", default_value="go2"),
             DeclareLaunchArgument("scene_name", default_value="scene"),
-            DeclareLaunchArgument("rlsar_root", default_value="/home/ming/rl_sar"),
+            DeclareLaunchArgument(
+                "rlsar_root",
+                default_value=EnvironmentVariable(
+                    "RLSAR_ROOT", default_value="/home/ming/rl_sar"
+                ),
+            ),
             ExecuteProcess(
                 cmd=sim_cmd,
                 name="rlsar_mujoco_sim",

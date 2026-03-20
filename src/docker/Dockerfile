@@ -1,56 +1,49 @@
 FROM ros:humble-ros-base
 
-# Install basic requirements
+SHELL ["/bin/bash", "-c"]
+
+# Install system and ROS packages required by the default robot launch path.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    gnupg2 \
-    lsb-release \
-    python3-pip \
-    portaudio19-dev \
-    mesa-utils \
-    libgl1-mesa-glx \
+    ffmpeg \
     libgl1-mesa-dri \
-    ros-humble-rviz2 \
-    software-properties-common \
+    libgl1-mesa-glx \
+    mesa-utils \
+    portaudio19-dev \
+    python3-colcon-common-extensions \
+    python3-pip \
+    python3-rosdep \
+    ros-dev-tools \
     ros-humble-rmw-cyclonedds-cpp \
-    ffmpeg
+    ros-humble-rviz2 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install specific numpy version first
-RUN pip install 'numpy<2.0.0'
-
-# Create workspace
 WORKDIR /ros2_ws
 
-# Clone the repository with submodules
+# Copy the workspace source tree and install Python runtime dependencies that
+# are not fully declared in package.xml metadata.
 COPY . /ros2_ws/src
+COPY docker/requirements-docker.txt /tmp/requirements-docker.txt
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir -r /tmp/requirements-docker.txt
 
-# Install Python requirements (with numpy constraint)
-RUN cd src && pip install -r requirements.txt
-
-# Install ROS dependencies
-RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    rosdep install --from-paths src --ignore-src -r -y
-
-# Build the workspace
-RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
+# Install ROS dependencies and build the workspace.
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+    rosdep update && \
+    rosdep install --from-paths src --ignore-src -r -y && \
     colcon build
 
-# Source ROS2 and workspace in bashrc
+# Source ROS and the workspace automatically in interactive shells.
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc && \
     echo "source /ros2_ws/install/setup.bash" >> /root/.bashrc
 
-# Set environment variables
+# Runtime environment defaults.
 ENV ROBOT_IP=""
 ENV CONN_TYPE="webrtc"
 ENV WEBRTC_SERVER_HOST="0.0.0.0"
 ENV WEBRTC_SERVER_PORT="9991"
 
-# Remove apt cache
-RUN rm -rf /var/lib/apt/lists/*
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# add /ros2_ws to the entrypoint
-RUN sed --in-place --expression \
-      '$isource "/ros2_ws/install/setup.bash"' \
-      /ros_entrypoint.sh
-
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["ros2", "launch", "go2_robot_sdk", "robot.launch.py"]

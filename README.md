@@ -92,6 +92,11 @@ speech / TTS-related utilities.
 - `go2_nav_rlsar_test`
   - verifies `/scan`, `/map`, and `navigate_to_pose`
 
+The RL-sar simulator itself is an external dependency and is not stored inside this
+workspace. By default the launch files look for it at `/home/ming/rl_sar`, but you
+can override that by setting `RLSAR_ROOT` or by passing `rlsar_root:=...` to the
+launch.
+
 ## Legacy / Deprecated Paths
 
 These are no longer part of the intended workflow:

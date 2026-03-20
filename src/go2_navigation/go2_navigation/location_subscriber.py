@@ -1,5 +1,6 @@
 # ros2_ws/src/go2_navigation/go2_navigation/location_subscriber.py
 import rclpy
+import math
 from rclpy.action import ActionClient
 from rclpy.duration import Duration
 from rclpy.node import Node
@@ -17,8 +18,12 @@ class LocationSubscriber(Node):
         # declare parameter with default and read it safely as a string
         self.declare_parameter('target_topic', '/target_location')
         self.declare_parameter('goal_frame_id', 'map')
+        self.declare_parameter('orient_toward_goal_center', True)
         target_topic = self.get_parameter('target_topic').get_parameter_value().string_value
         self.goal_frame_id = self.get_parameter('goal_frame_id').get_parameter_value().string_value
+        self.orient_toward_goal_center = (
+            self.get_parameter('orient_toward_goal_center').get_parameter_value().bool_value
+        )
 
         # action client for Nav2
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
@@ -97,6 +102,9 @@ class LocationSubscriber(Node):
         if not goal_msg.pose.header.frame_id:
             goal_msg.pose.header.frame_id = self.goal_frame_id
 
+        if self.orient_toward_goal_center:
+            self._orient_goal_toward_center(goal_msg.pose)
+
         self.get_logger().info('Sending robot to target...')
 
         # send goal async; feedback callback is optional
@@ -133,6 +141,33 @@ class LocationSubscriber(Node):
         status = future.result().status
         self.get_logger().info(f'Navigation finished with status {status}: {result}')
         self.goal_cleared_publisher.publish(Empty())
+
+    def _orient_goal_toward_center(self, pose: PoseStamped):
+        for base_frame in self.base_frame_candidates:
+            try:
+                transform = self.tf_buffer.lookup_transform(
+                    pose.header.frame_id,
+                    base_frame,
+                    rclpy.time.Time(),
+                    timeout=Duration(seconds=0.1),
+                )
+                dx = pose.pose.position.x - transform.transform.translation.x
+                dy = pose.pose.position.y - transform.transform.translation.y
+                if abs(dx) < 1e-6 and abs(dy) < 1e-6:
+                    return
+
+                yaw = math.atan2(dy, dx)
+                half_yaw = 0.5 * yaw
+                pose.pose.orientation.x = 0.0
+                pose.pose.orientation.y = 0.0
+                pose.pose.orientation.z = math.sin(half_yaw)
+                pose.pose.orientation.w = math.cos(half_yaw)
+                self.get_logger().info(
+                    f"Adjusted goal yaw toward target center using '{base_frame}'"
+                )
+                return
+            except Exception:
+                continue
 
 def main(args=None):
     rclpy.init(args=args)

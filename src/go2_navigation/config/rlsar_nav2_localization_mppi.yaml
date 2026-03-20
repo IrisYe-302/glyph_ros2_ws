@@ -166,11 +166,11 @@ controller_server:
       ConstraintCritic.cost_weight: 4.0
       CostCritic.enabled: true
       CostCritic.cost_power: 1
-      CostCritic.cost_weight: 5.0
+      CostCritic.cost_weight: 7.0
       CostCritic.critical_cost: 300.0
       CostCritic.consider_footprint: true
       CostCritic.collision_cost: 1000000.0
-      CostCritic.near_goal_distance: 0.6
+      CostCritic.near_goal_distance: 1.0
       GoalCritic.enabled: true
       GoalCritic.cost_power: 1
       GoalCritic.cost_weight: 4.0

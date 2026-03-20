@@ -6,34 +6,34 @@ This document describes the active Go2 system as it is actually used now, includ
 
 Top-level directories that matter for the current robot and simulation workflows:
 
-- `~/ros2_ws`
+- [`/home/ming/ros2_ws`](/home/ming/ros2_ws)
   - Main ROS 2 workspace for the bridge, navigation, custom nodes, and active launch files.
-- `~/unitree_ros2`
+- [`/home/ming/unitree_ros2`](/home/ming/unitree_ros2)
   - Official Unitree ROS 2 environment used for the real robot DDS connection.
-- `~/unitree_sdk2`
+- [`/home/ming/unitree_sdk2`](/home/ming/unitree_sdk2)
   - Kept as the main Unitree SDK tree used by the official stack and its build environment.
-- `~/rl_sar`
+- [`/home/ming/rl_sar`](/home/ming/rl_sar)
   - External RL-sar MuJoCo simulator and policy/runtime stack used for the active simulation workflow.
 
 Older roots that were intentionally archived and are no longer part of the intended workflow:
 
-- `~/archive_obsolete_2026-03-17`
+- [`/home/ming/archive_obsolete_2026-03-17`](/home/ming/archive_obsolete_2026-03-17)
   - contains `cyclonedds`, `cyclonedds-python`, `go2_python_sdk`, `go2_robot_upstream`, `unitree_mujoco`, `unitree_mujoco_venv`, `unitree_rl_gym`, `unitree_rl_lab`, and `unitree_sdk2_python`
 
 ## Environment Entry Points
 
-The supported workflows are exposed through shell helpers in `~/.bashrc`.
+Supported workflows are exposed through shell helpers in [`~/.bashrc`](~/.bashrc).
 
 Base environment functions:
 
 - `robot_mode`
   - sources:
-    - `~/unitree_ros2/setup_go2_humble.sh`
-    - `~/unitree_ros2/example/install/setup.bash`
-    - `~/ros2_ws/install/setup.bash`
+    - [`/home/ming/unitree_ros2/setup_go2_humble.sh`](/home/ming/unitree_ros2/setup_go2_humble.sh)
+    - `/home/ming/unitree_ros2/example/install/setup.bash`
+    - `/home/ming/ros2_ws/install/setup.bash`
   - intended for the real robot
 - `sim_mode`
-  - uses CycloneDDS and only sources `~/ros2_ws/install/setup.bash`
+  - uses CycloneDDS and only sources `/home/ming/ros2_ws/install/setup.bash`
   - mostly a helper for generic sim testing
 
 Current supported command helpers:
@@ -65,57 +65,57 @@ Current supported command helpers:
 
 The real robot path depends on all of the following:
 
-1. `~/unitree_ros2`
+1. [`/home/ming/unitree_ros2`](/home/ming/unitree_ros2)
    - provides the official Unitree ROS 2 setup and DDS connection scripts
-   - the important setup file is `setup_go2_humble.sh`
-2. `~/unitree_sdk2`
+   - the important setup file is [`setup_go2_humble.sh`](/home/ming/unitree_ros2/setup_go2_humble.sh)
+2. [`/home/ming/unitree_sdk2`](/home/ming/unitree_sdk2)
    - provides the Unitree SDK used by the official environment
-3. `~/ros2_ws/src/go2_unitree_bridge`
+3. [`/home/ming/ros2_ws/src/go2_unitree_bridge`](/home/ming/ros2_ws/src/go2_unitree_bridge)
    - converts the official Unitree-side topics into standard ROS topics used by the rest of the system
-4. `~/ros2_ws/src/go2_navigation`
+4. [`/home/ming/ros2_ws/src/go2_navigation`](/home/ming/ros2_ws/src/go2_navigation)
    - launches SLAM, localization, Nav2, and helper nodes
-5. `~/ros2_ws/src/go2_robot_sdk`
+5. [`/home/ming/ros2_ws/src/go2_robot_sdk`](/home/ming/ros2_ws/src/go2_robot_sdk)
    - still supplies important robot-side Nav2 and SLAM parameter files used by the active robot launches
-6. `~/ros2_ws/src/unitree_go2/unitree_go2_description`
+6. [`/home/ming/ros2_ws/src/unitree_go2/unitree_go2_description`](/home/ming/ros2_ws/src/unitree_go2/unitree_go2_description)
    - provides the URDF/xacro used for robot visualization and TF structure
 
 Normal real robot launches:
 
 - `go2_bridge`
-  - starts `src/go2_unitree_bridge/launch/go2_unitree_bridge.launch.py`
+  - starts [`go2_unitree_bridge.launch.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/launch/go2_unitree_bridge.launch.py)
   - exposes `/odom`, `/imu/data`, `/joint_states`, `/tf`, `/robot_description`, and Foxglove topics
 - `go2_nav_robot`
-  - starts `src/go2_navigation/launch/go2_nav_robot.launch.py`
+  - starts [`go2_nav_robot.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_robot.launch.py)
   - intended for mapping with live SLAM
 - `go2_nav_robot_localize map:=...`
-  - starts `src/go2_navigation/launch/go2_nav_robot_localization.launch.py`
+  - starts [`go2_nav_robot_localization.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_robot_localization.launch.py)
   - intended for localization and Nav2 on a saved map
 
 ## RL-sar Simulation Stack
 
 The RL-sar path depends on all of the following:
 
-1. `~/rl_sar`
+1. [`/home/ming/rl_sar`](/home/ming/rl_sar)
    - external simulator root
    - contains the MuJoCo-based RL-sar runtime, policies, robot descriptions, and the `rl_sim_mujoco` binary
-2. `~/ros2_ws/src/go2_unitree_bridge`
+2. [`/home/ming/ros2_ws/src/go2_unitree_bridge`](/home/ming/ros2_ws/src/go2_unitree_bridge)
    - starts the ROS integration around RL-sar
    - publishes synthetic `/scan`, TF, robot description, and obstacle markers for the active scene
-3. `~/ros2_ws/src/go2_navigation`
+3. [`/home/ming/ros2_ws/src/go2_navigation`](/home/ming/ros2_ws/src/go2_navigation)
    - launches mapping, localization, Nav2, target-following, goal tolerance markers, and sim fall recovery
-4. `~/ros2_ws/src/unitree_go2/unitree_go2_description`
+4. [`/home/ming/ros2_ws/src/unitree_go2/unitree_go2_description`](/home/ming/ros2_ws/src/unitree_go2/unitree_go2_description)
    - provides the robot model used by visualization and `robot_state_publisher`
 
 Normal RL-sar launches:
 
 - `go2_rlsar_sim`
-  - starts `src/go2_unitree_bridge/launch/go2_rlsar_sim.launch.py`
+  - starts [`go2_rlsar_sim.launch.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/launch/go2_rlsar_sim.launch.py)
   - launches the RL-sar bridge, scan node, Foxglove bridge, robot state publisher, robot description publisher, and obstacle markers
 - `go2_nav_rlsar`
-  - starts `src/go2_navigation/launch/go2_nav_rlsar.launch.py`
+  - starts [`go2_nav_rlsar.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_rlsar.launch.py)
   - intended for map creation with live SLAM
 - `go2_nav_rlsar_localize map:=...`
-  - starts `src/go2_navigation/launch/go2_nav_rlsar_localization.launch.py`
+  - starts [`go2_nav_rlsar_localization.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_rlsar_localization.launch.py)
   - intended for localization and Nav2 on a saved static map
 
 Important RL-sar-specific behavior that has been added:
@@ -131,6 +131,8 @@ Important RL-sar-specific behavior that has been added:
 
 ### `src/go2_unitree_bridge`
 
+Purpose:
+
 - active bridge layer for both the real robot and the RL-sar simulator
 
 Main responsibilities:
@@ -145,17 +147,19 @@ Main responsibilities:
 
 Important files:
 
-- `src/go2_unitree_bridge/launch/go2_unitree_bridge.launch.py`
-- `src/go2_unitree_bridge/launch/go2_rlsar_sim.launch.py`
-- `src/go2_unitree_bridge/go2_unitree_bridge/bridge_node.py`
-- `src/go2_unitree_bridge/go2_unitree_bridge/rlsar_scan_node.py`
-- `src/go2_unitree_bridge/go2_unitree_bridge/rlsar_obstacle_markers.py`
+- [`launch/go2_unitree_bridge.launch.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/launch/go2_unitree_bridge.launch.py)
+- [`launch/go2_rlsar_sim.launch.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/launch/go2_rlsar_sim.launch.py)
+- [`go2_unitree_bridge/bridge_node.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/go2_unitree_bridge/bridge_node.py)
+- [`go2_unitree_bridge/rlsar_scan_node.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/go2_unitree_bridge/rlsar_scan_node.py)
+- [`go2_unitree_bridge/rlsar_obstacle_markers.py`](/home/ming/ros2_ws/src/go2_unitree_bridge/go2_unitree_bridge/rlsar_obstacle_markers.py)
 
 Status:
 
 - active and required
 
 ### `src/go2_navigation`
+
+Purpose:
 
 - active high-level navigation layer for both robot and simulator
 
@@ -172,25 +176,27 @@ Main responsibilities:
 Important files:
 
 - launches:
-  - `src/go2_navigation/launch/go2_nav_robot.launch.py`
-  - `src/go2_navigation/launch/go2_nav_robot_localization.launch.py`
-  - `src/go2_navigation/launch/go2_nav_rlsar.launch.py`
-  - `src/go2_navigation/launch/go2_nav_rlsar_localization.launch.py`
+  - [`go2_nav_robot.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_robot.launch.py)
+  - [`go2_nav_robot_localization.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_robot_localization.launch.py)
+  - [`go2_nav_rlsar.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_rlsar.launch.py)
+  - [`go2_nav_rlsar_localization.launch.py`](/home/ming/ros2_ws/src/go2_navigation/launch/go2_nav_rlsar_localization.launch.py)
 - nodes:
-  - `src/go2_navigation/go2_navigation/location_subscriber.py`
-  - `src/go2_navigation/go2_navigation/initial_pose_publisher.py`
-  - `src/go2_navigation/go2_navigation/goal_tolerance_marker.py`
-  - `src/go2_navigation/go2_navigation/sim_fall_recovery.py`
+  - [`location_subscriber.py`](/home/ming/ros2_ws/src/go2_navigation/go2_navigation/location_subscriber.py)
+  - [`initial_pose_publisher.py`](/home/ming/ros2_ws/src/go2_navigation/go2_navigation/initial_pose_publisher.py)
+  - [`goal_tolerance_marker.py`](/home/ming/ros2_ws/src/go2_navigation/go2_navigation/goal_tolerance_marker.py)
+  - [`sim_fall_recovery.py`](/home/ming/ros2_ws/src/go2_navigation/go2_navigation/sim_fall_recovery.py)
 - configs:
-  - `src/go2_navigation/config/rlsar_nav2_localization.yaml`
-  - `src/go2_navigation/config/rlsar_nav2_localization_mppi.yaml`
-  - `src/go2_navigation/config/robot_nav2_localization.yaml`
+  - [`rlsar_nav2_localization.yaml`](/home/ming/ros2_ws/src/go2_navigation/config/rlsar_nav2_localization.yaml)
+  - [`rlsar_nav2_localization_mppi.yaml`](/home/ming/ros2_ws/src/go2_navigation/config/rlsar_nav2_localization_mppi.yaml)
+  - [`robot_nav2_localization.yaml`](/home/ming/ros2_ws/src/go2_navigation/config/robot_nav2_localization.yaml)
 
 Status:
 
 - active and required
 
 ### `src/go2_robot_sdk`
+
+Purpose:
 
 - older Go2 ROS package tree that still contributes important configs to the active robot path
 
@@ -211,6 +217,8 @@ Status:
 
 ### `src/go2_interfaces`
 
+Purpose:
+
 - custom message definitions used by the active stack
 
 Status:
@@ -219,11 +227,13 @@ Status:
 
 ### `src/unitree_go2`
 
+Purpose:
+
 - mixed legacy subtree, but still important because the description package is active
 
 What is still actively used:
 
-- `src/unitree_go2/unitree_go2_description`
+- [`unitree_go2_description`](/home/ming/ros2_ws/src/unitree_go2/unitree_go2_description)
   - URDF/xacro for visualization and TF
   - Foxglove-compatible robot description path
 
@@ -245,13 +255,13 @@ Status:
 
 Saved maps live in:
 
-- `~/ros2_ws/src/go2_navigation/maps`
+- [`/home/ming/ros2_ws/src/go2_navigation/maps`](/home/ming/ros2_ws/src/go2_navigation/maps)
 
 Current RL-sar map files:
 
-- `rlsar_scene.yaml`
-- `rlsar_scene.pgm`
-- `rlsar_scene.pre_obstacles.pgm`
+- [`rlsar_scene.yaml`](/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml)
+- [`rlsar_scene.pgm`](/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.pgm)
+- [`rlsar_scene.pre_obstacles.pgm`](/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.pre_obstacles.pgm)
 
 Recommended mental model:
 
@@ -285,21 +295,23 @@ These are not part of the intended workflow anymore:
 
 - the old direct MuJoCo bridge helpers (`go2_mj_*`)
 - the old CHAMP/Gazebo locomotion path
-- archived SDK trees under `~/archive_obsolete_2026-03-17`
+- archived SDK trees under [`/home/ming/archive_obsolete_2026-03-17`](/home/ming/archive_obsolete_2026-03-17)
 
 ## Generated Directories
 
 These are generated build outputs, not source:
 
-- `~/ros2_ws/build`
-- `~/ros2_ws/install`
-- `~/ros2_ws/log`
-- `~/rl_sar/build`
-- `~/rl_sar/install`
-- `~/rl_sar/log`
-- `~/rl_sar/cmake_build`
+- [`/home/ming/ros2_ws/build`](/home/ming/ros2_ws/build)
+- [`/home/ming/ros2_ws/install`](/home/ming/ros2_ws/install)
+- [`/home/ming/ros2_ws/log`](/home/ming/ros2_ws/log)
+- [`/home/ming/rl_sar/build`](/home/ming/rl_sar/build)
+- [`/home/ming/rl_sar/install`](/home/ming/rl_sar/install)
+- [`/home/ming/rl_sar/log`](/home/ming/rl_sar/log)
+- [`/home/ming/rl_sar/cmake_build`](/home/ming/rl_sar/cmake_build)
 
-## TLDR
+## Short Version
+
+If you only remember one thing, remember this split:
 
 - real robot:
   - `unitree_ros2` + `unitree_sdk2` + `ros2_ws`

@@ -188,17 +188,19 @@ controller_server:
       ObstacleCritic.repulsion_weight: 2.0
       ObstacleCritic.critical_weight: 20.0
       ObstacleCritic.consider_footprint: true
-      ObstacleCritic.collision_margin_distance: 0.12
+      ObstacleCritic.collision_margin_distance: 0.2
       ObstacleCritic.near_goal_distance: 0.8
       
       PathAlignCritic.enabled: true
       PathAlignCritic.cost_power: 1
-      PathAlignCritic.cost_weight: 8.0
-      PathAlignCritic.threshold_to_consider: 0.8
+      PathAlignCritic.cost_weight: 6.0
+      PathAlignCritic.threshold_to_consider: 1.0
+      
       PathFollowCritic.enabled: true
       PathFollowCritic.cost_power: 1
-      PathFollowCritic.cost_weight: 4.5
+      PathFollowCritic.cost_weight: 4.0
       PathFollowCritic.threshold_to_consider: 1.4
+      
       PathAngleCritic.enabled: true
       PathAngleCritic.cost_power: 1
       PathAngleCritic.cost_weight: 6.5
@@ -284,7 +286,7 @@ planner_server:
       max_on_approach_iterations: 1000
       motion_model_for_search: REEDS_SHEPP
       minimum_turning_radius: 0.15
-      reverse_penalty: 1.8
+      reverse_penalty: 1.5
       allow_reverse_expansion: true
       cache_obstacle_heuristic: true
 

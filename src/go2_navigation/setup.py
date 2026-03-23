@@ -29,6 +29,7 @@ setup(
             'initial_pose_publisher = go2_navigation.initial_pose_publisher:main',
             'goal_tolerance_marker = go2_navigation.goal_tolerance_marker:main',
             'sim_fall_recovery = go2_navigation.sim_fall_recovery:main',
+            'scan_restamper = go2_navigation.scan_restamper:main',
         ],
     },
 )

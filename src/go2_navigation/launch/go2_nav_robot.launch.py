@@ -66,7 +66,7 @@ def generate_launch_description() -> LaunchDescription:
                 name="go2_nav_pointcloud_to_laserscan",
                 remappings=[
                     ("cloud_in", cloud_topic),
-                    ("scan", "/scan"),
+                    ("scan", "/scan_raw"),
                 ],
                 parameters=[
                     {
@@ -82,6 +82,18 @@ def generate_launch_description() -> LaunchDescription:
                         "range_max": 20.0,
                         "use_inf": True,
                         "inf_epsilon": 1.0,
+                    }
+                ],
+                output="screen",
+            ),
+            Node(
+                package="go2_navigation",
+                executable="scan_restamper",
+                name="go2_scan_restamper",
+                parameters=[
+                    {
+                        "input_topic": "/scan_raw",
+                        "output_topic": "/scan",
                     }
                 ],
                 output="screen",

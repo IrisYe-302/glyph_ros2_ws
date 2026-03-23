@@ -34,7 +34,7 @@ def generate_launch_description() -> LaunchDescription:
     nav2_params = os.path.join(
         get_package_share_directory("go2_navigation"),
         "config",
-        "robot_nav2_localization.yaml",
+        "robot_nav2_localization_mppi.yaml",
     )
 
     return LaunchDescription(

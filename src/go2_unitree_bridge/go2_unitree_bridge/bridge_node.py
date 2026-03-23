@@ -150,9 +150,11 @@ class Go2UnitreeBridgeNode(Node):
             odom.pose.pose.orientation.y = planar_qy
             odom.pose.pose.orientation.z = planar_qz
             odom.pose.pose.orientation.w = planar_qw
-            odom.twist.twist.linear.x = float(msg.velocity[0])
-            odom.twist.twist.linear.y = float(msg.velocity[1])
-            odom.twist.twist.linear.z = float(msg.velocity[2])
+            vx_world = float(msg.velocity[0])
+            vy_world = float(msg.velocity[1])
+            odom.twist.twist.linear.x = math.cos(yaw) * vx_world + math.sin(yaw) * vy_world
+            odom.twist.twist.linear.y = 0.0
+            odom.twist.twist.linear.z = 0.0
             odom.twist.twist.angular.z = float(msg.yaw_speed)
             self.odom_publisher.publish(odom)
 

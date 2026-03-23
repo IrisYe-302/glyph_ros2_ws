@@ -72,14 +72,14 @@ def generate_launch_description() -> LaunchDescription:
                     {
                         "target_frame": "base_link",
                         "transform_tolerance": 0.2,
-                        "min_height": -0.5,
-                        "max_height": 0.5,
+                        "min_height": -0.15,
+                        "max_height": 0.20,
                         "angle_min": -3.14159,
                         "angle_max": 3.14159,
                         "angle_increment": 0.0087,
                         "scan_time": 0.1,
                         "range_min": 0.15,
-                        "range_max": 20.0,
+                        "range_max": 8.0,
                         "use_inf": True,
                         "inf_epsilon": 1.0,
                     }

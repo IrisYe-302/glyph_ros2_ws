@@ -118,7 +118,6 @@ class LocationSubscriber(Node):
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().error('Goal rejected')
-            self.goal_cleared_publisher.publish(Empty())
             return
 
         self.get_logger().info('Goal accepted — waiting for result...')
@@ -140,7 +139,8 @@ class LocationSubscriber(Node):
         result = future.result().result
         status = future.result().status
         self.get_logger().info(f'Navigation finished with status {status}: {result}')
-        self.goal_cleared_publisher.publish(Empty())
+        if status in {4, 6}:
+            self.goal_cleared_publisher.publish(Empty())
 
     def _orient_goal_toward_center(self, pose: PoseStamped):
         for base_frame in self.base_frame_candidates:

@@ -130,10 +130,11 @@ class Go2UnitreeBridgeNode(Node):
 
     def _on_sport_state(self, msg: SportModeState) -> None:
         stamp = self.get_clock().now().to_msg()
-        full_qx = float(msg.imu_state.quaternion[0])
-        full_qy = float(msg.imu_state.quaternion[1])
-        full_qz = float(msg.imu_state.quaternion[2])
-        full_qw = float(msg.imu_state.quaternion[3])
+        # Unitree IMU quaternions are published as w,x,y,z; convert to ROS xyzw.
+        full_qw = float(msg.imu_state.quaternion[0])
+        full_qx = float(msg.imu_state.quaternion[1])
+        full_qy = float(msg.imu_state.quaternion[2])
+        full_qz = float(msg.imu_state.quaternion[3])
         roll, pitch, yaw = self._rpy_from_quaternion(full_qx, full_qy, full_qz, full_qw)
         planar_qx, planar_qy, planar_qz, planar_qw = self._quaternion_from_rpy(0.0, 0.0, yaw)
         body_qx, body_qy, body_qz, body_qw = self._quaternion_from_rpy(roll, pitch, 0.0)
@@ -197,10 +198,10 @@ class Go2UnitreeBridgeNode(Node):
         imu = Imu()
         imu.header.stamp = stamp
         imu.header.frame_id = self.imu_frame
-        imu.orientation.x = float(msg.imu_state.quaternion[0])
-        imu.orientation.y = float(msg.imu_state.quaternion[1])
-        imu.orientation.z = float(msg.imu_state.quaternion[2])
-        imu.orientation.w = float(msg.imu_state.quaternion[3])
+        imu.orientation.w = float(msg.imu_state.quaternion[0])
+        imu.orientation.x = float(msg.imu_state.quaternion[1])
+        imu.orientation.y = float(msg.imu_state.quaternion[2])
+        imu.orientation.z = float(msg.imu_state.quaternion[3])
         imu.angular_velocity.x = float(msg.imu_state.gyroscope[0])
         imu.angular_velocity.y = float(msg.imu_state.gyroscope[1])
         imu.angular_velocity.z = float(msg.imu_state.gyroscope[2])

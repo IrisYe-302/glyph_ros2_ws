@@ -28,7 +28,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("sport_state_fallback_topic", default_value="/sportmodestate"),
             DeclareLaunchArgument("low_state_topic", default_value="lf/lowstate"),
             DeclareLaunchArgument("low_state_fallback_topic", default_value="/lowstate"),
-            DeclareLaunchArgument("foxglove", default_value="false"),
+            DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("foxglove_port", default_value="8765"),
             DeclareLaunchArgument("foxglove_simple_visuals", default_value="false"),
             DeclareLaunchArgument("foxglove_include_velodyne", default_value="false"),

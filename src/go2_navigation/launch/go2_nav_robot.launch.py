@@ -46,13 +46,13 @@ def generate_launch_description() -> LaunchDescription:
 
     return LaunchDescription(
         [
-            DeclareLaunchArgument("foxglove", default_value="false"),
+            DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("foxglove_port", default_value="8765"),
             DeclareLaunchArgument("slam", default_value="true"),
-            DeclareLaunchArgument("nav2", default_value="true"),
+            DeclareLaunchArgument("nav2", default_value="false"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("target_topic", default_value="/target_location"),
-            DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud"),
+            DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud_base"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(bridge_launch),
                 launch_arguments={
@@ -70,7 +70,7 @@ def generate_launch_description() -> LaunchDescription:
                 ],
                 parameters=[
                     {
-                        "target_frame": "base_footprint",
+                        "target_frame": "base_link",
                         "transform_tolerance": 0.2,
                         "min_height": -0.5,
                         "max_height": 0.5,

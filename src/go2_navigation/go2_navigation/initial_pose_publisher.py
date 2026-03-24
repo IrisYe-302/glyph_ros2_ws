@@ -31,7 +31,8 @@ class InitialPosePublisher(Node):
             return
 
         msg = PoseWithCovarianceStamped()
-        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.stamp.sec = 0
+        msg.header.stamp.nanosec = 0
         msg.header.frame_id = self.frame_id
         msg.pose.pose.position.x = self.x
         msg.pose.pose.position.y = self.y

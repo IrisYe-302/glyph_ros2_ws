@@ -39,9 +39,9 @@ def generate_launch_description() -> LaunchDescription:
         "mapper_params_online_async.yaml",
     )
     nav2_params = os.path.join(
-        get_package_share_directory("go2_robot_sdk"),
+        get_package_share_directory("go2_navigation"),
         "config",
-        "nav2_params.yaml",
+        "robot_nav2_localization_mppi.yaml",
     )
 
     return LaunchDescription(
@@ -51,7 +51,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("slam", default_value="true"),
             DeclareLaunchArgument("nav2", default_value="false"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
-            DeclareLaunchArgument("target_topic", default_value="/target_location"),
+            DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud_base"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(bridge_launch),

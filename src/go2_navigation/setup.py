@@ -30,6 +30,7 @@ setup(
             'goal_tolerance_marker = go2_navigation.goal_tolerance_marker:main',
             'sim_fall_recovery = go2_navigation.sim_fall_recovery:main',
             'scan_restamper = go2_navigation.scan_restamper:main',
+            'initial_pose_restamper = go2_navigation.initial_pose_restamper:main',
         ],
     },
 )

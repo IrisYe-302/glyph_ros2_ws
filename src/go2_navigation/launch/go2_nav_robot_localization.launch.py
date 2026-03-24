@@ -12,12 +12,11 @@ from launch_ros.actions import Node
 def generate_launch_description() -> LaunchDescription:
     foxglove = LaunchConfiguration("foxglove")
     map_yaml = LaunchConfiguration("map")
-    use_nav2 = LaunchConfiguration("nav2")
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
 
     robot_launch = os.path.join(
-        get_package_share_directory("go2_unitree_bridge"),
+        get_package_share_directory("go2_navigation"),
         "launch",
         "go2_nav_robot.launch.py",
     )
@@ -34,13 +33,12 @@ def generate_launch_description() -> LaunchDescription:
     nav2_params = os.path.join(
         get_package_share_directory("go2_navigation"),
         "config",
-        "robot_nav2_localization_mppi.yaml",
+        "robot_nav2_localization.yaml",
     )
 
     return LaunchDescription(
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
-            DeclareLaunchArgument("nav2", default_value="true"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("target_topic", default_value="/target_location"),
             DeclareLaunchArgument(
@@ -49,11 +47,10 @@ def generate_launch_description() -> LaunchDescription:
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(robot_launch),
-                launch_arguments={"foxglove": foxglove}.items(),
+                launch_arguments={"foxglove": foxglove, "slam": "false", "nav2": "false"}.items(),
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(localization_launch),
-                condition=IfCondition(use_nav2),
                 launch_arguments={
                     "map": map_yaml,
                     "use_sim_time": "False",
@@ -64,13 +61,27 @@ def generate_launch_description() -> LaunchDescription:
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(navigation_launch),
-                condition=IfCondition(use_nav2),
                 launch_arguments={
                     "use_sim_time": "False",
                     "autostart": "True",
                     "params_file": nav2_params,
                     "use_composition": "False",
                 }.items(),
+            ),
+            Node(
+                package="go2_navigation",
+                executable="initial_pose_publisher",
+                name="go2_initial_pose_publisher",
+                parameters=[
+                    {
+                        "frame_id": "map",
+                        "x": 0.0,
+                        "y": 0.0,
+                        "yaw": 0.0,
+                        "use_sim_time": False,
+                    }
+                ],
+                output="screen",
             ),
             Node(
                 package="go2_navigation",

@@ -118,8 +118,6 @@ def generate_launch_description() -> LaunchDescription:
                             "clientPublish",
                             "assets",
                             "connectionGraph",
-                            "parameters",
-                            "parametersSubscribe",
                         ],
                         "ignore_unresponsive_param_nodes": True,
                     }

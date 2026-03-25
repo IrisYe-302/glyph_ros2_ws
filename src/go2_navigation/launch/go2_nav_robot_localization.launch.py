@@ -156,11 +156,36 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber_target_location",
+                        parameters=[
+                            {
+                                "target_topic": "/target_location",
+                                "use_sim_time": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="goal_tolerance_marker",
                         name="go2_goal_tolerance_marker",
                         parameters=[
                             {
                                 "target_topic": target_topic,
+                                "marker_topic": "/target_location_tolerance",
+                                "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_target_location",
+                        parameters=[
+                            {
+                                "target_topic": "/target_location",
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
                             }

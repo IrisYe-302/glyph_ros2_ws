@@ -51,7 +51,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("slam", default_value="true"),
             DeclareLaunchArgument("nav2", default_value="true"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
-            DeclareLaunchArgument("target_topic", default_value="/target_location"),
+            DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("cloud_topic", default_value="/unitree_lidar/points"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(sim_launch),
@@ -112,6 +112,19 @@ def generate_launch_description() -> LaunchDescription:
                 parameters=[
                     {
                         "target_topic": target_topic,
+                        "use_sim_time": True,
+                    }
+                ],
+                output="screen",
+            ),
+            Node(
+                package="go2_navigation",
+                executable="location_subscriber",
+                name="go2_location_subscriber_target_location",
+                condition=IfCondition(use_location_subscriber),
+                parameters=[
+                    {
+                        "target_topic": "/target_location",
                         "use_sim_time": True,
                     }
                 ],

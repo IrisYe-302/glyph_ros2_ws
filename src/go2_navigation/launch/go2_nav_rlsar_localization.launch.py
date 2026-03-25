@@ -59,7 +59,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("auto_recovery", default_value="true"),
-            DeclareLaunchArgument("target_topic", default_value="/target_location"),
+            DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("nav2_start_delay", default_value="8.0"),
             DeclareLaunchArgument(
                 "map",
@@ -176,12 +176,39 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber_target_location",
+                        condition=IfCondition(use_location_subscriber),
+                        parameters=[
+                            {
+                                "target_topic": "/target_location",
+                                "use_sim_time": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="goal_tolerance_marker",
                         name="go2_goal_tolerance_marker",
                         condition=IfCondition(use_location_subscriber),
                         parameters=[
                             {
                                 "target_topic": target_topic,
+                                "marker_topic": "/target_location_tolerance",
+                                "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_target_location",
+                        condition=IfCondition(use_location_subscriber),
+                        parameters=[
+                            {
+                                "target_topic": "/target_location",
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
                             }

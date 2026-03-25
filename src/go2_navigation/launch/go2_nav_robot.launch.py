@@ -122,5 +122,13 @@ def generate_launch_description() -> LaunchDescription:
                 parameters=[{"target_topic": target_topic}],
                 output="screen",
             ),
+            Node(
+                package="go2_navigation",
+                executable="location_subscriber",
+                name="go2_location_subscriber_target_location",
+                condition=IfCondition(use_location_subscriber),
+                parameters=[{"target_topic": "/target_location"}],
+                output="screen",
+            ),
         ]
     )

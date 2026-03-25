@@ -26,7 +26,7 @@ amcl:
     recovery_alpha_fast: 0.0
     recovery_alpha_slow: 0.0
     resample_interval: 1
-    robot_model_type: nav2_amcl::OmniMotionModel
+    robot_model_type: nav2_amcl::DifferentialMotionModel
     save_pose_rate: 0.5
     sigma_hit: 0.2
     tf_broadcast: true
@@ -147,7 +147,7 @@ controller_server:
       motion_model: DiffDrive
       visualize: true
       retry_attempt_limit: 1
-      prune_distance: 1.7
+      prune_distance: 0.8
       transform_tolerance: 0.2
       enforce_path_inversion: false
       reset_period: 1.0

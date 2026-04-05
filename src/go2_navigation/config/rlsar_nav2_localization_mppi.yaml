@@ -147,7 +147,7 @@ controller_server:
       motion_model: DiffDrive
       visualize: true
       retry_attempt_limit: 1
-      prune_distance: 0.3
+      prune_distance: 0.5
       transform_tolerance: 0.2
       enforce_path_inversion: false
       reset_period: 1.0

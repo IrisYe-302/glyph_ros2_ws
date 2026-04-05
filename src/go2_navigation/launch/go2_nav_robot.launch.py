@@ -17,6 +17,7 @@ def generate_launch_description() -> LaunchDescription:
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
     cloud_topic = LaunchConfiguration("cloud_topic")
+    use_ekf = LaunchConfiguration("use_ekf")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -43,7 +44,6 @@ def generate_launch_description() -> LaunchDescription:
         "config",
         "robot_nav2_localization_mppi.yaml",
     )
-
     return LaunchDescription(
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
@@ -53,11 +53,14 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud_base"),
+            DeclareLaunchArgument("use_ekf", default_value="false"),
+            DeclareLaunchArgument("use_lidar_odom", default_value="false"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(bridge_launch),
                 launch_arguments={
                     "foxglove": foxglove,
                     "foxglove_port": foxglove_port,
+                    "use_ekf": use_ekf,
                 }.items(),
             ),
             Node(
@@ -72,14 +75,14 @@ def generate_launch_description() -> LaunchDescription:
                     {
                         "target_frame": "base_link",
                         "transform_tolerance": 0.2,
-                        "min_height": -0.15,
-                        "max_height": 0.20,
+                        "min_height": -0.10,
+                        "max_height": 0.40,
                         "angle_min": -3.14159,
                         "angle_max": 3.14159,
                         "angle_increment": 0.0087,
                         "scan_time": 0.1,
-                        "range_min": 0.15,
-                        "range_max": 8.0,
+                        "range_min": 0.20,
+                        "range_max": 6.0,
                         "use_inf": True,
                         "inf_epsilon": 1.0,
                     }

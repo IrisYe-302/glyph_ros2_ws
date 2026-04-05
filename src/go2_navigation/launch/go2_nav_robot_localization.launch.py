@@ -52,6 +52,8 @@ def generate_launch_description() -> LaunchDescription:
                     "slam": "false",
                     "nav2": "false",
                     "location_subscriber": "false",
+                    "use_ekf": "true",
+                    "use_lidar_odom": "false",
                 }.items(),
             ),
             IncludeLaunchDescription(

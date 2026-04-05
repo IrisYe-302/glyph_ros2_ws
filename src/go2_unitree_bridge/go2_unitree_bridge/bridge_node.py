@@ -48,7 +48,10 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("body_frame", "base_link")
         self.declare_parameter("imu_frame", "imu_link")
         self.declare_parameter("publish_tf", True)
+        self.declare_parameter("publish_planar_tf", True)
+        self.declare_parameter("publish_body_tf", True)
         self.declare_parameter("publish_odom", True)
+        self.declare_parameter("odom_topic", "/odom")
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
@@ -59,11 +62,14 @@ class Go2UnitreeBridgeNode(Node):
         self.base_frame = self.get_parameter("base_frame").value
         self.body_frame = self.get_parameter("body_frame").value
         self.imu_frame = self.get_parameter("imu_frame").value
-        self.publish_tf_enabled = bool(self.get_parameter("publish_tf").value)
+        publish_tf_enabled = bool(self.get_parameter("publish_tf").value)
+        self.publish_planar_tf_enabled = publish_tf_enabled and bool(self.get_parameter("publish_planar_tf").value)
+        self.publish_body_tf_enabled = publish_tf_enabled and bool(self.get_parameter("publish_body_tf").value)
         self.publish_odom_enabled = bool(self.get_parameter("publish_odom").value)
+        odom_topic = self.get_parameter("odom_topic").value
 
         self.tf_broadcaster = TransformBroadcaster(self)
-        self.odom_publisher = self.create_publisher(Odometry, "/odom", 10)
+        self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
         self.imu_publisher = self.create_publisher(Imu, "/imu/data", 10)
         self.joint_state_publisher = self.create_publisher(JointState, "/joint_states", 10)
         self.sport_request_publisher = self.create_publisher(Request, cmd_topic, 10)
@@ -159,7 +165,8 @@ class Go2UnitreeBridgeNode(Node):
             odom.twist.twist.angular.z = float(msg.yaw_speed)
             self.odom_publisher.publish(odom)
 
-        if self.publish_tf_enabled:
+        transforms = []
+        if self.publish_planar_tf_enabled:
             transform = TransformStamped()
             transform.header.stamp = stamp
             transform.header.frame_id = self.odom_frame
@@ -171,7 +178,9 @@ class Go2UnitreeBridgeNode(Node):
             transform.transform.rotation.y = planar_qy
             transform.transform.rotation.z = planar_qz
             transform.transform.rotation.w = planar_qw
+            transforms.append(transform)
 
+        if self.publish_body_tf_enabled:
             body_transform = TransformStamped()
             body_transform.header.stamp = stamp
             body_transform.header.frame_id = self.base_frame
@@ -183,7 +192,10 @@ class Go2UnitreeBridgeNode(Node):
             body_transform.transform.rotation.y = body_qy
             body_transform.transform.rotation.z = body_qz
             body_transform.transform.rotation.w = body_qw
-            self.tf_broadcaster.sendTransform([transform, body_transform])
+            transforms.append(body_transform)
+
+        if transforms:
+            self.tf_broadcaster.sendTransform(transforms)
 
     def _on_low_state(self, msg: LowState) -> None:
         stamp = self.get_clock().now().to_msg()

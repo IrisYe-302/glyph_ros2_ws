@@ -19,6 +19,7 @@ def generate_launch_description() -> LaunchDescription:
     initial_pose_y = LaunchConfiguration("initial_pose_y")
     initial_pose_yaw = LaunchConfiguration("initial_pose_yaw")
     initial_pose_delay = LaunchConfiguration("initial_pose_delay")
+    use_behavior_supervisor = LaunchConfiguration("behavior_supervisor")
     use_location_subscriber = LaunchConfiguration("location_subscriber")
     target_topic = LaunchConfiguration("target_topic")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
@@ -57,6 +58,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("initial_pose_y", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_yaw", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
+            DeclareLaunchArgument("behavior_supervisor", default_value="false"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("auto_recovery", default_value="true"),
             DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
@@ -165,7 +167,11 @@ def generate_launch_description() -> LaunchDescription:
                         package="go2_navigation",
                         executable="location_subscriber",
                         name="go2_location_subscriber",
-                        condition=IfCondition(use_location_subscriber),
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
                         parameters=[
                             {
                                 "target_topic": target_topic,
@@ -178,7 +184,11 @@ def generate_launch_description() -> LaunchDescription:
                         package="go2_navigation",
                         executable="location_subscriber",
                         name="go2_location_subscriber_target_location",
-                        condition=IfCondition(use_location_subscriber),
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
                         parameters=[
                             {
                                 "target_topic": "/target_location",
@@ -191,7 +201,11 @@ def generate_launch_description() -> LaunchDescription:
                         package="go2_navigation",
                         executable="goal_tolerance_marker",
                         name="go2_goal_tolerance_marker",
-                        condition=IfCondition(use_location_subscriber),
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
                         parameters=[
                             {
                                 "target_topic": target_topic,
@@ -205,12 +219,29 @@ def generate_launch_description() -> LaunchDescription:
                         package="go2_navigation",
                         executable="goal_tolerance_marker",
                         name="go2_goal_tolerance_marker_target_location",
-                        condition=IfCondition(use_location_subscriber),
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
                         parameters=[
                             {
                                 "target_topic": "/target_location",
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="sim_behavior_supervisor",
+                        name="go2_sim_behavior_supervisor",
+                        condition=IfCondition(use_behavior_supervisor),
+                        parameters=[
+                            {
+                                "target_topic": target_topic,
+                                "target_location_topic": "/target_location",
                             }
                         ],
                         output="screen",

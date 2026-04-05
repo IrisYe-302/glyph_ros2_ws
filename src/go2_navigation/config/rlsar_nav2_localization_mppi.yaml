@@ -134,7 +134,7 @@ controller_server:
       vx_std: 0.24
       vy_std: 0.0
       wz_std: 1.10
-      vx_max: 0.50
+      vx_max: 0.44
       vx_min: -0.18
       vy_max: 0.0
       wz_max: 3.2
@@ -147,7 +147,7 @@ controller_server:
       motion_model: DiffDrive
       visualize: true
       retry_attempt_limit: 1
-      prune_distance: 1.5
+      prune_distance: 0.25
       transform_tolerance: 0.2
       enforce_path_inversion: false
       reset_period: 1.0
@@ -321,7 +321,7 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: OPEN_LOOP
-    max_velocity: [0.50, 0.0, 3.2]
+    max_velocity: [0.44, 0.0, 3.2]
     min_velocity: [-0.18, 0.0, -2.8]
     max_accel: [1.0, 0.0, 4.8]
     max_decel: [-1.0, 0.0, -4.8]

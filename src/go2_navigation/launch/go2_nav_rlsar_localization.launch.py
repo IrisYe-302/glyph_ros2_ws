@@ -193,6 +193,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/target_location",
                                 "use_sim_time": False,
+                                "orient_toward_goal_center": False,
                             }
                         ],
                         output="screen",
@@ -242,6 +243,9 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
+                                "home_x": initial_pose_x,
+                                "home_y": initial_pose_y,
+                                "home_yaw": initial_pose_yaw,
                             }
                         ],
                         output="screen",

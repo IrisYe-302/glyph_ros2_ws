@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -18,6 +18,8 @@ def generate_launch_description() -> LaunchDescription:
     target_topic = LaunchConfiguration("target_topic")
     cloud_topic = LaunchConfiguration("cloud_topic")
     use_ekf = LaunchConfiguration("use_ekf")
+    use_lidar_odom = LaunchConfiguration("use_lidar_odom")
+    use_mapping_reanchor = LaunchConfiguration("mapping_reanchor")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -55,12 +57,26 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud_base"),
             DeclareLaunchArgument("use_ekf", default_value="false"),
             DeclareLaunchArgument("use_lidar_odom", default_value="false"),
+            DeclareLaunchArgument("mapping_reanchor", default_value="false"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(bridge_launch),
+                condition=UnlessCondition(use_lidar_odom),
                 launch_arguments={
                     "foxglove": foxglove,
                     "foxglove_port": foxglove_port,
                     "use_ekf": use_ekf,
+                }.items(),
+            ),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(bridge_launch),
+                condition=IfCondition(use_lidar_odom),
+                launch_arguments={
+                    "foxglove": foxglove,
+                    "foxglove_port": foxglove_port,
+                    "use_ekf": "false",
+                    "publish_odom": "false",
+                    "publish_planar_tf": "false",
+                    "publish_body_tf": "false",
                 }.items(),
             ),
             Node(
@@ -75,8 +91,8 @@ def generate_launch_description() -> LaunchDescription:
                     {
                         "target_frame": "base_link",
                         "transform_tolerance": 0.2,
-                        "min_height": -0.10,
-                        "max_height": 0.40,
+                        "min_height": -0.15,
+                        "max_height": 0.50,
                         "angle_min": -3.14159,
                         "angle_max": 3.14159,
                         "angle_increment": 0.0087,
@@ -101,6 +117,24 @@ def generate_launch_description() -> LaunchDescription:
                 ],
                 output="screen",
             ),
+            Node(
+                package="go2_navigation",
+                executable="lidar_odom_bridge",
+                name="go2_lidar_odom_bridge",
+                condition=IfCondition(use_lidar_odom),
+                parameters=[
+                    {
+                        "input_topic": "/utlidar/robot_odom",
+                        "output_topic": "/odom",
+                        "odom_frame": "odom",
+                        "base_frame": "base_footprint",
+                        "body_frame": "base_link",
+                        "publish_tf": True,
+                        "use_current_time": True,
+                    }
+                ],
+                output="screen",
+            ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(slam_launch),
                 condition=IfCondition(use_slam),
@@ -108,6 +142,22 @@ def generate_launch_description() -> LaunchDescription:
                     "slam_params_file": slam_params,
                     "use_sim_time": "false",
                 }.items(),
+            ),
+            Node(
+                package="go2_navigation",
+                executable="mapping_pose_reanchor",
+                name="go2_mapping_pose_reanchor",
+                condition=IfCondition(use_mapping_reanchor),
+                parameters=[
+                    {
+                        "input_topic": "/initialpose",
+                        "serialize_service": "/slam_toolbox/serialize_map",
+                        "deserialize_service": "/slam_toolbox/deserialize_map",
+                        "pose_graph_file": "/tmp/go2_mapping_reanchor.posegraph",
+                        "goal_frame_id": "map",
+                    }
+                ],
+                output="screen",
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(nav2_launch),

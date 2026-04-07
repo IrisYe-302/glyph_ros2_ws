@@ -51,7 +51,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("foxglove_simple_visuals", default_value="false"),
             DeclareLaunchArgument("foxglove_include_velodyne", default_value="false"),
             DeclareLaunchArgument("foxglove_include_realsense", default_value="false"),
-            DeclareLaunchArgument("use_ekf", default_value="true"),
+            DeclareLaunchArgument("use_ekf", default_value="false"),
             DeclareLaunchArgument("publish_planar_tf", default_value="true"),
             DeclareLaunchArgument("publish_body_tf", default_value="true"),
             DeclareLaunchArgument("publish_odom", default_value="true"),

@@ -32,6 +32,10 @@ setup(
             'scan_restamper = go2_navigation.scan_restamper:main',
             'initial_pose_restamper = go2_navigation.initial_pose_restamper:main',
             'sim_behavior_supervisor = go2_navigation.sim_behavior_supervisor:main',
+            'mapping_pose_reanchor = go2_navigation.mapping_pose_reanchor:main',
+            'lidar_odom_bridge = go2_navigation.lidar_odom_bridge:main',
+            'global_localization_trigger = go2_navigation.global_localization_trigger:main',
+            'session_map_publisher = go2_navigation.session_map_publisher:main',
         ],
     },
 )

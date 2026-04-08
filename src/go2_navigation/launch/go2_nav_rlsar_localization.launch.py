@@ -24,6 +24,7 @@ def generate_launch_description() -> LaunchDescription:
     target_topic = LaunchConfiguration("target_topic")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
     auto_recovery = LaunchConfiguration("auto_recovery")
+    return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -58,11 +59,12 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("initial_pose_y", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_yaw", default_value="0.0"),
             DeclareLaunchArgument("initial_pose_delay", default_value="3.0"),
-            DeclareLaunchArgument("behavior_supervisor", default_value="false"),
+            DeclareLaunchArgument("behavior_supervisor", default_value="true"),
             DeclareLaunchArgument("location_subscriber", default_value="false"),
             DeclareLaunchArgument("auto_recovery", default_value="true"),
             DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("nav2_start_delay", default_value="8.0"),
+            DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml",
@@ -243,6 +245,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
+                                "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,

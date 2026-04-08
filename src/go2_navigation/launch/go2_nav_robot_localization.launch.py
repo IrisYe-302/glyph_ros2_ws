@@ -22,6 +22,8 @@ def generate_launch_description() -> LaunchDescription:
     global_localization = LaunchConfiguration("global_localization")
     global_localization_delay = LaunchConfiguration("global_localization_delay")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
+    return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
+    gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -52,6 +54,8 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("global_localization", default_value="false"),
             DeclareLaunchArgument("global_localization_delay", default_value="8.0"),
             DeclareLaunchArgument("nav2_start_delay", default_value="12.0"),
+            DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
+            DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/robot_map.yaml",
@@ -188,6 +192,37 @@ def generate_launch_description() -> LaunchDescription:
                                 ]
                             },
                         ],
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="sim_behavior_supervisor",
+                        name="go2_behavior_supervisor",
+                        parameters=[
+                            {
+                                "target_topic": target_topic,
+                                "target_location_topic": "/target_location",
+                                "return_home_trigger_topic": return_home_trigger_topic,
+                                "home_x": initial_pose_x,
+                                "home_y": initial_pose_y,
+                                "home_yaw": initial_pose_yaw,
+                                "dance_enabled": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="gpio_return_home_publisher",
+                        name="go2_gpio_return_home_publisher",
+                        parameters=[
+                            {
+                                "topic": return_home_trigger_topic,
+                                "pin_number": gpio_return_home_pin,
+                                "pin_mode": "BOARD",
+                                "pull": "DOWN",
+                            }
+                        ],
+                        output="screen",
                     ),
                     Node(
                         package="go2_navigation",

@@ -8,6 +8,7 @@ from rclpy.duration import Duration
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
+from std_msgs.msg import Bool
 from tf2_ros import Buffer, TransformListener
 
 
@@ -22,6 +23,8 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_y", 0.0)
         self.declare_parameter("home_yaw", 0.0)
         self.declare_parameter("target_wait_sec", 10.0)
+        self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
+        self.declare_parameter("return_home_delay_sec", 5.0)
         self.declare_parameter("target_reached_radius", 0.5)
         self.declare_parameter("home_reached_radius", 0.25)
         self.declare_parameter("home_reached_yaw_tol", 0.2)
@@ -45,6 +48,7 @@ class SimBehaviorSupervisor(Node):
         self.home_y = float(self.get_parameter("home_y").value)
         self.home_yaw = float(self.get_parameter("home_yaw").value)
         self.target_wait_sec = float(self.get_parameter("target_wait_sec").value)
+        self.return_home_delay_sec = float(self.get_parameter("return_home_delay_sec").value)
         self.target_reached_radius = float(self.get_parameter("target_reached_radius").value)
         self.home_reached_radius = float(self.get_parameter("home_reached_radius").value)
         self.home_reached_yaw_tol = float(self.get_parameter("home_reached_yaw_tol").value)
@@ -89,6 +93,12 @@ class SimBehaviorSupervisor(Node):
             self._on_command,
             target_qos,
         )
+        self.create_subscription(
+            Bool,
+            str(self.get_parameter("return_home_trigger_topic").value),
+            self._on_return_home_trigger,
+            target_qos,
+        )
 
         self.random = random.Random()
         self.last_command_time = self.get_clock().now()
@@ -97,6 +107,9 @@ class SimBehaviorSupervisor(Node):
         self.dwell_deadline_ns: Optional[int] = None
         self.active_target: Optional[tuple[float, float]] = None
         self.returning_home = False
+        self.return_home_pending = False
+        self.return_home_signal_high = False
+        self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
         self.dance_mode = "combo"
         self.at_home_last = True
@@ -122,14 +135,24 @@ class SimBehaviorSupervisor(Node):
 
         if self._is_near_point(*target_xy, self.home_reached_radius):
             self.active_target = None
-            self.returning_home = True
+            self._queue_return_home()
             self.dwell_deadline_ns = None
-            self.last_home_publish_ns = None
             return
 
         self.active_target = target_xy
         self.returning_home = False
+        self.return_home_pending = False
+        self.return_home_start_deadline_ns = None
         self.dwell_deadline_ns = None
+
+    def _on_return_home_trigger(self, msg: Bool) -> None:
+        self.return_home_signal_high = bool(msg.data)
+        if self.return_home_signal_high and self.return_home_pending and self.return_home_start_deadline_ns is None:
+            now_ns = self.get_clock().now().nanoseconds
+            self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
+            self.get_logger().info(
+                f"Return-home trigger received; delaying home navigation by {self.return_home_delay_sec:.1f}s"
+            )
 
     def _normalize_pose(self, pose: PoseStamped) -> Optional[PoseStamped]:
         normalized = PoseStamped()
@@ -222,13 +245,26 @@ class SimBehaviorSupervisor(Node):
                 if self.dwell_deadline_ns is None:
                     self.dwell_deadline_ns = now_ns + int(self.target_wait_sec * 1e9)
                 elif now_ns >= self.dwell_deadline_ns:
-                    self._publish_home_goal()
                     self.active_target = None
-                    self.returning_home = True
+                    self._queue_return_home()
                     self.dwell_deadline_ns = None
-                    self.last_home_publish_ns = None
             else:
                 self.dwell_deadline_ns = None
+            return
+
+        if self.return_home_pending:
+            self._publish_stop()
+            if self.return_home_signal_high and self.return_home_start_deadline_ns is None:
+                self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
+                self.get_logger().info(
+                    f"Return-home trigger received; delaying home navigation by {self.return_home_delay_sec:.1f}s"
+                )
+            if self.return_home_start_deadline_ns is not None and now_ns >= self.return_home_start_deadline_ns:
+                self.return_home_pending = False
+                self.returning_home = True
+                self.return_home_start_deadline_ns = None
+                self.last_home_publish_ns = None
+                self._publish_home_goal()
             return
 
         if self.returning_home:
@@ -293,6 +329,12 @@ class SimBehaviorSupervisor(Node):
         self.home_goal_pub.publish(msg)
         self.last_home_publish_ns = self.get_clock().now().nanoseconds
         self.last_command_time = self.get_clock().now()
+
+    def _queue_return_home(self) -> None:
+        self.returning_home = False
+        self.return_home_pending = True
+        self.return_home_start_deadline_ns = None
+        self.last_home_publish_ns = None
 
     def _publish_dance(self, now_sec: float) -> None:
         twist = Twist()

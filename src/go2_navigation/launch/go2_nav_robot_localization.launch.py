@@ -23,6 +23,8 @@ def generate_launch_description() -> LaunchDescription:
     global_localization_delay = LaunchConfiguration("global_localization_delay")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
+    home_target_topic = LaunchConfiguration("home_target_topic")
+    set_home_topic = LaunchConfiguration("set_home_topic")
     gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
 
     bridge_launch = os.path.join(
@@ -55,6 +57,8 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("global_localization_delay", default_value="8.0"),
             DeclareLaunchArgument("nav2_start_delay", default_value="12.0"),
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
+            DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
+            DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
             DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument(
                 "map",
@@ -202,10 +206,11 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
                                 "return_home_trigger_topic": return_home_trigger_topic,
+                                "home_target_topic": home_target_topic,
+                                "set_home_topic": set_home_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,
-                                "dance_enabled": False,
                             }
                         ],
                         output="screen",
@@ -250,6 +255,19 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber_return_home",
+                        parameters=[
+                            {
+                                "target_topic": home_target_topic,
+                                "use_sim_time": False,
+                                "orient_toward_goal_center": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="goal_tolerance_marker",
                         name="go2_goal_tolerance_marker",
                         parameters=[
@@ -268,6 +286,19 @@ def generate_launch_description() -> LaunchDescription:
                         parameters=[
                             {
                                 "target_topic": "/target_location",
+                                "marker_topic": "/target_location_tolerance",
+                                "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_return_home",
+                        parameters=[
+                            {
+                                "target_topic": home_target_topic,
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
                             }

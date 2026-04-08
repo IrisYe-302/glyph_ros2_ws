@@ -24,6 +24,8 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_yaw", 0.0)
         self.declare_parameter("target_wait_sec", 10.0)
         self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
+        self.declare_parameter("home_target_topic", "/return_home_target_location")
+        self.declare_parameter("set_home_topic", "/set_home_here")
         self.declare_parameter("return_home_delay_sec", 5.0)
         self.declare_parameter("target_reached_radius", 0.5)
         self.declare_parameter("home_reached_radius", 0.25)
@@ -36,9 +38,9 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("dance_bend_speed", 0.10)
         self.declare_parameter("dance_bend_back_bias", 0.02)
         self.declare_parameter("dance_bend_left_bias", 0.06)
-        self.declare_parameter("dance_min_interval_sec", 8.0)
-        self.declare_parameter("dance_max_interval_sec", 20.0)
-        self.declare_parameter("dance_min_duration_sec", 3.0)
+        self.declare_parameter("dance_min_interval_sec", 4.0)
+        self.declare_parameter("dance_max_interval_sec", 8.0)
+        self.declare_parameter("dance_min_duration_sec", 8.0)
         self.declare_parameter("dance_max_duration_sec", 12.0)
         self.declare_parameter("command_quiet_sec", 4.0)
         self.declare_parameter("return_home_republish_sec", 0.5)
@@ -79,7 +81,11 @@ class SimBehaviorSupervisor(Node):
         )
 
         self.cmd_pub = self.create_publisher(Twist, "/cmd_vel", 10)
-        self.home_goal_pub = self.create_publisher(PoseStamped, "/target_location", target_qos)
+        self.home_goal_pub = self.create_publisher(
+            PoseStamped,
+            str(self.get_parameter("home_target_topic").value),
+            target_qos,
+        )
 
         self.create_subscription(
             PoseStamped,
@@ -99,6 +105,12 @@ class SimBehaviorSupervisor(Node):
             self._on_return_home_trigger,
             target_qos,
         )
+        self.create_subscription(
+            Bool,
+            str(self.get_parameter("set_home_topic").value),
+            self._on_set_home_here,
+            10,
+        )
 
         self.random = random.Random()
         self.last_command_time = self.get_clock().now()
@@ -109,8 +121,10 @@ class SimBehaviorSupervisor(Node):
         self.returning_home = False
         self.return_home_pending = False
         self.return_home_signal_high = False
+        self.return_home_authorized = False
         self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
+        self.home_final_align_sent = False
         self.dance_mode = "combo"
         self.at_home_last = True
 
@@ -147,12 +161,43 @@ class SimBehaviorSupervisor(Node):
 
     def _on_return_home_trigger(self, msg: Bool) -> None:
         self.return_home_signal_high = bool(msg.data)
-        if self.return_home_signal_high and self.return_home_pending and self.return_home_start_deadline_ns is None:
+        if self.return_home_signal_high:
+            self.return_home_authorized = True
+
+        if (
+            (self.return_home_authorized or self.return_home_signal_high)
+            and self.return_home_pending
+            and self.return_home_start_deadline_ns is None
+        ):
             now_ns = self.get_clock().now().nanoseconds
             self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
             self.get_logger().info(
                 f"Return-home trigger received; delaying home navigation by {self.return_home_delay_sec:.1f}s"
             )
+
+    def _on_set_home_here(self, msg: Bool) -> None:
+        if not msg.data:
+            return
+
+        robot_pose = self._lookup_robot_pose()
+        if robot_pose is None:
+            self.get_logger().warn("Ignoring set-home request because robot pose is unavailable")
+            return
+
+        self.home_x = robot_pose[0]
+        self.home_y = robot_pose[1]
+        self.home_yaw = robot_pose[2]
+        self.returning_home = False
+        self.return_home_pending = False
+        self.return_home_authorized = False
+        self.return_home_start_deadline_ns = None
+        self.last_home_publish_ns = None
+        self.home_final_align_sent = False
+        self.last_command_time = self.get_clock().now()
+        self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
+        self.get_logger().info(
+            f"Updated home pose to x={self.home_x:.2f}, y={self.home_y:.2f}, yaw={self.home_yaw:.2f}"
+        )
 
     def _normalize_pose(self, pose: PoseStamped) -> Optional[PoseStamped]:
         normalized = PoseStamped()
@@ -254,7 +299,10 @@ class SimBehaviorSupervisor(Node):
 
         if self.return_home_pending:
             self._publish_stop()
-            if self.return_home_signal_high and self.return_home_start_deadline_ns is None:
+            if (
+                (self.return_home_authorized or self.return_home_signal_high)
+                and self.return_home_start_deadline_ns is None
+            ):
                 self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
                 self.get_logger().info(
                     f"Return-home trigger received; delaying home navigation by {self.return_home_delay_sec:.1f}s"
@@ -262,23 +310,27 @@ class SimBehaviorSupervisor(Node):
             if self.return_home_start_deadline_ns is not None and now_ns >= self.return_home_start_deadline_ns:
                 self.return_home_pending = False
                 self.returning_home = True
+                self.return_home_authorized = False
                 self.return_home_start_deadline_ns = None
                 self.last_home_publish_ns = None
+                self.home_final_align_sent = False
                 self._publish_home_goal()
             return
 
         if self.returning_home:
             self._publish_stop()
-            if at_home:
+            if self._is_at_home_exact():
                 self.returning_home = False
                 self.last_home_publish_ns = None
+                self.home_final_align_sent = False
                 self.last_command_time = now
-                self.next_dance_ns = self._schedule_next_dance(now_ns)
+                self.next_dance_ns = now_ns
             elif (
-                self.last_home_publish_ns is None
-                or (now_ns - self.last_home_publish_ns) >= int(self.return_home_republish_sec * 1e9)
+                not self.home_final_align_sent
+                and self._is_near_point(self.home_x, self.home_y, self.home_resume_radius)
             ):
                 self._publish_home_goal()
+                self.home_final_align_sent = True
             return
 
         if not self.dance_enabled or not at_home:
@@ -319,11 +371,14 @@ class SimBehaviorSupervisor(Node):
         msg.pose.position.x = self.home_x
         msg.pose.position.y = self.home_y
         msg.pose.position.z = 0.0
+        yaw = self.home_yaw
         robot_pose = self._lookup_robot_pose()
-        if robot_pose is not None and not self._is_near_point(self.home_x, self.home_y, self.home_reached_radius):
-            yaw = math.atan2(self.home_y - robot_pose[1], self.home_x - robot_pose[0])
-        else:
-            yaw = self.home_yaw
+        if robot_pose is not None:
+            dx = self.home_x - robot_pose[0]
+            dy = self.home_y - robot_pose[1]
+            distance_sq = dx * dx + dy * dy
+            if distance_sq > self.home_resume_radius * self.home_resume_radius:
+                yaw = math.atan2(dy, dx)
         msg.pose.orientation.z = math.sin(0.5 * yaw)
         msg.pose.orientation.w = math.cos(0.5 * yaw)
         self.home_goal_pub.publish(msg)
@@ -335,6 +390,7 @@ class SimBehaviorSupervisor(Node):
         self.return_home_pending = True
         self.return_home_start_deadline_ns = None
         self.last_home_publish_ns = None
+        self.home_final_align_sent = False
 
     def _publish_dance(self, now_sec: float) -> None:
         twist = Twist()

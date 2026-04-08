@@ -25,6 +25,8 @@ def generate_launch_description() -> LaunchDescription:
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
     auto_recovery = LaunchConfiguration("auto_recovery")
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
+    home_target_topic = LaunchConfiguration("home_target_topic")
+    set_home_topic = LaunchConfiguration("set_home_topic")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -65,6 +67,8 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("nav2_start_delay", default_value="8.0"),
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
+            DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
+            DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml",
@@ -195,6 +199,23 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/target_location",
                                 "use_sim_time": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber_return_home",
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
+                        parameters=[
+                            {
+                                "target_topic": home_target_topic,
+                                "use_sim_time": False,
                                 "orient_toward_goal_center": False,
                             }
                         ],
@@ -238,6 +259,24 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_return_home",
+                        condition=IfCondition(
+                            PythonExpression(
+                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                            )
+                        ),
+                        parameters=[
+                            {
+                                "target_topic": home_target_topic,
+                                "marker_topic": "/target_location_tolerance",
+                                "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="sim_behavior_supervisor",
                         name="go2_sim_behavior_supervisor",
                         condition=IfCondition(use_behavior_supervisor),
@@ -246,6 +285,8 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
                                 "return_home_trigger_topic": return_home_trigger_topic,
+                                "home_target_topic": home_target_topic,
+                                "set_home_topic": set_home_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,

@@ -35,7 +35,7 @@ class GoalToleranceMarker(Node):
 
         sub_qos = QoSProfile(depth=1)
         sub_qos.reliability = ReliabilityPolicy.RELIABLE
-        sub_qos.durability = DurabilityPolicy.VOLATILE
+        sub_qos.durability = DurabilityPolicy.TRANSIENT_LOCAL
 
         self._publisher = self.create_publisher(Marker, marker_topic, pub_qos)
         self.create_subscription(PoseStamped, target_topic, self._callback, sub_qos)

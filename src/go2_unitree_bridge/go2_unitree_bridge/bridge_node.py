@@ -7,6 +7,7 @@ from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import Odometry
 from rclpy.node import Node
 from sensor_msgs.msg import Imu, JointState
+from std_msgs.msg import String
 from tf2_ros import TransformBroadcaster
 from unitree_api.msg import Request
 from unitree_go.msg import LowState, SportModeState
@@ -31,7 +32,9 @@ MOTOR_INDEX_ORDER: Final[list[int]] = [3, 4, 5, 0, 1, 2, 9, 10, 11, 6, 7, 8]
 
 API_ID_BALANCE_STAND: Final[int] = 1002
 API_ID_STOP_MOVE: Final[int] = 1003
+API_ID_EULER: Final[int] = 1007
 API_ID_MOVE: Final[int] = 1008
+API_ID_BODY_HEIGHT: Final[int] = 1013
 
 
 class Go2UnitreeBridgeNode(Node):
@@ -52,6 +55,15 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("publish_body_tf", True)
         self.declare_parameter("publish_odom", True)
         self.declare_parameter("odom_topic", "/odom")
+        self.declare_parameter("zero_on_start", False)
+        self.declare_parameter("body_motion_topic", "/body_motion")
+        self.declare_parameter("body_motion_hz", 20.0)
+        self.declare_parameter("dance1_yaw_amplitude", 0.18)
+        self.declare_parameter("dance1_frequency_hz", 0.32)
+        self.declare_parameter("dance1_roll_amplitude", 0.03)
+        self.declare_parameter("dance2_pitch_amplitude", 0.16)
+        self.declare_parameter("dance2_height_amplitude", 0.05)
+        self.declare_parameter("dance2_frequency_hz", 0.40)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
@@ -67,6 +79,20 @@ class Go2UnitreeBridgeNode(Node):
         self.publish_body_tf_enabled = publish_tf_enabled and bool(self.get_parameter("publish_body_tf").value)
         self.publish_odom_enabled = bool(self.get_parameter("publish_odom").value)
         odom_topic = self.get_parameter("odom_topic").value
+        self.zero_on_start = bool(self.get_parameter("zero_on_start").value)
+        body_motion_topic = self.get_parameter("body_motion_topic").value
+        body_motion_hz = max(2.0, float(self.get_parameter("body_motion_hz").value))
+        self.dance1_yaw_amplitude = float(self.get_parameter("dance1_yaw_amplitude").value)
+        self.dance1_frequency_hz = float(self.get_parameter("dance1_frequency_hz").value)
+        self.dance1_roll_amplitude = float(self.get_parameter("dance1_roll_amplitude").value)
+        self.dance2_pitch_amplitude = float(self.get_parameter("dance2_pitch_amplitude").value)
+        self.dance2_height_amplitude = float(self.get_parameter("dance2_height_amplitude").value)
+        self.dance2_frequency_hz = float(self.get_parameter("dance2_frequency_hz").value)
+        self._origin_x = None
+        self._origin_y = None
+        self._origin_yaw = None
+        self._last_body_motion_mode = "stop"
+        self._body_motion_baseline_sent = False
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
@@ -91,6 +117,8 @@ class Go2UnitreeBridgeNode(Node):
                 10,
             )
         self.create_subscription(Twist, "/cmd_vel", self._on_cmd_vel, 10)
+        self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)
+        self.body_motion_timer = self.create_timer(1.0 / body_motion_hz, self._tick_body_motion)
 
         self._request_id = 1
         self.get_logger().info(
@@ -98,6 +126,7 @@ class Go2UnitreeBridgeNode(Node):
             f"{sport_state_topic} ({sport_state_fallback_topic}) -> /odom,/tf and "
             f"{low_state_topic} ({low_state_fallback_topic}) -> /joint_states,/imu/data"
         )
+        self.get_logger().info(f"Listening for body motion commands on {body_motion_topic}")
 
     def _next_request_id(self) -> int:
         self._request_id += 1
@@ -142,6 +171,25 @@ class Go2UnitreeBridgeNode(Node):
         full_qy = float(msg.imu_state.quaternion[2])
         full_qz = float(msg.imu_state.quaternion[3])
         roll, pitch, yaw = self._rpy_from_quaternion(full_qx, full_qy, full_qz, full_qw)
+        if self.zero_on_start and self._origin_x is None:
+            self._origin_x = float(msg.position[0])
+            self._origin_y = float(msg.position[1])
+            self._origin_yaw = yaw
+            self.get_logger().info(
+                f"Zeroed odom origin at x={self._origin_x:.3f}, y={self._origin_y:.3f}, yaw={self._origin_yaw:.3f}"
+            )
+
+        x = float(msg.position[0])
+        y = float(msg.position[1])
+        if self._origin_x is not None and self._origin_y is not None and self._origin_yaw is not None:
+            dx = x - self._origin_x
+            dy = y - self._origin_y
+            cos_yaw = math.cos(-self._origin_yaw)
+            sin_yaw = math.sin(-self._origin_yaw)
+            x = cos_yaw * dx - sin_yaw * dy
+            y = sin_yaw * dx + cos_yaw * dy
+            yaw = math.atan2(math.sin(yaw - self._origin_yaw), math.cos(yaw - self._origin_yaw))
+
         planar_qx, planar_qy, planar_qz, planar_qw = self._quaternion_from_rpy(0.0, 0.0, yaw)
         body_qx, body_qy, body_qz, body_qw = self._quaternion_from_rpy(roll, pitch, 0.0)
 
@@ -150,8 +198,8 @@ class Go2UnitreeBridgeNode(Node):
             odom.header.stamp = stamp
             odom.header.frame_id = self.odom_frame
             odom.child_frame_id = self.base_frame
-            odom.pose.pose.position.x = float(msg.position[0])
-            odom.pose.pose.position.y = float(msg.position[1])
+            odom.pose.pose.position.x = x
+            odom.pose.pose.position.y = y
             odom.pose.pose.position.z = 0.0
             odom.pose.pose.orientation.x = planar_qx
             odom.pose.pose.orientation.y = planar_qy
@@ -171,8 +219,8 @@ class Go2UnitreeBridgeNode(Node):
             transform.header.stamp = stamp
             transform.header.frame_id = self.odom_frame
             transform.child_frame_id = self.base_frame
-            transform.transform.translation.x = float(msg.position[0])
-            transform.transform.translation.y = float(msg.position[1])
+            transform.transform.translation.x = x
+            transform.transform.translation.y = y
             transform.transform.translation.z = 0.0
             transform.transform.rotation.x = planar_qx
             transform.transform.rotation.y = planar_qy
@@ -253,6 +301,77 @@ class Go2UnitreeBridgeNode(Node):
             request.header.identity.api_id = API_ID_STOP_MOVE
 
         self.sport_request_publisher.publish(request)
+
+    def _on_body_motion(self, msg: String) -> None:
+        mode = msg.data.strip().lower()
+        if mode == self._last_body_motion_mode:
+            return
+
+        if mode == "stop":
+            self._last_body_motion_mode = mode
+            self._body_motion_baseline_sent = False
+            return
+
+        if mode not in {"dance1", "dance2"}:
+            self.get_logger().warn(f"Ignoring unsupported body motion mode '{msg.data}'")
+            return
+
+        self._last_body_motion_mode = mode
+        self._body_motion_baseline_sent = False
+
+    def _publish_balance_stand(self) -> None:
+        request = Request()
+        request.header.identity.id = self._next_request_id()
+        request.header.identity.api_id = API_ID_BALANCE_STAND
+        self.sport_request_publisher.publish(request)
+
+    def _publish_euler(self, roll: float, pitch: float, yaw: float) -> None:
+        request = Request()
+        request.header.identity.id = self._next_request_id()
+        request.header.identity.api_id = API_ID_EULER
+        request.parameter = json.dumps(
+            {
+                "x": float(roll),
+                "y": float(pitch),
+                "z": float(yaw),
+            }
+        )
+        self.sport_request_publisher.publish(request)
+
+    def _publish_body_height(self, height: float) -> None:
+        request = Request()
+        request.header.identity.id = self._next_request_id()
+        request.header.identity.api_id = API_ID_BODY_HEIGHT
+        request.parameter = json.dumps({"data": float(height)})
+        self.sport_request_publisher.publish(request)
+
+    def _send_body_motion_baseline(self) -> None:
+        self._publish_euler(0.0, 0.0, 0.0)
+        self._publish_body_height(0.0)
+        self._publish_balance_stand()
+        self._body_motion_baseline_sent = True
+
+    def _tick_body_motion(self) -> None:
+        mode = self._last_body_motion_mode
+        if mode == "stop":
+            if not self._body_motion_baseline_sent:
+                self._send_body_motion_baseline()
+            return
+
+        now_sec = self.get_clock().now().nanoseconds / 1e9
+        if mode == "dance1":
+            phase = 2.0 * math.pi * self.dance1_frequency_hz * now_sec
+            yaw = self.dance1_yaw_amplitude * math.sin(phase)
+            roll = self.dance1_roll_amplitude * math.sin(phase + math.pi / 2.0)
+            self._publish_euler(roll, 0.0, yaw)
+            self._publish_body_height(0.0)
+        elif mode == "dance2":
+            phase = 2.0 * math.pi * self.dance2_frequency_hz * now_sec
+            pitch = self.dance2_pitch_amplitude * math.sin(phase)
+            height = self.dance2_height_amplitude * math.cos(phase)
+            self._publish_euler(0.0, pitch, 0.0)
+            self._publish_body_height(height)
+        self._body_motion_baseline_sent = False
 
 
 def main(args=None) -> None:

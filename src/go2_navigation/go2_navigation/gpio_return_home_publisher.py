@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Optional
 
 import rclpy
@@ -7,10 +8,43 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from std_msgs.msg import Bool
 
+
+def _infer_jetson_model_name() -> Optional[str]:
+    if os.environ.get("JETSON_MODEL_NAME"):
+        return None
+
+    try:
+        with open("/proc/device-tree/compatible", "rb") as compatible_file:
+            compatible = compatible_file.read().decode("utf-8", errors="ignore")
+    except OSError:
+        return None
+
+    entries = [entry for entry in compatible.split("\x00") if entry]
+    normalized_entries = {entry.removesuffix("-super") for entry in entries}
+
+    orin_nano_compatibles = {
+        "nvidia,p3509-0000+p3767-0003",
+        "nvidia,p3768-0000+p3767-0003",
+        "nvidia,p3509-0000+p3767-0004",
+        "nvidia,p3768-0000+p3767-0004",
+        "nvidia,p3509-0000+p3767-0005",
+        "nvidia,p3768-0000+p3767-0005",
+    }
+    if normalized_entries & orin_nano_compatibles:
+        return "JETSON_ORIN_NANO"
+    return None
+
+
+inferred_jetson_model = _infer_jetson_model_name()
+if inferred_jetson_model is not None:
+    os.environ["JETSON_MODEL_NAME"] = inferred_jetson_model
+
 try:
     import Jetson.GPIO as GPIO
-except ImportError:  # pragma: no cover - hardware-specific dependency
+    GPIO_IMPORT_ERROR: Optional[Exception] = None
+except Exception as exc:  # pragma: no cover - hardware-specific dependency
     GPIO = None
+    GPIO_IMPORT_ERROR = exc
 
 
 class GpioReturnHomePublisher(Node):
@@ -40,9 +74,13 @@ class GpioReturnHomePublisher(Node):
         self._gpio_ready = False
 
         if GPIO is None:
-            self.get_logger().error(
-                "Jetson.GPIO is not installed; GPIO return-home publishing is disabled"
-            )
+            if GPIO_IMPORT_ERROR is None:
+                reason = "Jetson.GPIO is not installed"
+            else:
+                reason = f"Jetson.GPIO is unavailable: {GPIO_IMPORT_ERROR}"
+            if inferred_jetson_model is not None:
+                reason += f" (auto-detected model {inferred_jetson_model})"
+            self.get_logger().error(f"{reason}; GPIO return-home publishing is disabled")
             self._publish_state(False)
             return
 

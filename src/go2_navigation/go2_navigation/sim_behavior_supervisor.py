@@ -3,12 +3,12 @@ import random
 from typing import Optional
 
 import rclpy
-from geometry_msgs.msg import PoseStamped, Twist
+from geometry_msgs.msg import PoseStamped
 from rclpy.duration import Duration
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
-from std_msgs.msg import Bool
+from std_msgs.msg import Bool, Empty, String
 from tf2_ros import Buffer, TransformListener
 
 
@@ -25,6 +25,8 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("target_wait_sec", 10.0)
         self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
         self.declare_parameter("home_target_topic", "/return_home_target_location")
+        self.declare_parameter("body_motion_topic", "/sim_body_motion")
+        self.declare_parameter("goal_cleared_topic", "/target_location_cleared")
         self.declare_parameter("set_home_topic", "/set_home_here")
         self.declare_parameter("return_home_delay_sec", 5.0)
         self.declare_parameter("target_reached_radius", 0.5)
@@ -32,12 +34,9 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_reached_yaw_tol", 0.2)
         self.declare_parameter("home_resume_radius", 0.35)
         self.declare_parameter("home_resume_yaw_tol", 0.35)
+        self.declare_parameter("dance_drift_radius", 0.60)
+        self.declare_parameter("dance_drift_yaw_tol", 0.60)
         self.declare_parameter("dance_enabled", True)
-        self.declare_parameter("dance_angular_speed", 0.45)
-        self.declare_parameter("dance_frequency_hz", 0.65)
-        self.declare_parameter("dance_bend_speed", 0.10)
-        self.declare_parameter("dance_bend_back_bias", 0.02)
-        self.declare_parameter("dance_bend_left_bias", 0.06)
         self.declare_parameter("dance_min_interval_sec", 4.0)
         self.declare_parameter("dance_max_interval_sec", 8.0)
         self.declare_parameter("dance_min_duration_sec", 8.0)
@@ -56,12 +55,9 @@ class SimBehaviorSupervisor(Node):
         self.home_reached_yaw_tol = float(self.get_parameter("home_reached_yaw_tol").value)
         self.home_resume_radius = float(self.get_parameter("home_resume_radius").value)
         self.home_resume_yaw_tol = float(self.get_parameter("home_resume_yaw_tol").value)
+        self.dance_drift_radius = float(self.get_parameter("dance_drift_radius").value)
+        self.dance_drift_yaw_tol = float(self.get_parameter("dance_drift_yaw_tol").value)
         self.dance_enabled = bool(self.get_parameter("dance_enabled").value)
-        self.dance_angular_speed = float(self.get_parameter("dance_angular_speed").value)
-        self.dance_frequency_hz = float(self.get_parameter("dance_frequency_hz").value)
-        self.dance_bend_speed = float(self.get_parameter("dance_bend_speed").value)
-        self.dance_bend_back_bias = float(self.get_parameter("dance_bend_back_bias").value)
-        self.dance_bend_left_bias = float(self.get_parameter("dance_bend_left_bias").value)
         self.dance_min_interval_sec = float(self.get_parameter("dance_min_interval_sec").value)
         self.dance_max_interval_sec = float(self.get_parameter("dance_max_interval_sec").value)
         self.dance_min_duration_sec = float(self.get_parameter("dance_min_duration_sec").value)
@@ -80,7 +76,11 @@ class SimBehaviorSupervisor(Node):
             depth=1,
         )
 
-        self.cmd_pub = self.create_publisher(Twist, "/cmd_vel", 10)
+        self.body_motion_pub = self.create_publisher(
+            String,
+            str(self.get_parameter("body_motion_topic").value),
+            10,
+        )
         self.home_goal_pub = self.create_publisher(
             PoseStamped,
             str(self.get_parameter("home_target_topic").value),
@@ -111,6 +111,12 @@ class SimBehaviorSupervisor(Node):
             self._on_set_home_here,
             10,
         )
+        self.create_subscription(
+            Empty,
+            str(self.get_parameter("goal_cleared_topic").value),
+            self._on_goal_cleared,
+            10,
+        )
 
         self.random = random.Random()
         self.last_command_time = self.get_clock().now()
@@ -125,8 +131,9 @@ class SimBehaviorSupervisor(Node):
         self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
         self.home_final_align_sent = False
-        self.dance_mode = "combo"
+        self.dance_mode = "dance1"
         self.at_home_last = True
+        self.dance_recovery_pending = False
 
         self.timer = self.create_timer(0.25, self._tick)
         self.get_logger().info("Sim behavior supervisor active")
@@ -144,6 +151,7 @@ class SimBehaviorSupervisor(Node):
         target_xy = (pose.pose.position.x, pose.pose.position.y)
         self.last_command_time = self.get_clock().now()
         self.dance_deadline_ns = None
+        self.dance_recovery_pending = False
         self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
         self._publish_stop()
 
@@ -193,11 +201,33 @@ class SimBehaviorSupervisor(Node):
         self.return_home_start_deadline_ns = None
         self.last_home_publish_ns = None
         self.home_final_align_sent = False
+        self.dance_recovery_pending = False
         self.last_command_time = self.get_clock().now()
         self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
         self.get_logger().info(
             f"Updated home pose to x={self.home_x:.2f}, y={self.home_y:.2f}, yaw={self.home_yaw:.2f}"
         )
+
+    def _on_goal_cleared(self, _: Empty) -> None:
+        if not self.returning_home:
+            return
+
+        if self.dance_recovery_pending:
+            if self._is_at_home_resume():
+                self.returning_home = False
+                self.dance_recovery_pending = False
+                self.last_home_publish_ns = None
+                self.home_final_align_sent = False
+                self.last_command_time = self.get_clock().now()
+                self.next_dance_ns = self.last_command_time.nanoseconds
+            return
+
+        if self._is_at_home_exact() or self._is_at_home_resume():
+            self.returning_home = False
+            self.last_home_publish_ns = None
+            self.home_final_align_sent = False
+            self.last_command_time = self.get_clock().now()
+            self.next_dance_ns = self.last_command_time.nanoseconds
 
     def _normalize_pose(self, pose: PoseStamped) -> Optional[PoseStamped]:
         normalized = PoseStamped()
@@ -273,6 +303,9 @@ class SimBehaviorSupervisor(Node):
     def _is_at_home_resume(self) -> bool:
         return self._is_at_home(self.home_resume_radius, self.home_resume_yaw_tol)
 
+    def _is_within_dance_drift_limit(self) -> bool:
+        return self._is_at_home(self.dance_drift_radius, self.dance_drift_yaw_tol)
+
     def _schedule_next_dance(self, now_ns: int) -> int:
         wait_sec = self.random.uniform(self.dance_min_interval_sec, self.dance_max_interval_sec)
         return now_ns + int(wait_sec * 1e9)
@@ -319,8 +352,16 @@ class SimBehaviorSupervisor(Node):
 
         if self.returning_home:
             self._publish_stop()
-            if self._is_at_home_exact():
+            if self.dance_recovery_pending and self._is_at_home_resume():
                 self.returning_home = False
+                self.dance_recovery_pending = False
+                self.last_home_publish_ns = None
+                self.home_final_align_sent = False
+                self.last_command_time = now
+                self.next_dance_ns = now_ns
+            elif self._is_at_home_exact():
+                self.returning_home = False
+                self.dance_recovery_pending = False
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
                 self.last_command_time = now
@@ -331,9 +372,26 @@ class SimBehaviorSupervisor(Node):
             ):
                 self._publish_home_goal()
                 self.home_final_align_sent = True
+            elif (
+                self.last_home_publish_ns is None
+                or now_ns - self.last_home_publish_ns
+                >= int(self.return_home_republish_sec * 1e9)
+            ):
+                self._publish_home_goal()
             return
 
         if not self.dance_enabled or not at_home:
+            if (
+                self.dance_recovery_pending
+                and not self.returning_home
+                and not self.return_home_pending
+                and not self._is_at_home_exact()
+            ):
+                self.returning_home = True
+                self.last_home_publish_ns = None
+                self.home_final_align_sent = False
+                self._publish_home_goal()
+                return
             self._publish_stop()
             return
 
@@ -344,13 +402,25 @@ class SimBehaviorSupervisor(Node):
 
         if self.dance_deadline_ns is not None:
             if now_ns < self.dance_deadline_ns:
+                if not self._is_within_dance_drift_limit():
+                    self.dance_deadline_ns = None
+                    self._publish_stop()
+                    self.dance_recovery_pending = True
+                    self.returning_home = True
+                    self.last_home_publish_ns = None
+                    self.home_final_align_sent = False
+                    self._publish_home_goal()
+                    return
                 self._publish_dance(now.nanoseconds / 1e9)
                 return
             self.dance_deadline_ns = None
             self._publish_stop()
-            if not self._is_at_home_resume():
+            if not self._is_at_home_exact():
+                self.dance_recovery_pending = True
                 self.returning_home = True
                 self.last_home_publish_ns = None
+                self.home_final_align_sent = False
+                self._publish_home_goal()
                 return
             self.next_dance_ns = self._schedule_next_dance(now_ns)
             return
@@ -358,8 +428,8 @@ class SimBehaviorSupervisor(Node):
         if now_ns >= self.next_dance_ns:
             duration_sec = self.random.uniform(self.dance_min_duration_sec, self.dance_max_duration_sec)
             self.dance_deadline_ns = now_ns + int(duration_sec * 1e9)
-            self.dance_mode = self.random.choice(["twist", "bend", "combo"])
-            self._publish_dance(now.nanoseconds / 1e9)
+            self.dance_mode = self.random.choice(["dance1", "dance2"])
+            self._publish_dance()
             return
 
         self._publish_stop()
@@ -392,31 +462,15 @@ class SimBehaviorSupervisor(Node):
         self.last_home_publish_ns = None
         self.home_final_align_sent = False
 
-    def _publish_dance(self, now_sec: float) -> None:
-        twist = Twist()
-        cycle = 2.0 * math.pi * self.dance_frequency_hz * now_sec
-        phase = math.sin(cycle)
-        deadband = 0.15
-
-        mode = self.dance_mode
-        if mode == "combo":
-            mode = "twist" if int(now_sec * self.dance_frequency_hz * 2.0) % 2 == 0 else "bend"
-
-        if mode == "twist":
-            if abs(phase) >= deadband:
-                twist.angular.z = self.dance_angular_speed * math.copysign(1.0, phase)
-        else:
-            bend_phase = math.sin(2.0 * math.pi * (self.dance_frequency_hz * 1.35) * now_sec)
-            if abs(bend_phase) >= deadband:
-                twist.linear.x = (
-                    self.dance_bend_speed * math.copysign(1.0, bend_phase)
-                    - self.dance_bend_back_bias
-                )
-                twist.angular.z = self.dance_bend_left_bias
-        self.cmd_pub.publish(twist)
+    def _publish_dance(self) -> None:
+        msg = String()
+        msg.data = self.dance_mode
+        self.body_motion_pub.publish(msg)
 
     def _publish_stop(self) -> None:
-        self.cmd_pub.publish(Twist())
+        msg = String()
+        msg.data = "stop"
+        self.body_motion_pub.publish(msg)
 
 
 def main(args=None) -> None:

@@ -27,6 +27,8 @@ def generate_launch_description() -> LaunchDescription:
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
+    use_gpio_return_home = LaunchConfiguration("use_gpio_return_home")
+    gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -69,6 +71,8 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
+            DeclareLaunchArgument("use_gpio_return_home", default_value="false"),
+            DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml",
@@ -277,6 +281,19 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="sim_body_motion_controller",
+                        name="go2_sim_body_motion_controller",
+                        condition=IfCondition(use_behavior_supervisor),
+                        parameters=[
+                            {
+                                "motion_topic": "/sim_body_motion",
+                                "cmd_vel_topic": "/cmd_vel",
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="sim_behavior_supervisor",
                         name="go2_sim_behavior_supervisor",
                         condition=IfCondition(use_behavior_supervisor),
@@ -286,10 +303,26 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_location_topic": "/target_location",
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
+                                "body_motion_topic": "/sim_body_motion",
                                 "set_home_topic": set_home_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="gpio_return_home_publisher",
+                        name="go2_gpio_return_home_publisher",
+                        condition=IfCondition(use_gpio_return_home),
+                        parameters=[
+                            {
+                                "topic": return_home_trigger_topic,
+                                "pin_number": gpio_return_home_pin,
+                                "pin_mode": "BOARD",
+                                "pull": "DOWN",
                             }
                         ],
                         output="screen",

@@ -32,6 +32,7 @@ setup(
             'scan_restamper = go2_navigation.scan_restamper:main',
             'initial_pose_restamper = go2_navigation.initial_pose_restamper:main',
             'sim_behavior_supervisor = go2_navigation.sim_behavior_supervisor:main',
+            'sim_body_motion_controller = go2_navigation.sim_body_motion_controller:main',
             'gpio_return_home_publisher = go2_navigation.gpio_return_home_publisher:main',
             'mapping_pose_reanchor = go2_navigation.mapping_pose_reanchor:main',
             'lidar_odom_bridge = go2_navigation.lidar_odom_bridge:main',

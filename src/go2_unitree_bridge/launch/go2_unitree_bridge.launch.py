@@ -28,6 +28,7 @@ def generate_launch_description() -> LaunchDescription:
     publish_body_tf = LaunchConfiguration("publish_body_tf")
     publish_odom = LaunchConfiguration("publish_odom")
     odom_topic = LaunchConfiguration("odom_topic")
+    zero_on_start = LaunchConfiguration("zero_on_start")
 
     common_bridge_params = {
         "sport_state_topic": sport_state_topic,
@@ -38,6 +39,7 @@ def generate_launch_description() -> LaunchDescription:
         "publish_body_tf": publish_body_tf,
         "publish_odom": publish_odom,
         "odom_topic": odom_topic,
+        "zero_on_start": zero_on_start,
     }
 
     return LaunchDescription(
@@ -56,6 +58,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("publish_body_tf", default_value="true"),
             DeclareLaunchArgument("publish_odom", default_value="true"),
             DeclareLaunchArgument("odom_topic", default_value="/odom"),
+            DeclareLaunchArgument("zero_on_start", default_value="false"),
             Node(
                 package="robot_state_publisher",
                 executable="robot_state_publisher",

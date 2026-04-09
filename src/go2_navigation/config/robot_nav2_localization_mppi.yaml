@@ -133,15 +133,15 @@ controller_server:
       iteration_count: 1
       vx_std: 0.24
       vy_std: 0.0
-      wz_std: 1.10
+      wz_std: 0.80
       vx_max: 0.44
       vx_min: -0.18
       vy_max: 0.0
-      wz_max: 3.2
+      wz_max: 2.0
       ax_max: 1.15
       ax_min: -1.15
       ay_max: 0.0
-      az_max: 4.8
+      az_max: 3.0
       temperature: 0.3
       gamma: 0.015
       motion_model: DiffDrive
@@ -338,10 +338,10 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: OPEN_LOOP
-    max_velocity: [0.44, 0.0, 3.2]
-    min_velocity: [-0.18, 0.0, -2.8]
-    max_accel: [1.15, 0.0, 4.8]
-    max_decel: [-1.15, 0.0, -4.8]
+    max_velocity: [0.44, 0.0, 2.0]
+    min_velocity: [-0.18, 0.0, -2.0]
+    max_accel: [1.15, 0.0, 3.0]
+    max_decel: [-1.15, 0.0, -3.0]
     odom_topic: /odom
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]

@@ -207,6 +207,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_location_topic": "/target_location",
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
+                                "body_motion_topic": "/body_motion",
                                 "set_home_topic": set_home_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,

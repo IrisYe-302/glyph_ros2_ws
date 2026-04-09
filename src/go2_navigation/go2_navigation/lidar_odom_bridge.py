@@ -20,6 +20,7 @@ class LidarOdomBridge(Node):
         self.declare_parameter("use_current_time", True)
         self.declare_parameter("smooth_xy_alpha", 0.25)
         self.declare_parameter("smooth_yaw_alpha", 0.2)
+        self.declare_parameter("zero_on_start", False)
 
         input_topic = str(self.get_parameter("input_topic").value)
         output_topic = str(self.get_parameter("output_topic").value)
@@ -30,6 +31,7 @@ class LidarOdomBridge(Node):
         self.use_current_time = bool(self.get_parameter("use_current_time").value)
         self.smooth_xy_alpha = float(self.get_parameter("smooth_xy_alpha").value)
         self.smooth_yaw_alpha = float(self.get_parameter("smooth_yaw_alpha").value)
+        self.zero_on_start = bool(self.get_parameter("zero_on_start").value)
 
         self.odom_pub = self.create_publisher(Odometry, output_topic, 10)
         self.tf_broadcaster = TransformBroadcaster(self)
@@ -37,6 +39,9 @@ class LidarOdomBridge(Node):
         self._smoothed_x = None
         self._smoothed_y = None
         self._smoothed_yaw = None
+        self._origin_x = None
+        self._origin_y = None
+        self._origin_yaw = None
 
     @staticmethod
     def _rpy_from_quaternion(x: float, y: float, z: float, w: float) -> tuple[float, float, float]:
@@ -89,8 +94,26 @@ class LidarOdomBridge(Node):
     def _on_odom(self, msg: Odometry) -> None:
         q = msg.pose.pose.orientation
         roll, pitch, yaw = self._rpy_from_quaternion(q.x, q.y, q.z, q.w)
-        smoothed_x = self._smooth_value(self._smoothed_x, msg.pose.pose.position.x, self.smooth_xy_alpha)
-        smoothed_y = self._smooth_value(self._smoothed_y, msg.pose.pose.position.y, self.smooth_xy_alpha)
+        x = msg.pose.pose.position.x
+        y = msg.pose.pose.position.y
+        if self.zero_on_start and self._origin_x is None:
+            self._origin_x = x
+            self._origin_y = y
+            self._origin_yaw = yaw
+            self.get_logger().info(
+                f"Zeroed lidar odom origin at x={self._origin_x:.3f}, y={self._origin_y:.3f}, yaw={self._origin_yaw:.3f}"
+            )
+        if self._origin_x is not None and self._origin_y is not None and self._origin_yaw is not None:
+            dx = x - self._origin_x
+            dy = y - self._origin_y
+            cos_yaw = math.cos(-self._origin_yaw)
+            sin_yaw = math.sin(-self._origin_yaw)
+            x = cos_yaw * dx - sin_yaw * dy
+            y = sin_yaw * dx + cos_yaw * dy
+            yaw = self._wrap_angle(yaw - self._origin_yaw)
+
+        smoothed_x = self._smooth_value(self._smoothed_x, x, self.smooth_xy_alpha)
+        smoothed_y = self._smooth_value(self._smoothed_y, y, self.smooth_xy_alpha)
         smoothed_yaw = self._smooth_yaw(yaw)
         self._smoothed_x = smoothed_x
         self._smoothed_y = smoothed_y

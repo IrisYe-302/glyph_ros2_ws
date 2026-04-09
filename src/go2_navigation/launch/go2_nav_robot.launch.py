@@ -65,6 +65,7 @@ def generate_launch_description() -> LaunchDescription:
                     "foxglove": foxglove,
                     "foxglove_port": foxglove_port,
                     "use_ekf": use_ekf,
+                    "zero_on_start": "true",
                 }.items(),
             ),
             IncludeLaunchDescription(
@@ -77,6 +78,7 @@ def generate_launch_description() -> LaunchDescription:
                     "publish_odom": "false",
                     "publish_planar_tf": "false",
                     "publish_body_tf": "false",
+                    "zero_on_start": "true",
                 }.items(),
             ),
             Node(
@@ -131,6 +133,7 @@ def generate_launch_description() -> LaunchDescription:
                         "body_frame": "base_link",
                         "publish_tf": True,
                         "use_current_time": True,
+                        "zero_on_start": True,
                     }
                 ],
                 output="screen",

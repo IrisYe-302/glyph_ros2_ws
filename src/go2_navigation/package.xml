@@ -22,8 +22,6 @@
   <exec_depend>nav2_bringup</exec_depend>
   <exec_depend>pointcloud_to_laserscan</exec_depend>
   <exec_depend>slam_toolbox</exec_depend>
-  <exec_depend>unitree_go2_sim</exec_depend>
-
   <export>
     <build_type>ament_python</build_type>
   </export>

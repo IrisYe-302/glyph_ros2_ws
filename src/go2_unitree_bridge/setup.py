@@ -26,6 +26,7 @@ setup(
     entry_points={
         "console_scripts": [
             "go2_unitree_bridge_node = go2_unitree_bridge.bridge_node:main",
+            "robot_description_publisher = go2_unitree_bridge.robot_description_publisher:main",
             "rlsar_obstacle_markers = go2_unitree_bridge.rlsar_obstacle_markers:main",
             "rlsar_scan_node = go2_unitree_bridge.rlsar_scan_node:main",
             "verify_rlsar_nav2 = go2_unitree_bridge.verify_rlsar_nav2:main",

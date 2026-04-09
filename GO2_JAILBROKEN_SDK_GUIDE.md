@@ -38,13 +38,12 @@ env | grep -E '(ROS|DDS|CYCLONE)'
 
 ## Installed Packages
 
-The workspace includes 6 packages:
+The workspace includes 5 packages:
 1. **go2_interfaces** - Custom message/service definitions for Go2
 2. **go2_robot_sdk** - Main robot driver and control nodes
 3. **lidar_processor** - LiDAR data processing (Python)
-4. **lidar_processor_cpp** - LiDAR data processing (C++)
-5. **coco_detector** - Object detection using COCO dataset
-6. **speech_processor** - Text-to-speech functionality
+4. **coco_detector** - Object detection using COCO dataset
+5. **speech_processor** - Text-to-speech functionality
 
 ---
 

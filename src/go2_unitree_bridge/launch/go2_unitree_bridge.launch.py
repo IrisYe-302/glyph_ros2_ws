@@ -80,8 +80,8 @@ def generate_launch_description() -> LaunchDescription:
                 ],
             ),
             Node(
-                package="unitree_go2_sim",
-                executable="robot_description_publisher.py",
+                package="go2_unitree_bridge",
+                executable="robot_description_publisher",
                 name="go2_robot_description_publisher",
                 output="screen",
                 parameters=[

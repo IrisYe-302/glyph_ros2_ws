@@ -179,7 +179,7 @@ def generate_launch_description() -> LaunchDescription:
                         name="go2_location_subscriber",
                         condition=IfCondition(
                             PythonExpression(
-                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                                ["'", use_location_subscriber, "' == 'true' and '", use_behavior_supervisor, "' != 'true'"]
                             )
                         ),
                         parameters=[
@@ -196,12 +196,25 @@ def generate_launch_description() -> LaunchDescription:
                         name="go2_location_subscriber_target_location",
                         condition=IfCondition(
                             PythonExpression(
-                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                                ["'", use_location_subscriber, "' == 'true' and '", use_behavior_supervisor, "' != 'true'"]
                             )
                         ),
                         parameters=[
                             {
                                 "target_topic": "/target_location",
+                                "use_sim_time": False,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="location_subscriber",
+                        name="go2_location_subscriber_dispatch",
+                        condition=IfCondition(use_behavior_supervisor),
+                        parameters=[
+                            {
+                                "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
                             }
                         ],
@@ -231,7 +244,7 @@ def generate_launch_description() -> LaunchDescription:
                         name="go2_goal_tolerance_marker",
                         condition=IfCondition(
                             PythonExpression(
-                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                                ["'", use_location_subscriber, "' == 'true' and '", use_behavior_supervisor, "' != 'true'"]
                             )
                         ),
                         parameters=[
@@ -249,12 +262,26 @@ def generate_launch_description() -> LaunchDescription:
                         name="go2_goal_tolerance_marker_target_location",
                         condition=IfCondition(
                             PythonExpression(
-                                ["'", use_location_subscriber, "' == 'true' or '", use_behavior_supervisor, "' == 'true'"]
+                                ["'", use_location_subscriber, "' == 'true' and '", use_behavior_supervisor, "' != 'true'"]
                             )
                         ),
                         parameters=[
                             {
                                 "target_topic": "/target_location",
+                                "marker_topic": "/target_location_tolerance",
+                                "radius": 0.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
+                        executable="goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_dispatch",
+                        condition=IfCondition(use_behavior_supervisor),
+                        parameters=[
+                            {
+                                "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
                             }
@@ -301,6 +328,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
+                                "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/sim_body_motion",

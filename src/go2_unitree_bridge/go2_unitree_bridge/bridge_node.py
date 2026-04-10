@@ -58,12 +58,12 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("zero_on_start", False)
         self.declare_parameter("body_motion_topic", "/body_motion")
         self.declare_parameter("body_motion_hz", 20.0)
-        self.declare_parameter("dance1_yaw_amplitude", 0.18)
-        self.declare_parameter("dance1_frequency_hz", 0.32)
-        self.declare_parameter("dance1_roll_amplitude", 0.03)
-        self.declare_parameter("dance2_pitch_amplitude", 0.16)
-        self.declare_parameter("dance2_height_amplitude", 0.05)
-        self.declare_parameter("dance2_frequency_hz", 0.40)
+        self.declare_parameter("dance1_yaw_amplitude", 0.06)
+        self.declare_parameter("dance1_frequency_hz", 0.28)
+        self.declare_parameter("dance1_roll_amplitude", 0.0)
+        self.declare_parameter("dance2_pitch_amplitude", 0.10)
+        self.declare_parameter("dance2_height_amplitude", 0.008)
+        self.declare_parameter("dance2_frequency_hz", 0.28)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
@@ -367,9 +367,8 @@ class Go2UnitreeBridgeNode(Node):
             self._publish_body_height(0.0)
         elif mode == "dance2":
             phase = 2.0 * math.pi * self.dance2_frequency_hz * now_sec
-            pitch = self.dance2_pitch_amplitude * math.sin(phase)
-            height = self.dance2_height_amplitude * math.cos(phase)
-            self._publish_euler(0.0, pitch, 0.0)
+            height = self.dance2_height_amplitude * math.sin(phase)
+            self._publish_euler(0.0, 0.0, 0.0)
             self._publish_body_height(height)
         self._body_motion_baseline_sent = False
 

@@ -12,10 +12,10 @@ class SimBodyMotionController(Node):
 
         self.declare_parameter("motion_topic", "/sim_body_motion")
         self.declare_parameter("cmd_vel_topic", "/cmd_vel")
-        self.declare_parameter("twist_angular_speed", 0.35)
-        self.declare_parameter("twist_frequency_hz", 0.75)
-        self.declare_parameter("bend_speed", 0.08)
-        self.declare_parameter("bend_angular_speed", 0.08)
+        self.declare_parameter("twist_angular_speed", 0.28)
+        self.declare_parameter("twist_frequency_hz", 0.55)
+        self.declare_parameter("bend_speed", 0.035)
+        self.declare_parameter("bend_angular_speed", 0.0)
         self.declare_parameter("publish_hz", 20.0)
 
         motion_topic = str(self.get_parameter("motion_topic").value)
@@ -43,9 +43,8 @@ class SimBodyMotionController(Node):
 
     def _tick(self) -> None:
         if self.current_mode == "stop":
-            if not self._last_published_stop:
-                self.cmd_pub.publish(Twist())
-                self._last_published_stop = True
+            self.cmd_pub.publish(Twist())
+            self._last_published_stop = True
             return
 
         now_sec = self.get_clock().now().nanoseconds / 1e9
@@ -54,9 +53,10 @@ class SimBodyMotionController(Node):
             phase = math.sin(2.0 * math.pi * self.twist_frequency_hz * now_sec)
             cmd.angular.z = self.twist_angular_speed * phase
         else:
-            phase = 2.0 * math.pi * (self.twist_frequency_hz * 0.9) * now_sec
-            cmd.linear.x = self.bend_speed * math.sin(phase)
-            cmd.angular.z = self.bend_angular_speed * math.cos(phase)
+            phase = 2.0 * math.pi * (self.twist_frequency_hz * 0.75) * now_sec
+            bend_phase = math.sin(phase)
+            cmd.linear.x = self.bend_speed * bend_phase * abs(bend_phase)
+            cmd.angular.z = self.bend_angular_speed
 
         self.cmd_pub.publish(cmd)
         self._last_published_stop = False

@@ -34,6 +34,7 @@ setup(
             'sim_behavior_supervisor = go2_navigation.sim_behavior_supervisor:main',
             'sim_body_motion_controller = go2_navigation.sim_body_motion_controller:main',
             'gpio_return_home_publisher = go2_navigation.gpio_return_home_publisher:main',
+            'gpio_flavor_selection = go2_navigation.gpio_flavor_selection:main',
             'mapping_pose_reanchor = go2_navigation.mapping_pose_reanchor:main',
             'lidar_odom_bridge = go2_navigation.lidar_odom_bridge:main',
             'global_localization_trigger = go2_navigation.global_localization_trigger:main',

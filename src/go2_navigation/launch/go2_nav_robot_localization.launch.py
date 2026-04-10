@@ -26,6 +26,9 @@ def generate_launch_description() -> LaunchDescription:
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
     gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
+    flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
+    flavor_gpio12_pin = LaunchConfiguration("flavor_gpio12_pin")
+    flavor_gpio11_pin = LaunchConfiguration("flavor_gpio11_pin")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -60,6 +63,9 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
             DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
+            DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
+            DeclareLaunchArgument("flavor_gpio12_pin", default_value="15"),
+            DeclareLaunchArgument("flavor_gpio11_pin", default_value="31"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/robot_map.yaml",
@@ -205,6 +211,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
+                                "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/body_motion",
@@ -232,12 +239,15 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
-                        executable="location_subscriber",
-                        name="go2_location_subscriber",
+                        executable="gpio_flavor_selection",
+                        name="go2_gpio_flavor_selection",
                         parameters=[
                             {
-                                "target_topic": target_topic,
-                                "use_sim_time": False,
+                                "topic": flavor_selection_topic,
+                                "gpio12_pin_number": flavor_gpio12_pin,
+                                "gpio11_pin_number": flavor_gpio11_pin,
+                                "pin_mode": "BOARD",
+                                "default_selection": 0,
                             }
                         ],
                         output="screen",
@@ -245,10 +255,10 @@ def generate_launch_description() -> LaunchDescription:
                     Node(
                         package="go2_navigation",
                         executable="location_subscriber",
-                        name="go2_location_subscriber_target_location",
+                        name="go2_location_subscriber_dispatch",
                         parameters=[
                             {
-                                "target_topic": "/target_location",
+                                "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
                             }
                         ],
@@ -270,23 +280,10 @@ def generate_launch_description() -> LaunchDescription:
                     Node(
                         package="go2_navigation",
                         executable="goal_tolerance_marker",
-                        name="go2_goal_tolerance_marker",
+                        name="go2_goal_tolerance_marker_dispatch",
                         parameters=[
                             {
-                                "target_topic": target_topic,
-                                "marker_topic": "/target_location_tolerance",
-                                "radius": 0.5,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="goal_tolerance_marker",
-                        name="go2_goal_tolerance_marker_target_location",
-                        parameters=[
-                            {
-                                "target_topic": "/target_location",
+                                "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "marker_topic": "/target_location_tolerance",
                                 "radius": 0.5,
                             }

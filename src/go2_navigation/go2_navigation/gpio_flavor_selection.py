@@ -19,13 +19,13 @@ class GpioFlavorSelection(Node):
         self.declare_parameter("topic", "/flavor_selection")
         self.declare_parameter("pin_mode", "BOARD")
         self.declare_parameter("gpio12_pin_number", 15)
-        self.declare_parameter("gpio11_pin_number", 31)
+        self.declare_parameter("gpio01_pin_number", 29)
         self.declare_parameter("default_selection", 0)
 
         self.topic = str(self.get_parameter("topic").value)
         self.pin_mode = str(self.get_parameter("pin_mode").value).upper()
         self.gpio12_pin_number = int(self.get_parameter("gpio12_pin_number").value)
-        self.gpio11_pin_number = int(self.get_parameter("gpio11_pin_number").value)
+        self.gpio01_pin_number = int(self.get_parameter("gpio01_pin_number").value)
         default_selection = int(self.get_parameter("default_selection").value)
 
         qos = QoSProfile(
@@ -55,7 +55,7 @@ class GpioFlavorSelection(Node):
         self.create_subscription(UInt8, self.topic, self._on_selection, qos)
         self.get_logger().info(
             f"Listening for flavor selection on {self.topic}; pin {self.gpio12_pin_number}=gpio12, "
-            f"pin {self.gpio11_pin_number}=gpio11"
+            f"pin {self.gpio01_pin_number}=gpio01"
         )
 
     def _setup_gpio(self) -> None:
@@ -66,7 +66,7 @@ class GpioFlavorSelection(Node):
         GPIO.setwarnings(False)
         GPIO.setmode(mode)
         GPIO.setup(self.gpio12_pin_number, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(self.gpio11_pin_number, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.gpio01_pin_number, GPIO.OUT, initial=GPIO.LOW)
         self._gpio_ready = True
 
     def _on_selection(self, msg: UInt8) -> None:
@@ -82,22 +82,22 @@ class GpioFlavorSelection(Node):
             return
 
         gpio12_high = bool(selection & 0b10)
-        gpio11_high = bool(selection & 0b01)
+        gpio01_high = bool(selection & 0b01)
 
         GPIO.output(self.gpio12_pin_number, GPIO.HIGH if gpio12_high else GPIO.LOW)
-        GPIO.output(self.gpio11_pin_number, GPIO.HIGH if gpio11_high else GPIO.LOW)
+        GPIO.output(self.gpio01_pin_number, GPIO.HIGH if gpio01_high else GPIO.LOW)
 
         if self._current_selection != selection:
             self.get_logger().info(
                 f"Flavor selection set to {selection:02b} "
-                f"(gpio12={'HIGH' if gpio12_high else 'LOW'}, gpio11={'HIGH' if gpio11_high else 'LOW'})"
+                f"(gpio12={'HIGH' if gpio12_high else 'LOW'}, gpio01={'HIGH' if gpio01_high else 'LOW'})"
             )
             self._current_selection = selection
 
     def destroy_node(self) -> bool:
         if GPIO is not None and self._gpio_ready:
             GPIO.cleanup(self.gpio12_pin_number)
-            GPIO.cleanup(self.gpio11_pin_number)
+            GPIO.cleanup(self.gpio01_pin_number)
         return super().destroy_node()
 
 

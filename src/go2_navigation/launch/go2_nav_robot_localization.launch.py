@@ -28,7 +28,7 @@ def generate_launch_description() -> LaunchDescription:
     gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
     flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
     flavor_gpio12_pin = LaunchConfiguration("flavor_gpio12_pin")
-    flavor_gpio11_pin = LaunchConfiguration("flavor_gpio11_pin")
+    flavor_gpio01_pin = LaunchConfiguration("flavor_gpio01_pin")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -65,7 +65,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
             DeclareLaunchArgument("flavor_gpio12_pin", default_value="15"),
-            DeclareLaunchArgument("flavor_gpio11_pin", default_value="31"),
+            DeclareLaunchArgument("flavor_gpio01_pin", default_value="29"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/robot_map.yaml",
@@ -245,7 +245,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "topic": flavor_selection_topic,
                                 "gpio12_pin_number": flavor_gpio12_pin,
-                                "gpio11_pin_number": flavor_gpio11_pin,
+                                "gpio01_pin_number": flavor_gpio01_pin,
                                 "pin_mode": "BOARD",
                                 "default_selection": 0,
                             }

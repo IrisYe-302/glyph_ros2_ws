@@ -29,6 +29,10 @@ def generate_launch_description() -> LaunchDescription:
     publish_odom = LaunchConfiguration("publish_odom")
     odom_topic = LaunchConfiguration("odom_topic")
     zero_on_start = LaunchConfiguration("zero_on_start")
+    body_motion_topic = LaunchConfiguration("body_motion_topic")
+    body_motion_state_topic = LaunchConfiguration("body_motion_state_topic")
+    body_motion_state_plot_topic = LaunchConfiguration("body_motion_state_plot_topic")
+    cmd_vel_topic = LaunchConfiguration("cmd_vel_topic")
 
     common_bridge_params = {
         "sport_state_topic": sport_state_topic,
@@ -40,6 +44,10 @@ def generate_launch_description() -> LaunchDescription:
         "publish_odom": publish_odom,
         "odom_topic": odom_topic,
         "zero_on_start": zero_on_start,
+        "body_motion_topic": body_motion_topic,
+        "body_motion_state_topic": body_motion_state_topic,
+        "body_motion_state_plot_topic": body_motion_state_plot_topic,
+        "cmd_vel_topic": cmd_vel_topic,
     }
 
     return LaunchDescription(
@@ -59,6 +67,10 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("publish_odom", default_value="true"),
             DeclareLaunchArgument("odom_topic", default_value="/odom"),
             DeclareLaunchArgument("zero_on_start", default_value="false"),
+            DeclareLaunchArgument("body_motion_topic", default_value="/body_motion"),
+            DeclareLaunchArgument("body_motion_state_topic", default_value="/body_motion_state"),
+            DeclareLaunchArgument("body_motion_state_plot_topic", default_value="/body_motion_state_plot"),
+            DeclareLaunchArgument("cmd_vel_topic", default_value="/cmd_vel"),
             Node(
                 package="robot_state_publisher",
                 executable="robot_state_publisher",
@@ -140,6 +152,10 @@ def generate_launch_description() -> LaunchDescription:
                         "port": foxglove_port,
                         "topic_whitelist": [
                             "^/cmd_vel$",
+                            "^/cmd_vel_teleop$",
+                            "^/cmd_vel_muxed$",
+                            "^/cmd_vel_nav$",
+                            "^/cmd_vel_dance$",
                             "^/imu/data$",
                             "^/joint_states$",
                             "^/local_costmap/published_footprint$",

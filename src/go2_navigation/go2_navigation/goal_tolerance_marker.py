@@ -2,6 +2,7 @@ import rclpy
 from geometry_msgs.msg import PoseStamped
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
+from std_msgs.msg import Empty
 from visualization_msgs.msg import Marker
 
 
@@ -11,6 +12,7 @@ class GoalToleranceMarker(Node):
 
         self.declare_parameter("target_topic", "/target_location")
         self.declare_parameter("marker_topic", "/target_location_tolerance")
+        self.declare_parameter("goal_cleared_topic", "")
         self.declare_parameter("frame_id", "map")
         self.declare_parameter("default_x", 0.0)
         self.declare_parameter("default_y", 0.0)
@@ -21,6 +23,7 @@ class GoalToleranceMarker(Node):
 
         target_topic = self.get_parameter("target_topic").get_parameter_value().string_value
         marker_topic = self.get_parameter("marker_topic").get_parameter_value().string_value
+        goal_cleared_topic = self.get_parameter("goal_cleared_topic").get_parameter_value().string_value
         self._frame_id = self.get_parameter("frame_id").get_parameter_value().string_value
         self._default_x = self.get_parameter("default_x").get_parameter_value().double_value
         self._default_y = self.get_parameter("default_y").get_parameter_value().double_value
@@ -39,6 +42,8 @@ class GoalToleranceMarker(Node):
 
         self._publisher = self.create_publisher(Marker, marker_topic, pub_qos)
         self.create_subscription(PoseStamped, target_topic, self._callback, sub_qos)
+        if goal_cleared_topic:
+            self.create_subscription(Empty, goal_cleared_topic, self._clear_callback, 10)
         self._publish_marker(
             self._frame_id,
             self._default_x,
@@ -53,6 +58,15 @@ class GoalToleranceMarker(Node):
             msg.pose.position.y,
             0.0,
         )
+
+    def _clear_callback(self, _: Empty) -> None:
+        marker = Marker()
+        marker.header.frame_id = self._frame_id
+        marker.header.stamp = self.get_clock().now().to_msg()
+        marker.ns = "target_location_tolerance"
+        marker.id = 1
+        marker.action = Marker.DELETE
+        self._publisher.publish(marker)
 
     def _publish_marker(self, frame_id: str, x: float, y: float, yaw: float) -> None:
         marker = Marker()

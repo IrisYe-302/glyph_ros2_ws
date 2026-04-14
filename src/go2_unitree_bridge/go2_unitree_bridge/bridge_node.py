@@ -7,7 +7,7 @@ from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import Odometry
 from rclpy.node import Node
 from sensor_msgs.msg import Imu, JointState
-from std_msgs.msg import String
+from std_msgs.msg import Float32, String, UInt8
 from tf2_ros import TransformBroadcaster
 from unitree_api.msg import Request
 from unitree_go.msg import LowState, SportModeState
@@ -46,6 +46,7 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("low_state_topic", "lf/lowstate")
         self.declare_parameter("low_state_fallback_topic", "/lowstate")
         self.declare_parameter("cmd_topic", "/api/sport/request")
+        self.declare_parameter("cmd_vel_topic", "/cmd_vel")
         self.declare_parameter("odom_frame", "odom")
         self.declare_parameter("base_frame", "base_footprint")
         self.declare_parameter("body_frame", "base_link")
@@ -57,19 +58,23 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("odom_topic", "/odom")
         self.declare_parameter("zero_on_start", False)
         self.declare_parameter("body_motion_topic", "/body_motion")
-        self.declare_parameter("body_motion_hz", 20.0)
-        self.declare_parameter("dance1_yaw_amplitude", 0.06)
-        self.declare_parameter("dance1_frequency_hz", 0.28)
-        self.declare_parameter("dance1_roll_amplitude", 0.0)
+        self.declare_parameter("body_motion_state_topic", "/body_motion_state")
+        self.declare_parameter("body_motion_state_plot_topic", "/body_motion_state_plot")
+        self.declare_parameter("body_motion_hz", 30.0)
+        self.declare_parameter("dance1_yaw_amplitude", 0.05)
+        self.declare_parameter("dance1_frequency_hz", 0.20)
+        self.declare_parameter("dance1_roll_amplitude", 0.01)
         self.declare_parameter("dance2_pitch_amplitude", 0.10)
-        self.declare_parameter("dance2_height_amplitude", 0.008)
-        self.declare_parameter("dance2_frequency_hz", 0.28)
+        self.declare_parameter("dance2_height_amplitude", 0.040)
+        self.declare_parameter("dance2_frequency_hz", 0.40)
+        self.declare_parameter("dance2_height_rate_limit", 0.04)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
         low_state_topic = self.get_parameter("low_state_topic").value
         low_state_fallback_topic = self.get_parameter("low_state_fallback_topic").value
         cmd_topic = self.get_parameter("cmd_topic").value
+        cmd_vel_topic = self.get_parameter("cmd_vel_topic").value
         self.odom_frame = self.get_parameter("odom_frame").value
         self.base_frame = self.get_parameter("base_frame").value
         self.body_frame = self.get_parameter("body_frame").value
@@ -81,6 +86,8 @@ class Go2UnitreeBridgeNode(Node):
         odom_topic = self.get_parameter("odom_topic").value
         self.zero_on_start = bool(self.get_parameter("zero_on_start").value)
         body_motion_topic = self.get_parameter("body_motion_topic").value
+        body_motion_state_topic = self.get_parameter("body_motion_state_topic").value
+        body_motion_state_plot_topic = self.get_parameter("body_motion_state_plot_topic").value
         body_motion_hz = max(2.0, float(self.get_parameter("body_motion_hz").value))
         self.dance1_yaw_amplitude = float(self.get_parameter("dance1_yaw_amplitude").value)
         self.dance1_frequency_hz = float(self.get_parameter("dance1_frequency_hz").value)
@@ -88,17 +95,22 @@ class Go2UnitreeBridgeNode(Node):
         self.dance2_pitch_amplitude = float(self.get_parameter("dance2_pitch_amplitude").value)
         self.dance2_height_amplitude = float(self.get_parameter("dance2_height_amplitude").value)
         self.dance2_frequency_hz = float(self.get_parameter("dance2_frequency_hz").value)
+        self.dance2_height_rate_limit = float(self.get_parameter("dance2_height_rate_limit").value)
         self._origin_x = None
         self._origin_y = None
         self._origin_yaw = None
         self._last_body_motion_mode = "stop"
         self._body_motion_baseline_sent = False
+        self._last_body_motion_tick_ns: int | None = None
+        self._smoothed_body_height = 0.0
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
         self.imu_publisher = self.create_publisher(Imu, "/imu/data", 10)
         self.joint_state_publisher = self.create_publisher(JointState, "/joint_states", 10)
         self.sport_request_publisher = self.create_publisher(Request, cmd_topic, 10)
+        self.body_motion_state_publisher = self.create_publisher(UInt8, body_motion_state_topic, 10)
+        self.body_motion_state_plot_publisher = self.create_publisher(Float32, body_motion_state_plot_topic, 10)
 
         self.create_subscription(SportModeState, sport_state_topic, self._on_sport_state, 10)
         if sport_state_fallback_topic != sport_state_topic:
@@ -116,7 +128,7 @@ class Go2UnitreeBridgeNode(Node):
                 self._on_low_state,
                 10,
             )
-        self.create_subscription(Twist, "/cmd_vel", self._on_cmd_vel, 10)
+        self.create_subscription(Twist, cmd_vel_topic, self._on_cmd_vel, 10)
         self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)
         self.body_motion_timer = self.create_timer(1.0 / body_motion_hz, self._tick_body_motion)
 
@@ -126,6 +138,7 @@ class Go2UnitreeBridgeNode(Node):
             f"{sport_state_topic} ({sport_state_fallback_topic}) -> /odom,/tf and "
             f"{low_state_topic} ({low_state_fallback_topic}) -> /joint_states,/imu/data"
         )
+        self.get_logger().info(f"Listening for velocity commands on {cmd_vel_topic}")
         self.get_logger().info(f"Listening for body motion commands on {body_motion_topic}")
 
     def _next_request_id(self) -> int:
@@ -346,6 +359,7 @@ class Go2UnitreeBridgeNode(Node):
         self.sport_request_publisher.publish(request)
 
     def _send_body_motion_baseline(self) -> None:
+        self._smoothed_body_height = 0.0
         self._publish_euler(0.0, 0.0, 0.0)
         self._publish_body_height(0.0)
         self._publish_balance_stand()
@@ -353,24 +367,46 @@ class Go2UnitreeBridgeNode(Node):
 
     def _tick_body_motion(self) -> None:
         mode = self._last_body_motion_mode
+        state = UInt8()
+        state_plot = Float32()
+        now_ns = self.get_clock().now().nanoseconds
+        dt_sec = 1.0 / 30.0
+        if self._last_body_motion_tick_ns is not None:
+            dt_sec = max(1e-3, (now_ns - self._last_body_motion_tick_ns) / 1e9)
+        self._last_body_motion_tick_ns = now_ns
         if mode == "stop":
             if not self._body_motion_baseline_sent:
                 self._send_body_motion_baseline()
+            state.data = 0
+            state_plot.data = 0.0
+            self.body_motion_state_publisher.publish(state)
+            self.body_motion_state_plot_publisher.publish(state_plot)
             return
 
-        now_sec = self.get_clock().now().nanoseconds / 1e9
+        now_sec = now_ns / 1e9
         if mode == "dance1":
             phase = 2.0 * math.pi * self.dance1_frequency_hz * now_sec
             yaw = self.dance1_yaw_amplitude * math.sin(phase)
             roll = self.dance1_roll_amplitude * math.sin(phase + math.pi / 2.0)
+            self._smoothed_body_height = 0.0
             self._publish_euler(roll, 0.0, yaw)
             self._publish_body_height(0.0)
+            state.data = 1
+            state_plot.data = 1.0
         elif mode == "dance2":
             phase = 2.0 * math.pi * self.dance2_frequency_hz * now_sec
-            height = self.dance2_height_amplitude * math.sin(phase)
+            # Continuous smooth lower-and-rise motion, staying below nominal stand height.
+            target_height = -0.5 * self.dance2_height_amplitude + 0.5 * self.dance2_height_amplitude * math.sin(phase)
+            max_step = self.dance2_height_rate_limit * dt_sec
+            delta = max(-max_step, min(max_step, target_height - self._smoothed_body_height))
+            self._smoothed_body_height += delta
             self._publish_euler(0.0, 0.0, 0.0)
-            self._publish_body_height(height)
+            self._publish_body_height(self._smoothed_body_height)
+            state.data = 2
+            state_plot.data = 2.0
         self._body_motion_baseline_sent = False
+        self.body_motion_state_publisher.publish(state)
+        self.body_motion_state_plot_publisher.publish(state_plot)
 
 
 def main(args=None) -> None:

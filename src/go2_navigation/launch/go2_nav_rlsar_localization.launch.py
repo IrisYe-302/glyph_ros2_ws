@@ -216,6 +216,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
+                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
                             }
                         ],
                         output="screen",
@@ -234,6 +235,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": home_target_topic,
                                 "use_sim_time": False,
                                 "orient_toward_goal_center": False,
+                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
                             }
                         ],
                         output="screen",
@@ -251,6 +253,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": target_topic,
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/target_location_cleared",
                                 "radius": 0.5,
                             }
                         ],
@@ -269,6 +272,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/target_location",
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/target_location_cleared",
                                 "radius": 0.5,
                             }
                         ],
@@ -283,6 +287,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
                                 "radius": 0.5,
                             }
                         ],
@@ -301,6 +306,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": home_target_topic,
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
                                 "radius": 0.5,
                             }
                         ],

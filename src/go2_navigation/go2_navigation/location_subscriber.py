@@ -21,6 +21,7 @@ class LocationSubscriber(Node):
         self.declare_parameter('target_frame_override', '')
         self.declare_parameter('target_xy_rotation_deg', 0.0)
         self.declare_parameter('orient_toward_goal_center', True)
+        self.declare_parameter('goal_cleared_topic', '/target_location_cleared')
 
         target_topic = self.get_parameter('target_topic').get_parameter_value().string_value
         self.goal_frame_id = self.get_parameter('goal_frame_id').get_parameter_value().string_value
@@ -31,6 +32,7 @@ class LocationSubscriber(Node):
         self.orient_toward_goal_center = (
             self.get_parameter('orient_toward_goal_center').get_parameter_value().bool_value
         )
+        goal_cleared_topic = self.get_parameter('goal_cleared_topic').get_parameter_value().string_value
 
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
         self.tf_buffer = Buffer()
@@ -51,7 +53,7 @@ class LocationSubscriber(Node):
             self.location_callback,
             self.target_qos,
         )
-        self.goal_cleared_publisher = self.create_publisher(Empty, '/target_location_cleared', 10)
+        self.goal_cleared_publisher = self.create_publisher(Empty, goal_cleared_topic, 10)
 
         self.get_logger().info(f'Listening for target locations on {target_topic}')
         self.get_logger().info('Waiting for Nav2 action server and goal frame...')

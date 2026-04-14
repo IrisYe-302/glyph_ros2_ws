@@ -26,6 +26,7 @@ def generate_launch_description() -> LaunchDescription:
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
     gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
+    use_gpio_return_home = LaunchConfiguration("use_gpio_return_home")
     flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
     flavor_gpio12_pin = LaunchConfiguration("flavor_gpio12_pin")
     flavor_gpio01_pin = LaunchConfiguration("flavor_gpio01_pin")
@@ -62,6 +63,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
+            DeclareLaunchArgument("use_gpio_return_home", default_value="true"),
             DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
             DeclareLaunchArgument("flavor_gpio12_pin", default_value="15"),
@@ -75,6 +77,10 @@ def generate_launch_description() -> LaunchDescription:
                 launch_arguments={
                     "foxglove": foxglove,
                     "use_ekf": "false",
+                    "cmd_vel_topic": "/cmd_vel_muxed",
+                    "body_motion_topic": "/body_motion_sdk_disabled",
+                    "body_motion_state_topic": "/body_motion_state_sdk",
+                    "body_motion_state_plot_topic": "/body_motion_state_plot_sdk",
                 }.items(),
             ),
             Node(
@@ -129,13 +135,33 @@ def generate_launch_description() -> LaunchDescription:
                 period=nav2_start_delay,
                 actions=[
                     Node(
+                        package="go2_navigation",
+                        executable="cmd_vel_arbiter",
+                        name="go2_cmd_vel_arbiter",
+                        parameters=[
+                            {
+                                "teleop_input_topic": "/cmd_vel_teleop",
+                                "nav_input_topic": "/cmd_vel_nav",
+                                "dance_input_topic": "/cmd_vel_dance",
+                                "output_topic": "/cmd_vel_muxed",
+                                "nav_timeout_sec": 1.5,
+                                "dance_timeout_sec": 1.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
                         package="nav2_controller",
                         executable="controller_server",
                         name="controller_server",
                         output="screen",
                         parameters=[nav2_params],
                         arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                        remappings=[
+                            ("/tf", "tf"),
+                            ("/tf_static", "tf_static"),
+                            ("/cmd_vel", "/cmd_vel_nav"),
+                        ],
                     ),
                     Node(
                         package="nav2_smoother",
@@ -144,7 +170,11 @@ def generate_launch_description() -> LaunchDescription:
                         output="screen",
                         parameters=[nav2_params],
                         arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                        remappings=[
+                            ("/tf", "tf"),
+                            ("/tf_static", "tf_static"),
+                            ("/cmd_vel", "/cmd_vel_nav"),
+                        ],
                     ),
                     Node(
                         package="nav2_planner",
@@ -225,8 +255,23 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="sim_body_motion_controller",
+                        name="go2_robot_body_motion_controller",
+                        parameters=[
+                            {
+                                "motion_topic": "/body_motion",
+                                "cmd_vel_topic": "/cmd_vel_dance",
+                                "state_topic": "/body_motion_state",
+                                "state_plot_topic": "/body_motion_state_plot",
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="gpio_return_home_publisher",
                         name="go2_gpio_return_home_publisher",
+                        condition=IfCondition(use_gpio_return_home),
                         parameters=[
                             {
                                 "topic": return_home_trigger_topic,
@@ -260,6 +305,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
+                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
                             }
                         ],
                         output="screen",
@@ -273,6 +319,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": home_target_topic,
                                 "use_sim_time": False,
                                 "orient_toward_goal_center": False,
+                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
                             }
                         ],
                         output="screen",
@@ -285,6 +332,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
                                 "radius": 0.5,
                             }
                         ],
@@ -298,6 +346,7 @@ def generate_launch_description() -> LaunchDescription:
                             {
                                 "target_topic": home_target_topic,
                                 "marker_topic": "/target_location_tolerance",
+                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
                                 "radius": 0.5,
                             }
                         ],

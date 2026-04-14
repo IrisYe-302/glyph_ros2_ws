@@ -39,6 +39,7 @@ setup(
             'lidar_odom_bridge = go2_navigation.lidar_odom_bridge:main',
             'global_localization_trigger = go2_navigation.global_localization_trigger:main',
             'session_map_publisher = go2_navigation.session_map_publisher:main',
+            'cmd_vel_arbiter = go2_navigation.cmd_vel_arbiter:main',
         ],
     },
 )

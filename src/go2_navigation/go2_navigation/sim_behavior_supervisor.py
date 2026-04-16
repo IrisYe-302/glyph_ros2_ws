@@ -1,9 +1,12 @@
+import json
 import math
+import os
 import random
 from typing import Optional
 
 import rclpy
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import PoseStamped, Twist
+from nav2_msgs.srv import ClearEntireCostmap
 from rclpy.duration import Duration
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
@@ -29,6 +32,7 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
         self.declare_parameter("home_target_topic", "/return_home_target_location")
         self.declare_parameter("body_motion_topic", "/sim_body_motion")
+        self.declare_parameter("home_align_cmd_vel_topic", "")
         self.declare_parameter("dispatch_goal_cleared_topic", "/behavior_supervisor_dispatch_cleared")
         self.declare_parameter("home_goal_cleared_topic", "/behavior_supervisor_home_cleared")
         self.declare_parameter("queue_marker_topic", "/behavior_supervisor_queue")
@@ -37,6 +41,11 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("debug_home_distance_topic", "/behavior_supervisor_home_distance")
         self.declare_parameter("debug_home_yaw_error_topic", "/behavior_supervisor_home_yaw_error")
         self.declare_parameter("set_home_topic", "/set_home_here")
+        self.declare_parameter("persist_home", False)
+        self.declare_parameter("home_persistence_path", "")
+        self.declare_parameter("clear_local_costmap_service", "")
+        self.declare_parameter("home_stuck_timeout_sec", 4.0)
+        self.declare_parameter("home_stuck_progress_epsilon", 0.08)
         self.declare_parameter("return_home_delay_sec", 5.0)
         self.declare_parameter("target_reached_radius", 0.5)
         self.declare_parameter("home_reached_radius", 0.25)
@@ -54,9 +63,9 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("dance_max_duration_sec", 8.0)
         self.declare_parameter("command_quiet_sec", 4.0)
         self.declare_parameter("return_home_republish_sec", 0.5)
-        self.declare_parameter("home_back_in_distance", 0.85)
-        self.declare_parameter("home_back_in_yaw_tol", 0.55)
-        self.declare_parameter("home_back_in_bearing_min_abs", 2.3)
+        self.declare_parameter("home_back_in_distance", 1.50)
+        self.declare_parameter("home_back_in_yaw_tol", 1.20)
+        self.declare_parameter("home_back_in_bearing_min_abs", 1.70)
         self.declare_parameter("queue_cancel_radius", 0.45)
 
         self.goal_frame_id = str(self.get_parameter("goal_frame_id").value)
@@ -87,6 +96,14 @@ class SimBehaviorSupervisor(Node):
             self.get_parameter("home_back_in_bearing_min_abs").value
         )
         self.queue_cancel_radius = float(self.get_parameter("queue_cancel_radius").value)
+        self.persist_home = bool(self.get_parameter("persist_home").value)
+        self.home_persistence_path = str(self.get_parameter("home_persistence_path").value)
+        self.home_stuck_timeout_sec = float(self.get_parameter("home_stuck_timeout_sec").value)
+        self.home_stuck_progress_epsilon = float(
+            self.get_parameter("home_stuck_progress_epsilon").value
+        )
+
+        self._load_persisted_home()
 
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
@@ -103,6 +120,18 @@ class SimBehaviorSupervisor(Node):
             String,
             str(self.get_parameter("body_motion_topic").value),
             10,
+        )
+        clear_local_costmap_service = str(self.get_parameter("clear_local_costmap_service").value)
+        self.clear_local_costmap_client = (
+            self.create_client(ClearEntireCostmap, clear_local_costmap_service)
+            if clear_local_costmap_service
+            else None
+        )
+        home_align_cmd_vel_topic = str(self.get_parameter("home_align_cmd_vel_topic").value)
+        self.home_align_cmd_pub = (
+            self.create_publisher(Twist, home_align_cmd_vel_topic, 10)
+            if home_align_cmd_vel_topic
+            else None
         )
         self.dispatch_goal_pub = self.create_publisher(
             PoseStamped,
@@ -197,6 +226,11 @@ class SimBehaviorSupervisor(Node):
         self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
         self.home_final_align_sent = False
+        self.home_align_active = False
+        self.home_stuck_since_ns: Optional[int] = None
+        self.home_best_distance: Optional[float] = None
+        self.home_clear_in_flight = False
+        self.home_cleared_this_return = False
         self.dance_mode = "dance1"
         self.at_home_last = True
         self.dance_recovery_pending = False
@@ -205,6 +239,48 @@ class SimBehaviorSupervisor(Node):
         self.timer = self.create_timer(0.25, self._tick)
         self.get_logger().info("Sim behavior supervisor active")
         self._publish_queue_markers()
+
+    def _load_persisted_home(self) -> None:
+        if not self.persist_home or not self.home_persistence_path:
+            return
+
+        try:
+            with open(self.home_persistence_path, "r", encoding="utf-8") as handle:
+                data = json.load(handle)
+            self.home_x = float(data["home_x"])
+            self.home_y = float(data["home_y"])
+            self.home_yaw = float(data["home_yaw"])
+            self.get_logger().info(
+                f"Loaded persisted home pose from {self.home_persistence_path}: "
+                f"x={self.home_x:.2f}, y={self.home_y:.2f}, yaw={self.home_yaw:.2f}"
+            )
+        except FileNotFoundError:
+            return
+        except Exception as exc:
+            self.get_logger().warn(
+                f"Failed to load persisted home pose from {self.home_persistence_path}: {exc}"
+            )
+
+    def _persist_home(self) -> None:
+        if not self.persist_home or not self.home_persistence_path:
+            return
+
+        try:
+            os.makedirs(os.path.dirname(self.home_persistence_path), exist_ok=True)
+            with open(self.home_persistence_path, "w", encoding="utf-8") as handle:
+                json.dump(
+                    {
+                        "home_x": self.home_x,
+                        "home_y": self.home_y,
+                        "home_yaw": self.home_yaw,
+                    },
+                    handle,
+                    indent=2,
+                )
+        except Exception as exc:
+            self.get_logger().warn(
+                f"Failed to persist home pose to {self.home_persistence_path}: {exc}"
+            )
 
     def _on_command(self, msg: PoseStamped) -> None:
         msg_time = Time.from_msg(msg.header.stamp)
@@ -307,6 +383,7 @@ class SimBehaviorSupervisor(Node):
         self.get_logger().info(
             f"Updated home pose to x={self.home_x:.2f}, y={self.home_y:.2f}, yaw={self.home_yaw:.2f}"
         )
+        self._persist_home()
         self._publish_queue_markers()
 
     def _on_dispatch_goal_cleared(self, _: Empty) -> None:
@@ -487,6 +564,8 @@ class SimBehaviorSupervisor(Node):
                 self.return_home_start_deadline_ns = None
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
                 self._publish_home_goal()
                 self._publish_queue_markers()
             return
@@ -499,6 +578,8 @@ class SimBehaviorSupervisor(Node):
                 self.dance_recovery_pending = False
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
                 self.last_command_time = now
                 self.next_dance_ns = self._schedule_next_dance(now_ns)
             elif self._is_at_home_exact() or self._is_at_home_resume():
@@ -506,20 +587,24 @@ class SimBehaviorSupervisor(Node):
                 self.dance_recovery_pending = False
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
                 self.last_command_time = now
                 self.next_dance_ns = self._schedule_next_dance(now_ns)
             elif (
                 not self.home_final_align_sent
                 and self._is_near_point(self.home_x, self.home_y, self.home_resume_radius)
             ):
-                self._publish_home_goal()
+                self._publish_home_align_cmd()
                 self.home_final_align_sent = True
             elif (
                 self.last_home_publish_ns is None
                 or now_ns - self.last_home_publish_ns
                 >= int(self.return_home_republish_sec * 1e9)
             ):
+                self._publish_home_align_stop()
                 self._publish_home_goal()
+            self._maybe_clear_local_costmap_for_home(now_ns)
             return
 
         if self.command_queue:
@@ -540,6 +625,8 @@ class SimBehaviorSupervisor(Node):
                 self.returning_home = True
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
                 self._publish_home_goal()
                 return
             self._publish_stop()
@@ -560,6 +647,8 @@ class SimBehaviorSupervisor(Node):
                     self.returning_home = True
                     self.last_home_publish_ns = None
                     self.home_final_align_sent = False
+                    self._publish_home_align_stop()
+                    self._reset_home_stuck_tracking()
                     self._publish_home_goal()
                     return
                 self._publish_dance()
@@ -572,6 +661,8 @@ class SimBehaviorSupervisor(Node):
                 self.returning_home = True
                 self.last_home_publish_ns = None
                 self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
                 self._publish_home_goal()
                 return
             self.next_dance_ns = self._schedule_next_dance(now_ns)
@@ -601,6 +692,10 @@ class SimBehaviorSupervisor(Node):
             dx = self.home_x - robot_pose[0]
             dy = self.home_y - robot_pose[1]
             distance_sq = dx * dx + dy * dy
+            if distance_sq <= self.home_resume_radius * self.home_resume_radius:
+                msg.pose.position.x = robot_pose[0]
+                msg.pose.position.y = robot_pose[1]
+                yaw = self.home_yaw
             if distance_sq > self.home_resume_radius * self.home_resume_radius:
                 bearing_to_home = math.atan2(dy, dx)
                 relative_bearing = self._wrap_angle(bearing_to_home - robot_pose[2])
@@ -618,11 +713,67 @@ class SimBehaviorSupervisor(Node):
         self.last_home_publish_ns = self.get_clock().now().nanoseconds
         self.last_command_time = self.get_clock().now()
 
+    def _reset_home_stuck_tracking(self) -> None:
+        self.home_stuck_since_ns = None
+        self.home_best_distance = None
+        self.home_clear_in_flight = False
+        self.home_cleared_this_return = False
+
+    def _maybe_clear_local_costmap_for_home(self, now_ns: int) -> None:
+        if (
+            self.clear_local_costmap_client is None
+            or self.home_cleared_this_return
+            or self.home_clear_in_flight
+        ):
+            return
+
+        robot_pose = self._lookup_robot_pose()
+        if robot_pose is None:
+            return
+
+        distance = math.hypot(robot_pose[0] - self.home_x, robot_pose[1] - self.home_y)
+        if distance > max(self.home_back_in_distance, self.home_resume_radius * 2.0):
+            self.home_stuck_since_ns = None
+            self.home_best_distance = distance
+            return
+
+        if self.home_best_distance is None or distance < (self.home_best_distance - self.home_stuck_progress_epsilon):
+            self.home_best_distance = distance
+            self.home_stuck_since_ns = now_ns
+            return
+
+        if self.home_stuck_since_ns is None:
+            self.home_stuck_since_ns = now_ns
+            return
+
+        if now_ns - self.home_stuck_since_ns < int(self.home_stuck_timeout_sec * 1e9):
+            return
+
+        if not self.clear_local_costmap_client.service_is_ready():
+            self.get_logger().warn("Local costmap clear service is unavailable while stuck near home")
+            return
+
+        self.get_logger().info("Clearing local costmap after stalled home return")
+        future = self.clear_local_costmap_client.call_async(ClearEntireCostmap.Request())
+        future.add_done_callback(self._on_home_costmap_cleared)
+        self.home_clear_in_flight = True
+        self.home_cleared_this_return = True
+        self.home_stuck_since_ns = now_ns
+
+    def _on_home_costmap_cleared(self, future) -> None:
+        self.home_clear_in_flight = False
+        try:
+            future.result()
+            self.get_logger().info("Local costmap cleared for home-return recovery")
+        except Exception as exc:
+            self.get_logger().warn(f"Failed to clear local costmap for home-return recovery: {exc}")
+
     def _queue_return_home(self) -> None:
         if self._is_at_home_resume():
             self.returning_home = False
             self.return_home_pending = False
             self.return_home_start_deadline_ns = None
+            self._reset_home_stuck_tracking()
             self._publish_queue_markers()
             return
         self.returning_home = False
@@ -630,12 +781,37 @@ class SimBehaviorSupervisor(Node):
         self.return_home_start_deadline_ns = None
         self.last_home_publish_ns = None
         self.home_final_align_sent = False
+        self._reset_home_stuck_tracking()
         self._publish_queue_markers()
 
     def _publish_dance(self) -> None:
         msg = String()
         msg.data = self.dance_mode
         self.body_motion_pub.publish(msg)
+
+    def _publish_home_align_cmd(self) -> None:
+        if self.home_align_cmd_pub is None:
+            self._publish_home_goal()
+            return
+
+        robot_pose = self._lookup_robot_pose()
+        if robot_pose is None:
+            return
+
+        yaw_error = self._wrap_angle(self.home_yaw - robot_pose[2])
+        cmd = Twist()
+        angular_mag = min(0.45, max(0.15, abs(yaw_error) * 0.8))
+        cmd.angular.z = math.copysign(angular_mag, yaw_error)
+        self.home_align_cmd_pub.publish(cmd)
+        self.home_align_active = True
+        self.last_command_time = self.get_clock().now()
+
+    def _publish_home_align_stop(self) -> None:
+        if self.home_align_cmd_pub is None or not self.home_align_active:
+            self.home_align_active = False
+            return
+        self.home_align_cmd_pub.publish(Twist())
+        self.home_align_active = False
 
     def _publish_stop(self) -> None:
         msg = String()

@@ -1,4 +1,5 @@
 import os
+import json
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -7,6 +8,19 @@ from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+
+
+def _load_persisted_home_defaults(home_pose_path: str) -> tuple[str, str, str]:
+    try:
+        with open(home_pose_path, "r", encoding="utf-8") as handle:
+            data = json.load(handle)
+        return (
+            str(float(data["home_x"])),
+            str(float(data["home_y"])),
+            str(float(data["home_yaw"])),
+        )
+    except Exception:
+        return ("0.0", "0.0", "0.0")
 
 
 def generate_launch_description() -> LaunchDescription:
@@ -25,11 +39,10 @@ def generate_launch_description() -> LaunchDescription:
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
-    gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
-    use_gpio_return_home = LaunchConfiguration("use_gpio_return_home")
     flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
-    flavor_gpio12_pin = LaunchConfiguration("flavor_gpio12_pin")
-    flavor_gpio01_pin = LaunchConfiguration("flavor_gpio01_pin")
+    currently_dispensing_topic = LaunchConfiguration("currently_dispensing_topic")
+    dispense_uart_port = LaunchConfiguration("dispense_uart_port")
+    dispense_uart_baudrate = LaunchConfiguration("dispense_uart_baudrate")
 
     bridge_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -46,15 +59,21 @@ def generate_launch_description() -> LaunchDescription:
         "config",
         "robot_nav2_localization_mppi.yaml",
     )
+    home_pose_path = os.path.join(
+        get_package_share_directory("go2_navigation"),
+        "config",
+        "robot_home_pose.json",
+    )
+    persisted_home_x, persisted_home_y, persisted_home_yaw = _load_persisted_home_defaults(home_pose_path)
 
     return LaunchDescription(
         [
             DeclareLaunchArgument("foxglove", default_value="true"),
             DeclareLaunchArgument("target_topic", default_value="/move_base_simple/goal"),
             DeclareLaunchArgument("cloud_topic", default_value="/utlidar/cloud_base"),
-            DeclareLaunchArgument("initial_pose_x", default_value="0.0"),
-            DeclareLaunchArgument("initial_pose_y", default_value="0.0"),
-            DeclareLaunchArgument("initial_pose_yaw", default_value="0.0"),
+            DeclareLaunchArgument("initial_pose_x", default_value=persisted_home_x),
+            DeclareLaunchArgument("initial_pose_y", default_value=persisted_home_y),
+            DeclareLaunchArgument("initial_pose_yaw", default_value=persisted_home_yaw),
             DeclareLaunchArgument("initial_pose_delay", default_value="5.0"),
             DeclareLaunchArgument("publish_initial_pose", default_value="true"),
             DeclareLaunchArgument("global_localization", default_value="false"),
@@ -63,11 +82,10 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
-            DeclareLaunchArgument("use_gpio_return_home", default_value="true"),
-            DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
             DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
-            DeclareLaunchArgument("flavor_gpio12_pin", default_value="15"),
-            DeclareLaunchArgument("flavor_gpio01_pin", default_value="29"),
+            DeclareLaunchArgument("currently_dispensing_topic", default_value="/currently_dispensing"),
+            DeclareLaunchArgument("dispense_uart_port", default_value="/dev/ttyTHS1"),
+            DeclareLaunchArgument("dispense_uart_baudrate", default_value="115200"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/robot_map.yaml",
@@ -245,7 +263,11 @@ def generate_launch_description() -> LaunchDescription:
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/body_motion",
+                                "home_align_cmd_vel_topic": "/cmd_vel_dance",
+                                "clear_local_costmap_service": "/local_costmap/clear_entirely_local_costmap",
                                 "set_home_topic": set_home_topic,
+                                "persist_home": True,
+                                "home_persistence_path": home_pose_path,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,
@@ -269,30 +291,14 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
-                        executable="gpio_return_home_publisher",
-                        name="go2_gpio_return_home_publisher",
-                        condition=IfCondition(use_gpio_return_home),
+                        executable="uart_dispense_bridge",
+                        name="go2_uart_dispense_bridge",
                         parameters=[
                             {
-                                "topic": return_home_trigger_topic,
-                                "pin_number": gpio_return_home_pin,
-                                "pin_mode": "BOARD",
-                                "pull": "DOWN",
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="gpio_flavor_selection",
-                        name="go2_gpio_flavor_selection",
-                        parameters=[
-                            {
-                                "topic": flavor_selection_topic,
-                                "gpio12_pin_number": flavor_gpio12_pin,
-                                "gpio01_pin_number": flavor_gpio01_pin,
-                                "pin_mode": "BOARD",
-                                "default_selection": 0,
+                                "port": dispense_uart_port,
+                                "baudrate": dispense_uart_baudrate,
+                                "flavor_selection_topic": flavor_selection_topic,
+                                "currently_dispensing_topic": currently_dispensing_topic,
                             }
                         ],
                         output="screen",

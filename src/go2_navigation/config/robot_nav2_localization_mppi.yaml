@@ -106,7 +106,7 @@ bt_navigator_navigate_to_pose_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: false
-    controller_frequency: 20.0
+    controller_frequency: 30.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
@@ -134,12 +134,12 @@ controller_server:
       vx_std: 0.24
       vy_std: 0.0
       wz_std: 0.80
-      vx_max: 0.44
+      vx_max: 0.50
       vx_min: -0.24
       vy_max: 0.0
       wz_max: 1.5
-      ax_max: 1.15
-      ax_min: -1.15
+      ax_max: 1.35
+      ax_min: -1.35
       ay_max: 0.0
       az_max: 2.0
       temperature: 0.3
@@ -166,14 +166,14 @@ controller_server:
       ConstraintCritic.cost_weight: 4.0
       CostCritic.enabled: true
       CostCritic.cost_power: 1
-      CostCritic.cost_weight: 8.5
-      CostCritic.critical_cost: 260.0
+      CostCritic.cost_weight: 4.5
+      CostCritic.critical_cost: 650.0
       CostCritic.consider_footprint: true
       CostCritic.collision_cost: 1000000.0
       CostCritic.near_goal_distance: 1.0
       GoalCritic.enabled: true
       GoalCritic.cost_power: 1
-      GoalCritic.cost_weight: 4.0
+      GoalCritic.cost_weight: 5.0
       GoalCritic.threshold_to_consider: 1.8
       GoalAngleCritic.enabled: true
       GoalAngleCritic.cost_power: 1
@@ -181,7 +181,7 @@ controller_server:
       GoalAngleCritic.threshold_to_consider: 1.6
       PathAlignCritic.enabled: true
       PathAlignCritic.cost_power: 1
-      PathAlignCritic.cost_weight: 7.0
+      PathAlignCritic.cost_weight: 5.5
       PathAlignCritic.threshold_to_consider: 0.8
       PathFollowCritic.enabled: true
       PathFollowCritic.cost_power: 1
@@ -189,7 +189,7 @@ controller_server:
       PathFollowCritic.threshold_to_consider: 1.4
       PathAngleCritic.enabled: true
       PathAngleCritic.cost_power: 1
-      PathAngleCritic.cost_weight: 4.5
+      PathAngleCritic.cost_weight: 3.5
       PathAngleCritic.threshold_to_consider: 1.0
       PreferForwardCritic.enabled: true
       PreferForwardCritic.cost_power: 1
@@ -200,8 +200,8 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: false
-      update_frequency: 10.0
-      publish_frequency: 5.0
+      update_frequency: 15.0
+      publish_frequency: 10.0
       always_send_full_costmap: true
       global_frame: odom
       robot_base_frame: base_footprint
@@ -209,7 +209,7 @@ local_costmap:
       width: 8
       height: 8
       resolution: 0.05
-      footprint_padding: 0.05
+      footprint_padding: 0.01
       footprint: "[ [0.360, 0.200], [0.360, -0.200], [-0.450, -0.200], [-0.450, 0.200] ]"
       plugins: [voxel_layer, inflation_layer]
       voxel_layer:
@@ -222,7 +222,7 @@ local_costmap:
           max_obstacle_height: 2.0
           clearing: false
           marking: true
-          observation_persistence: 2.5
+          observation_persistence: 2.0
           data_type: LaserScan
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
@@ -230,8 +230,8 @@ local_costmap:
           obstacle_min_range: 0.0
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 5.0
-        inflation_radius: 0.14
+        cost_scaling_factor: 8.0
+        inflation_radius: 0.12
 
 global_costmap:
   global_costmap:
@@ -242,7 +242,7 @@ global_costmap:
       always_send_full_costmap: true
       global_frame: map
       robot_base_frame: base_footprint
-      footprint_padding: 0.00
+      footprint_padding: 0.02
       footprint: "[ [0.360, 0.200], [0.360, -0.200], [-0.450, -0.200], [-0.450, 0.200] ]"
       resolution: 0.05
       track_unknown_space: false
@@ -267,8 +267,8 @@ global_costmap:
           inf_is_valid: true
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 5.0
-        inflation_radius: 0.01
+        cost_scaling_factor: 8.0
+        inflation_radius: 0.18
 
 map_server:
   ros__parameters:
@@ -336,13 +336,13 @@ waypoint_follower:
 velocity_smoother:
   ros__parameters:
     use_sim_time: false
-    smoothing_frequency: 20.0
+    smoothing_frequency: 30.0
     scale_velocities: false
     feedback: OPEN_LOOP
-    max_velocity: [0.44, 0.0, 1.5]
+    max_velocity: [0.50, 0.0, 1.5]
     min_velocity: [-0.24, 0.0, -1.5]
-    max_accel: [1.15, 0.0, 2.0]
-    max_decel: [-1.15, 0.0, -2.0]
+    max_accel: [1.35, 0.0, 2.0]
+    max_decel: [-1.35, 0.0, -2.0]
     odom_topic: /odom
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]

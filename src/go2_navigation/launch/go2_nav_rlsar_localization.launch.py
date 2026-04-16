@@ -27,8 +27,10 @@ def generate_launch_description() -> LaunchDescription:
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
-    use_gpio_return_home = LaunchConfiguration("use_gpio_return_home")
-    gpio_return_home_pin = LaunchConfiguration("gpio_return_home_pin")
+    flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
+    currently_dispensing_topic = LaunchConfiguration("currently_dispensing_topic")
+    dispense_uart_port = LaunchConfiguration("dispense_uart_port")
+    dispense_uart_baudrate = LaunchConfiguration("dispense_uart_baudrate")
 
     sim_launch = os.path.join(
         get_package_share_directory("go2_unitree_bridge"),
@@ -71,8 +73,10 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
-            DeclareLaunchArgument("use_gpio_return_home", default_value="false"),
-            DeclareLaunchArgument("gpio_return_home_pin", default_value="7"),
+            DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
+            DeclareLaunchArgument("currently_dispensing_topic", default_value="/currently_dispensing"),
+            DeclareLaunchArgument("dispense_uart_port", default_value="/dev/ttyTHS1"),
+            DeclareLaunchArgument("dispense_uart_baudrate", default_value="115200"),
             DeclareLaunchArgument(
                 "map",
                 default_value="/home/ming/ros2_ws/src/go2_navigation/maps/rlsar_scene.yaml",
@@ -348,15 +352,14 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
-                        executable="gpio_return_home_publisher",
-                        name="go2_gpio_return_home_publisher",
-                        condition=IfCondition(use_gpio_return_home),
+                        executable="uart_dispense_bridge",
+                        name="go2_uart_dispense_bridge",
                         parameters=[
                             {
-                                "topic": return_home_trigger_topic,
-                                "pin_number": gpio_return_home_pin,
-                                "pin_mode": "BOARD",
-                                "pull": "DOWN",
+                                "port": dispense_uart_port,
+                                "baudrate": dispense_uart_baudrate,
+                                "flavor_selection_topic": flavor_selection_topic,
+                                "currently_dispensing_topic": currently_dispensing_topic,
                             }
                         ],
                         output="screen",

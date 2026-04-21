@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import json
 from typing import Optional
 
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
-from std_msgs.msg import Bool, UInt8
+from std_msgs.msg import Bool, String, UInt8
 
 try:
     import serial
@@ -24,16 +23,25 @@ class UartDispenseBridge(Node):
         self.declare_parameter("baudrate", 115200)
         self.declare_parameter("flavor_selection_topic", "/flavor_selection")
         self.declare_parameter("currently_dispensing_topic", "/currently_dispensing")
+        self.declare_parameter("dispense_empty_topic", "/dispense_empty")
+        self.declare_parameter("uart_event_topic", "/dispense_uart_event")
+        self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
         self.declare_parameter("poll_hz", 50.0)
         self.declare_parameter("write_timeout_sec", 0.2)
         self.declare_parameter("read_timeout_sec", 0.0)
         self.declare_parameter("initial_currently_dispensing", False)
+        self.declare_parameter("initial_dispense_empty", False)
 
         self.port = str(self.get_parameter("port").value)
         self.baudrate = int(self.get_parameter("baudrate").value)
         self.flavor_selection_topic = str(self.get_parameter("flavor_selection_topic").value)
         self.currently_dispensing_topic = str(
             self.get_parameter("currently_dispensing_topic").value
+        )
+        self.dispense_empty_topic = str(self.get_parameter("dispense_empty_topic").value)
+        self.uart_event_topic = str(self.get_parameter("uart_event_topic").value)
+        self.return_home_trigger_topic = str(
+            self.get_parameter("return_home_trigger_topic").value
         )
         poll_hz = max(1.0, float(self.get_parameter("poll_hz").value))
         self.write_timeout_sec = float(self.get_parameter("write_timeout_sec").value)
@@ -50,6 +58,17 @@ class UartDispenseBridge(Node):
             self.currently_dispensing_topic,
             qos,
         )
+        self.dispense_empty_pub = self.create_publisher(
+            Bool,
+            self.dispense_empty_topic,
+            qos,
+        )
+        self.return_home_trigger_pub = self.create_publisher(
+            Bool,
+            self.return_home_trigger_topic,
+            qos,
+        )
+        self.uart_event_pub = self.create_publisher(String, self.uart_event_topic, 10)
         self.create_subscription(
             UInt8,
             self.flavor_selection_topic,
@@ -62,15 +81,18 @@ class UartDispenseBridge(Node):
         self._currently_dispensing = bool(
             self.get_parameter("initial_currently_dispensing").value
         )
+        self._dispense_empty = bool(self.get_parameter("initial_dispense_empty").value)
         self._last_flavor_selection: Optional[int] = None
 
         self._connect_serial()
         self._publish_currently_dispensing(self._currently_dispensing, force=True)
+        self._publish_dispense_empty(self._dispense_empty, force=True)
         self.create_timer(1.0 / poll_hz, self._poll_serial)
         self.get_logger().info(
             f"UART dispense bridge listening on {self.port} at {self.baudrate} baud; "
             f"publishing dispensing state to {self.currently_dispensing_topic} and "
-            f"reading flavor commands from {self.flavor_selection_topic}"
+            f"empty state to {self.dispense_empty_topic}; reading flavor commands from "
+            f"{self.flavor_selection_topic}"
         )
 
     def _connect_serial(self) -> None:
@@ -99,25 +121,46 @@ class UartDispenseBridge(Node):
         self.currently_dispensing_pub.publish(msg)
         self.get_logger().info(f"currently_dispensing -> {'true' if state else 'false'}")
 
+    def _publish_dispense_empty(self, state: bool, *, force: bool = False) -> None:
+        if not force and self._dispense_empty == state:
+            return
+
+        self._dispense_empty = state
+        msg = Bool()
+        msg.data = state
+        self.dispense_empty_pub.publish(msg)
+        self.get_logger().info(f"dispense_empty -> {'true' if state else 'false'}")
+
+    def _publish_uart_event(self, text: str) -> None:
+        msg = String()
+        msg.data = text
+        self.uart_event_pub.publish(msg)
+
+    def _publish_return_home_trigger(self) -> None:
+        msg = Bool()
+        msg.data = True
+        self.return_home_trigger_pub.publish(msg)
+        self.get_logger().warn("Published return-home trigger after EMPTY status")
+
     def _on_flavor_selection(self, msg: UInt8) -> None:
         selection = int(msg.data)
-        if selection not in (1, 2, 3):
+        flavor_code = {1: "A", 2: "B", 3: "C"}.get(selection)
+        if flavor_code is None:
             self.get_logger().warn(f"Ignoring unsupported flavor selection value {selection}")
             return
 
-        payload = {"message_type": "flavor", "message": selection}
-        if self._write_json(payload):
+        if self._write_text(flavor_code):
             if self._last_flavor_selection != selection:
-                self.get_logger().info(f"Sent flavor selection {selection}")
+                self.get_logger().info(f"Sent flavor selection {selection} as UART '{flavor_code}'")
                 self._last_flavor_selection = selection
 
-    def _write_json(self, payload: dict[str, object]) -> bool:
+    def _write_text(self, payload: str) -> bool:
         if self._serial is None:
-            self.get_logger().error(f"UART port {self.port} is not open; dropping {payload}")
+            self.get_logger().error(f"UART port {self.port} is not open; dropping {payload!r}")
             return False
 
         try:
-            encoded = (json.dumps(payload, separators=(",", ":")) + "\n").encode("utf-8")
+            encoded = payload.encode("utf-8")
             self._serial.write(encoded)
             self._serial.flush()
             return True
@@ -126,7 +169,7 @@ class UartDispenseBridge(Node):
             self._serial = None
             return False
         except Exception as exc:
-            self.get_logger().error(f"Failed to encode/write UART JSON payload {payload}: {exc}")
+            self.get_logger().error(f"Failed to write UART payload {payload!r}: {exc}")
             return False
 
     def _poll_serial(self) -> None:
@@ -162,25 +205,29 @@ class UartDispenseBridge(Node):
 
     def _handle_line(self, raw_line: bytes) -> None:
         try:
-            payload = json.loads(raw_line.decode("utf-8"))
+            text = raw_line.decode("utf-8", errors="replace").strip()
         except Exception as exc:
-            self.get_logger().warn(f"Ignoring invalid UART JSON line {raw_line!r}: {exc}")
+            self.get_logger().warn(f"Ignoring invalid UART line {raw_line!r}: {exc}")
             return
 
-        message_type = payload.get("message_type")
-        message = payload.get("message")
-
-        if message_type != "currently_dispensing":
-            self.get_logger().warn(f"Ignoring unsupported UART message type {message_type!r}")
+        if not text:
             return
 
-        if not isinstance(message, bool):
-            self.get_logger().warn(
-                f"Ignoring currently_dispensing payload with non-bool message {message!r}"
-            )
+        self._publish_uart_event(text)
+        upper_text = text.upper()
+
+        if "EMPTY" in upper_text:
+            self._publish_currently_dispensing(False)
+            self._publish_dispense_empty(True)
+            self._publish_return_home_trigger()
             return
 
-        self._publish_currently_dispensing(message)
+        if "CUP" in upper_text:
+            self._publish_currently_dispensing("REMOVED" not in upper_text)
+            return
+
+        if "REMOVED" in upper_text:
+            self._publish_currently_dispensing(False)
 
     def destroy_node(self) -> bool:
         if self._serial is not None:

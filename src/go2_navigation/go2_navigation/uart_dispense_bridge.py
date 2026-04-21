@@ -25,7 +25,8 @@ class UartDispenseBridge(Node):
         self.declare_parameter("currently_dispensing_topic", "/currently_dispensing")
         self.declare_parameter("dispense_empty_topic", "/dispense_empty")
         self.declare_parameter("uart_event_topic", "/dispense_uart_event")
-        self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
+        self.declare_parameter("movement_gate_topic", "/return_home_trigger")
+        self.declare_parameter("return_home_trigger_topic", "")
         self.declare_parameter("poll_hz", 50.0)
         self.declare_parameter("write_timeout_sec", 0.2)
         self.declare_parameter("read_timeout_sec", 0.0)
@@ -40,8 +41,10 @@ class UartDispenseBridge(Node):
         )
         self.dispense_empty_topic = str(self.get_parameter("dispense_empty_topic").value)
         self.uart_event_topic = str(self.get_parameter("uart_event_topic").value)
-        self.return_home_trigger_topic = str(
-            self.get_parameter("return_home_trigger_topic").value
+        self.movement_gate_topic = str(
+            self.get_parameter("movement_gate_topic").value
+            or self.get_parameter("return_home_trigger_topic").value
+            or "/return_home_trigger"
         )
         poll_hz = max(1.0, float(self.get_parameter("poll_hz").value))
         self.write_timeout_sec = float(self.get_parameter("write_timeout_sec").value)
@@ -63,9 +66,9 @@ class UartDispenseBridge(Node):
             self.dispense_empty_topic,
             qos,
         )
-        self.return_home_trigger_pub = self.create_publisher(
+        self.movement_gate_pub = self.create_publisher(
             Bool,
-            self.return_home_trigger_topic,
+            self.movement_gate_topic,
             qos,
         )
         self.uart_event_pub = self.create_publisher(String, self.uart_event_topic, 10)
@@ -136,11 +139,11 @@ class UartDispenseBridge(Node):
         msg.data = text
         self.uart_event_pub.publish(msg)
 
-    def _publish_return_home_trigger(self) -> None:
+    def _publish_movement_gate_open(self) -> None:
         msg = Bool()
         msg.data = True
-        self.return_home_trigger_pub.publish(msg)
-        self.get_logger().warn("Published return-home trigger after EMPTY status")
+        self.movement_gate_pub.publish(msg)
+        self.get_logger().warn("Published movement gate OPEN after EMPTY status")
 
     def _on_flavor_selection(self, msg: UInt8) -> None:
         selection = int(msg.data)
@@ -219,7 +222,7 @@ class UartDispenseBridge(Node):
         if "EMPTY" in upper_text:
             self._publish_currently_dispensing(False)
             self._publish_dispense_empty(True)
-            self._publish_return_home_trigger()
+            self._publish_movement_gate_open()
             return
 
         if "CUP" in upper_text:

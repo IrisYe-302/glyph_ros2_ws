@@ -36,6 +36,7 @@ def generate_launch_description() -> LaunchDescription:
     global_localization = LaunchConfiguration("global_localization")
     global_localization_delay = LaunchConfiguration("global_localization_delay")
     nav2_start_delay = LaunchConfiguration("nav2_start_delay")
+    movement_gate_topic = LaunchConfiguration("movement_gate_topic")
     return_home_trigger_topic = LaunchConfiguration("return_home_trigger_topic")
     home_target_topic = LaunchConfiguration("home_target_topic")
     set_home_topic = LaunchConfiguration("set_home_topic")
@@ -79,7 +80,8 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("global_localization", default_value="false"),
             DeclareLaunchArgument("global_localization_delay", default_value="8.0"),
             DeclareLaunchArgument("nav2_start_delay", default_value="12.0"),
-            DeclareLaunchArgument("return_home_trigger_topic", default_value="/return_home_trigger"),
+            DeclareLaunchArgument("movement_gate_topic", default_value="/return_home_trigger"),
+            DeclareLaunchArgument("return_home_trigger_topic", default_value=""),
             DeclareLaunchArgument("home_target_topic", default_value="/return_home_target_location"),
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
             DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
@@ -260,6 +262,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": target_topic,
                                 "target_location_topic": "/target_location",
                                 "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
+                                "movement_gate_topic": movement_gate_topic,
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/body_motion",
@@ -299,6 +302,8 @@ def generate_launch_description() -> LaunchDescription:
                                 "baudrate": dispense_uart_baudrate,
                                 "flavor_selection_topic": flavor_selection_topic,
                                 "currently_dispensing_topic": currently_dispensing_topic,
+                                "movement_gate_topic": movement_gate_topic,
+                                "return_home_trigger_topic": return_home_trigger_topic,
                             }
                         ],
                         output="screen",

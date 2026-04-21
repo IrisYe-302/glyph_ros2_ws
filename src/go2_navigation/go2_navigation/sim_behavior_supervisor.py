@@ -29,7 +29,8 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_y", 0.0)
         self.declare_parameter("home_yaw", 0.0)
         self.declare_parameter("target_wait_sec", 10.0)
-        self.declare_parameter("return_home_trigger_topic", "/return_home_trigger")
+        self.declare_parameter("movement_gate_topic", "/return_home_trigger")
+        self.declare_parameter("return_home_trigger_topic", "")
         self.declare_parameter("home_target_topic", "/return_home_target_location")
         self.declare_parameter("body_motion_topic", "/sim_body_motion")
         self.declare_parameter("home_align_cmd_vel_topic", "")
@@ -189,8 +190,12 @@ class SimBehaviorSupervisor(Node):
         )
         self.create_subscription(
             Bool,
-            str(self.get_parameter("return_home_trigger_topic").value),
-            self._on_return_home_trigger,
+            str(
+                self.get_parameter("movement_gate_topic").value
+                or self.get_parameter("return_home_trigger_topic").value
+                or "/return_home_trigger"
+            ),
+            self._on_movement_gate,
             target_qos,
         )
         self.create_subscription(
@@ -221,7 +226,7 @@ class SimBehaviorSupervisor(Node):
         self.active_target_pose: Optional[PoseStamped] = None
         self.returning_home = False
         self.return_home_pending = False
-        self.return_home_signal_high = False
+        self.movement_gate_open = False
         self.return_home_authorized = False
         self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
@@ -350,9 +355,9 @@ class SimBehaviorSupervisor(Node):
         )
         self._publish_queue_markers()
 
-    def _on_return_home_trigger(self, msg: Bool) -> None:
-        self.return_home_signal_high = bool(msg.data)
-        if self.return_home_signal_high:
+    def _on_movement_gate(self, msg: Bool) -> None:
+        self.movement_gate_open = bool(msg.data)
+        if self.movement_gate_open:
             self.return_home_authorized = True
         self._publish_queue_markers()
 
@@ -550,12 +555,12 @@ class SimBehaviorSupervisor(Node):
         if self.return_home_pending:
             self._publish_debug("return_home_pending", quiet_for_sec)
             self._publish_stop()
-            if self.return_home_signal_high and self.return_home_start_deadline_ns is None:
+            if self.movement_gate_open and self.return_home_start_deadline_ns is None:
                 self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
                 self.get_logger().info(
                     f"Pin 7 HIGH; dispatching home after {self.return_home_delay_sec:.1f}s"
                 )
-            elif not self.return_home_signal_high:
+            elif not self.movement_gate_open:
                 self.return_home_start_deadline_ns = None
             if self.return_home_start_deadline_ns is not None and now_ns >= self.return_home_start_deadline_ns:
                 self.return_home_pending = False
@@ -610,7 +615,7 @@ class SimBehaviorSupervisor(Node):
         if self.command_queue:
             self._publish_debug("queued_waiting_for_pin", quiet_for_sec)
             self._publish_stop()
-            if self.return_home_signal_high:
+            if self.movement_gate_open:
                 self._dispatch_next_goal()
             return
 
@@ -917,16 +922,16 @@ class SimBehaviorSupervisor(Node):
             if self.active_target_pose is not None:
                 status.text = f"Executing | queued {len(self.command_queue)}"
             elif self.command_queue:
-                gate = "HIGH" if self.return_home_signal_high else "LOW"
-                status.text = f"Queued {len(self.command_queue)} | pin {gate}"
+                gate = "OPEN" if self.movement_gate_open else "CLOSED"
+                status.text = f"Queued {len(self.command_queue)} | gate {gate}"
             elif self.returning_home:
                 status.text = "Returning home"
             elif self.return_home_pending:
-                gate = "HIGH" if self.return_home_signal_high else "LOW"
-                status.text = f"Home queued | pin {gate}"
+                gate = "OPEN" if self.movement_gate_open else "CLOSED"
+                status.text = f"Home queued | gate {gate}"
             else:
-                gate = "HIGH" if self.return_home_signal_high else "LOW"
-                status.text = f"At home | pin {gate}"
+                gate = "OPEN" if self.movement_gate_open else "CLOSED"
+                status.text = f"At home | gate {gate}"
             markers.markers.append(status)
 
         self.queue_marker_pub.publish(markers)

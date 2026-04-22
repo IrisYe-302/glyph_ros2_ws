@@ -28,6 +28,7 @@ class UartDispenseBridge(Node):
         self.declare_parameter("currently_dispensing_topic", "/currently_dispensing")
         self.declare_parameter("dispense_empty_topic", "/dispense_empty")
         self.declare_parameter("uart_event_topic", "/dispense_uart_event")
+        self.declare_parameter("uart_command_topic", "/dispense_uart_command")
         self.declare_parameter("movement_gate_topic", "/return_home_trigger")
         self.declare_parameter("return_home_trigger_topic", "")
         self.declare_parameter("poll_hz", 50.0)
@@ -44,6 +45,7 @@ class UartDispenseBridge(Node):
         )
         self.dispense_empty_topic = str(self.get_parameter("dispense_empty_topic").value)
         self.uart_event_topic = str(self.get_parameter("uart_event_topic").value)
+        self.uart_command_topic = str(self.get_parameter("uart_command_topic").value)
         self.movement_gate_topic = str(
             self.get_parameter("movement_gate_topic").value
             or self.get_parameter("return_home_trigger_topic").value
@@ -83,6 +85,12 @@ class UartDispenseBridge(Node):
             self._on_flavor_selection,
             qos,
         )
+        self.create_subscription(
+            String,
+            self.uart_command_topic,
+            self._on_uart_command,
+            10,
+        )
 
         self._serial: Optional[serial.Serial] = None if serial is not None else None
         self._read_buffer = bytearray()
@@ -100,7 +108,7 @@ class UartDispenseBridge(Node):
             f"UART dispense bridge listening on {self.port} at {self.baudrate} baud; "
             f"publishing dispensing state to {self.currently_dispensing_topic} and "
             f"empty state to {self.dispense_empty_topic}; reading flavor commands from "
-            f"{self.flavor_selection_topic}"
+            f"{self.flavor_selection_topic}, raw UART commands from {self.uart_command_topic}"
         )
 
     def _connect_serial(self) -> None:
@@ -167,6 +175,13 @@ class UartDispenseBridge(Node):
             if self._last_flavor_selection != selection:
                 self.get_logger().info(f"Sent flavor selection {selection} as UART '{flavor_code}'")
                 self._last_flavor_selection = selection
+
+    def _on_uart_command(self, msg: String) -> None:
+        command = str(msg.data)
+        if not command:
+            return
+        if self._write_text(command):
+            self.get_logger().info(f"Sent raw UART command {command!r}")
 
     def _write_text(self, payload: str) -> bool:
         """Write a short ASCII command to the ESP over UART."""

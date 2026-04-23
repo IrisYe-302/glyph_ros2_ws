@@ -116,6 +116,12 @@ class SimBehaviorSupervisor(Node):
             history=HistoryPolicy.KEEP_LAST,
             depth=1,
         )
+        live_command_qos = QoSProfile(
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.VOLATILE,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+        )
 
         self.body_motion_pub = self.create_publisher(
             String,
@@ -174,19 +180,19 @@ class SimBehaviorSupervisor(Node):
             PoseStamped,
             str(self.get_parameter("target_topic").value),
             self._on_command,
-            target_qos,
+            live_command_qos,
         )
         self.create_subscription(
             PoseStamped,
             str(self.get_parameter("target_location_topic").value),
             self._on_command,
-            target_qos,
+            live_command_qos,
         )
         self.create_subscription(
             PoseStamped,
             str(self.get_parameter("cancel_target_topic").value),
             self._on_cancel_command,
-            target_qos,
+            live_command_qos,
         )
         self.create_subscription(
             Bool,
@@ -196,7 +202,7 @@ class SimBehaviorSupervisor(Node):
                 or "/return_home_trigger"
             ),
             self._on_movement_gate,
-            target_qos,
+            live_command_qos,
         )
         self.create_subscription(
             Bool,

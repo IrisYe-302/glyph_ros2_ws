@@ -82,18 +82,30 @@ def generate_launch_description() -> LaunchDescription:
                 }.items(),
             ),
             Node(
+                package="go2_navigation",
+                executable="pointcloud_restamper",
+                name="go2_nav_pointcloud_restamper",
+                parameters=[
+                    {
+                        "input_topic": cloud_topic,
+                        "output_topic": "/utlidar/cloud_base_restamped",
+                    }
+                ],
+                output="screen",
+            ),
+            Node(
                 package="pointcloud_to_laserscan",
                 executable="pointcloud_to_laserscan_node",
                 name="go2_nav_pointcloud_to_laserscan",
                 remappings=[
-                    ("cloud_in", cloud_topic),
+                    ("cloud_in", "/utlidar/cloud_base_restamped"),
                     ("scan", "/scan_raw"),
                 ],
                 parameters=[
                     {
-                        "target_frame": "base_link",
+                        "target_frame": "base_footprint",
                         "transform_tolerance": 0.2,
-                        "min_height": -0.15,
+                        "min_height": 0.10,
                         "max_height": 0.50,
                         "angle_min": -3.14159,
                         "angle_max": 3.14159,

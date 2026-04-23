@@ -6,11 +6,12 @@ import rclpy
 from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import Odometry
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Imu, JointState
 from std_msgs.msg import Float32, String, UInt8
 from tf2_ros import TransformBroadcaster
 from unitree_api.msg import Request
-from unitree_go.msg import LowState, SportModeState
+from unitree_go.msg import LowState, SportModeState, WirelessController
 
 
 JOINT_NAMES: Final[list[str]] = [
@@ -61,6 +62,7 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("body_motion_state_topic", "/body_motion_state")
         self.declare_parameter("body_motion_state_plot_topic", "/body_motion_state_plot")
         self.declare_parameter("body_motion_hz", 30.0)
+        self.declare_parameter("recovery_command_topic", "/stability_guard/recovery_command")
         self.declare_parameter("dance1_yaw_amplitude", 0.05)
         self.declare_parameter("dance1_frequency_hz", 0.20)
         self.declare_parameter("dance1_roll_amplitude", 0.01)
@@ -68,6 +70,13 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("dance2_height_amplitude", 0.040)
         self.declare_parameter("dance2_frequency_hz", 0.40)
         self.declare_parameter("dance2_height_rate_limit", 0.04)
+        self.declare_parameter("block_ros_cmd_vel_on_handheld_remote", True)
+        self.declare_parameter("wireless_controller_topic", "/wirelesscontroller")
+        self.declare_parameter("handheld_remote_hold_sec", 0.75)
+        self.declare_parameter("handheld_remote_axis_deadband", 0.05)
+        self.declare_parameter("handheld_remote_raw_fallback", True)
+        self.declare_parameter("debug_motion_commands", True)
+        self.declare_parameter("debug_motion_log_interval_sec", 0.25)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
@@ -89,6 +98,7 @@ class Go2UnitreeBridgeNode(Node):
         body_motion_state_topic = self.get_parameter("body_motion_state_topic").value
         body_motion_state_plot_topic = self.get_parameter("body_motion_state_plot_topic").value
         body_motion_hz = max(2.0, float(self.get_parameter("body_motion_hz").value))
+        recovery_command_topic = str(self.get_parameter("recovery_command_topic").value)
         self.dance1_yaw_amplitude = float(self.get_parameter("dance1_yaw_amplitude").value)
         self.dance1_frequency_hz = float(self.get_parameter("dance1_frequency_hz").value)
         self.dance1_roll_amplitude = float(self.get_parameter("dance1_roll_amplitude").value)
@@ -96,6 +106,17 @@ class Go2UnitreeBridgeNode(Node):
         self.dance2_height_amplitude = float(self.get_parameter("dance2_height_amplitude").value)
         self.dance2_frequency_hz = float(self.get_parameter("dance2_frequency_hz").value)
         self.dance2_height_rate_limit = float(self.get_parameter("dance2_height_rate_limit").value)
+        self.block_ros_cmd_vel_on_handheld_remote = bool(
+            self.get_parameter("block_ros_cmd_vel_on_handheld_remote").value
+        )
+        wireless_controller_topic = str(self.get_parameter("wireless_controller_topic").value)
+        self.handheld_remote_hold_ns = int(float(self.get_parameter("handheld_remote_hold_sec").value) * 1e9)
+        self.handheld_remote_axis_deadband = float(self.get_parameter("handheld_remote_axis_deadband").value)
+        self.handheld_remote_raw_fallback = bool(self.get_parameter("handheld_remote_raw_fallback").value)
+        self.debug_motion_commands = bool(self.get_parameter("debug_motion_commands").value)
+        self.debug_motion_log_interval_ns = int(
+            float(self.get_parameter("debug_motion_log_interval_sec").value) * 1e9
+        )
         self._origin_x = None
         self._origin_y = None
         self._origin_yaw = None
@@ -103,6 +124,16 @@ class Go2UnitreeBridgeNode(Node):
         self._body_motion_baseline_sent = False
         self._last_body_motion_tick_ns: int | None = None
         self._smoothed_body_height = 0.0
+        self._handheld_override_until_ns: int | None = None
+        self._handheld_override_active = False
+        self._ros_cmd_vel_suppressed = False
+        self._body_motion_mode_before_handheld = "stop"
+        self._last_motion_debug_log_ns = 0
+        self._wireless_remote_baseline: tuple[int, ...] | None = None
+        self._last_wireless_remote: tuple[int, ...] | None = None
+        self._wireless_controller_msg_count = 0
+        self._low_state_msg_count = 0
+        self._last_cmd_vel_zero_sent = False
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
@@ -112,24 +143,41 @@ class Go2UnitreeBridgeNode(Node):
         self.body_motion_state_publisher = self.create_publisher(UInt8, body_motion_state_topic, 10)
         self.body_motion_state_plot_publisher = self.create_publisher(Float32, body_motion_state_plot_topic, 10)
 
-        self.create_subscription(SportModeState, sport_state_topic, self._on_sport_state, 10)
+        self.create_subscription(
+            SportModeState,
+            sport_state_topic,
+            self._on_sport_state,
+            qos_profile_sensor_data,
+        )
         if sport_state_fallback_topic != sport_state_topic:
             self.create_subscription(
                 SportModeState,
                 sport_state_fallback_topic,
                 self._on_sport_state,
-                10,
+                qos_profile_sensor_data,
             )
-        self.create_subscription(LowState, low_state_topic, self._on_low_state, 10)
+        self.create_subscription(
+            LowState,
+            low_state_topic,
+            self._on_low_state,
+            qos_profile_sensor_data,
+        )
         if low_state_fallback_topic != low_state_topic:
             self.create_subscription(
                 LowState,
                 low_state_fallback_topic,
                 self._on_low_state,
-                10,
+                qos_profile_sensor_data,
             )
+        self.create_subscription(
+            WirelessController,
+            wireless_controller_topic,
+            self._on_wireless_controller,
+            qos_profile_sensor_data,
+        )
         self.create_subscription(Twist, cmd_vel_topic, self._on_cmd_vel, 10)
         self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)
+        self.create_subscription(String, recovery_command_topic, self._on_recovery_command, 10)
         self.body_motion_timer = self.create_timer(1.0 / body_motion_hz, self._tick_body_motion)
 
         self._request_id = 1
@@ -140,6 +188,16 @@ class Go2UnitreeBridgeNode(Node):
         )
         self.get_logger().info(f"Listening for velocity commands on {cmd_vel_topic}")
         self.get_logger().info(f"Listening for body motion commands on {body_motion_topic}")
+        if self.block_ros_cmd_vel_on_handheld_remote:
+            self.get_logger().info(
+                "Blocking ROS cmd_vel while handheld remote activity is detected "
+                f"(topic={wireless_controller_topic}, hold={self.handheld_remote_hold_ns / 1e9:.2f}s)"
+            )
+        self.get_logger().info(f"Listening for recovery commands on {recovery_command_topic}")
+        if self.debug_motion_commands:
+            self.get_logger().info(
+                f"Motion debug logging enabled (interval={self.debug_motion_log_interval_ns / 1e9:.2f}s)"
+            )
 
     def _next_request_id(self) -> int:
         self._request_id += 1
@@ -260,6 +318,41 @@ class Go2UnitreeBridgeNode(Node):
 
     def _on_low_state(self, msg: LowState) -> None:
         stamp = self.get_clock().now().to_msg()
+        self._low_state_msg_count += 1
+
+        if self.block_ros_cmd_vel_on_handheld_remote and self.handheld_remote_raw_fallback:
+            wireless_remote = tuple(int(value) for value in msg.wireless_remote)
+            if self._wireless_remote_baseline is None:
+                self._wireless_remote_baseline = wireless_remote
+                baseline_preview = ",".join(str(value) for value in wireless_remote[:8])
+                self._debug_log_motion(
+                    "wireless_raw_baseline",
+                    f"first8=[{baseline_preview}]",
+                    force=True,
+                )
+            if (
+                self._wireless_remote_baseline is not None
+                and wireless_remote != self._wireless_remote_baseline
+            ):
+                self._handheld_override_until_ns = self.get_clock().now().nanoseconds + self.handheld_remote_hold_ns
+                changed_bytes = sum(
+                    1
+                    for current, baseline in zip(wireless_remote, self._wireless_remote_baseline)
+                    if current != baseline
+                )
+                self._debug_log_motion(
+                    "handheld_input_raw",
+                    f"changed_bytes={changed_bytes}",
+                    force=True,
+                )
+            elif self.debug_motion_commands:
+                nonzero_bytes = sum(1 for value in wireless_remote if value != 0)
+                preview = ",".join(str(value) for value in wireless_remote[:8])
+                self._debug_log_motion(
+                    "wireless_raw_idle",
+                    f"msgs={self._low_state_msg_count} nonzero_bytes={nonzero_bytes} first8=[{preview}]",
+                )
+            self._last_wireless_remote = wireless_remote
 
         joint_state = JointState()
         joint_state.header.stamp = stamp
@@ -292,7 +385,108 @@ class Go2UnitreeBridgeNode(Node):
         imu.linear_acceleration_covariance[8] = 0.0001
         self.imu_publisher.publish(imu)
 
+    def _on_wireless_controller(self, msg: WirelessController) -> None:
+        if not self.block_ros_cmd_vel_on_handheld_remote:
+            return
+        self._wireless_controller_msg_count += 1
+
+        active = (
+            abs(float(msg.lx)) > self.handheld_remote_axis_deadband
+            or abs(float(msg.ly)) > self.handheld_remote_axis_deadband
+            or abs(float(msg.rx)) > self.handheld_remote_axis_deadband
+            or abs(float(msg.ry)) > self.handheld_remote_axis_deadband
+            or int(msg.keys) != 0
+        )
+        self._debug_log_motion(
+            "wireless_packet",
+            (
+                f"msgs={self._wireless_controller_msg_count} "
+                f"lx={float(msg.lx):.3f} ly={float(msg.ly):.3f} "
+                f"rx={float(msg.rx):.3f} ry={float(msg.ry):.3f} keys={int(msg.keys)} active={active}"
+            ),
+            force=active,
+        )
+        if active:
+            self._handheld_override_until_ns = self.get_clock().now().nanoseconds + self.handheld_remote_hold_ns
+            self._debug_log_motion(
+                "handheld_input",
+                (
+                    f"lx={float(msg.lx):.3f} ly={float(msg.ly):.3f} "
+                    f"rx={float(msg.rx):.3f} ry={float(msg.ry):.3f} keys={int(msg.keys)}"
+                ),
+            )
+
+    def _handheld_override_is_active(self) -> bool:
+        if not self.block_ros_cmd_vel_on_handheld_remote:
+            return False
+        if self._handheld_override_until_ns is None:
+            return False
+        return self.get_clock().now().nanoseconds <= self._handheld_override_until_ns
+
+    def _publish_stop_move(self) -> None:
+        request = Request()
+        request.header.identity.id = self._next_request_id()
+        request.header.identity.api_id = API_ID_STOP_MOVE
+        self._publish_request(request, "stop_move")
+
+    def _debug_log_motion(self, event: str, detail: str = "", force: bool = False) -> None:
+        if not self.debug_motion_commands:
+            return
+        now_ns = self.get_clock().now().nanoseconds
+        if not force and (now_ns - self._last_motion_debug_log_ns) < self.debug_motion_log_interval_ns:
+            return
+        suffix = f" {detail}" if detail else ""
+        self.get_logger().info(
+            f"[motion-debug] {event}{suffix} handheld_active={self._handheld_override_active} "
+            f"body_mode={self._last_body_motion_mode}"
+        )
+        self._last_motion_debug_log_ns = now_ns
+
+    def _publish_request(self, request: Request, source: str, detail: str = "") -> None:
+        self.sport_request_publisher.publish(request)
+        api_id = int(request.header.identity.api_id)
+        request_id = int(request.header.identity.id)
+        extra = f" {detail}" if detail else ""
+        self._debug_log_motion(f"publish_request source={source} api_id={api_id} id={request_id}{extra}", force=True)
+
+    def _enter_handheld_override(self) -> None:
+        if self._handheld_override_active:
+            return
+        self.get_logger().info("Suppressing ROS motion commands while handheld remote is active")
+        self._handheld_override_active = True
+        self._body_motion_mode_before_handheld = self._last_body_motion_mode
+        self._last_body_motion_mode = "stop"
+        self._body_motion_baseline_sent = False
+        self._publish_stop_move()
+        self._last_cmd_vel_zero_sent = True
+        self._ros_cmd_vel_suppressed = True
+        self._debug_log_motion(
+            "enter_handheld_override",
+            f"restore_body_mode={self._body_motion_mode_before_handheld}",
+            force=True,
+        )
+
+    def _exit_handheld_override(self) -> None:
+        if not self._handheld_override_active:
+            return
+        self.get_logger().info("Handheld remote inactive; ROS motion control restored")
+        self._handheld_override_active = False
+        self._last_body_motion_mode = self._body_motion_mode_before_handheld
+        self._body_motion_baseline_sent = False
+        self._ros_cmd_vel_suppressed = False
+        self._debug_log_motion("exit_handheld_override", force=True)
+
     def _on_cmd_vel(self, msg: Twist) -> None:
+        if self._handheld_override_is_active():
+            self._enter_handheld_override()
+            self._debug_log_motion(
+                "drop_cmd_vel",
+                f"vx={float(msg.linear.x):.3f} vy={float(msg.linear.y):.3f} wz={float(msg.angular.z):.3f}",
+            )
+            return
+
+        self._exit_handheld_override()
+
         request = Request()
         request.header.identity.id = self._next_request_id()
 
@@ -302,6 +496,7 @@ class Go2UnitreeBridgeNode(Node):
         )
 
         if moving:
+            self._last_cmd_vel_zero_sent = False
             request.header.identity.api_id = API_ID_MOVE
             request.parameter = json.dumps(
                 {
@@ -310,12 +505,23 @@ class Go2UnitreeBridgeNode(Node):
                     "z": float(msg.angular.z),
                 }
             )
+            detail = f"vx={float(msg.linear.x):.3f} vy={float(msg.linear.y):.3f} wz={float(msg.angular.z):.3f}"
         else:
+            if self._last_cmd_vel_zero_sent:
+                self._debug_log_motion("suppress_duplicate_zero_cmd_vel")
+                return
+            self._last_cmd_vel_zero_sent = True
             request.header.identity.api_id = API_ID_STOP_MOVE
+            detail = "zero_twist"
 
-        self.sport_request_publisher.publish(request)
+        self._publish_request(request, "cmd_vel", detail)
 
     def _on_body_motion(self, msg: String) -> None:
+        if self._handheld_override_is_active():
+            self._enter_handheld_override()
+            self._debug_log_motion("drop_body_motion", f"requested={msg.data.strip().lower()}")
+            return
+
         mode = msg.data.strip().lower()
         if mode == self._last_body_motion_mode:
             return
@@ -331,14 +537,36 @@ class Go2UnitreeBridgeNode(Node):
 
         self._last_body_motion_mode = mode
         self._body_motion_baseline_sent = False
+        self._debug_log_motion("set_body_motion_mode", f"mode={mode}", force=True)
+
+    def _on_recovery_command(self, msg: String) -> None:
+        command = msg.data.strip().lower()
+        if command == "stop":
+            self._publish_stop_move()
+            return
+        if command == "balance_stand":
+            self._last_body_motion_mode = "stop"
+            self._body_motion_baseline_sent = False
+            self._publish_balance_stand()
+            return
+        self.get_logger().warn(f"Ignoring unsupported recovery command '{msg.data}'")
 
     def _publish_balance_stand(self) -> None:
+        if self._handheld_override_is_active():
+            self._debug_log_motion("suppress_body_motion_request", "balance_stand")
+            return
         request = Request()
         request.header.identity.id = self._next_request_id()
         request.header.identity.api_id = API_ID_BALANCE_STAND
-        self.sport_request_publisher.publish(request)
+        self._publish_request(request, "body_motion", "balance_stand")
 
     def _publish_euler(self, roll: float, pitch: float, yaw: float) -> None:
+        if self._handheld_override_is_active():
+            self._debug_log_motion(
+                "suppress_body_motion_request",
+                f"euler roll={float(roll):.3f} pitch={float(pitch):.3f} yaw={float(yaw):.3f}",
+            )
+            return
         request = Request()
         request.header.identity.id = self._next_request_id()
         request.header.identity.api_id = API_ID_EULER
@@ -349,14 +577,21 @@ class Go2UnitreeBridgeNode(Node):
                 "z": float(yaw),
             }
         )
-        self.sport_request_publisher.publish(request)
+        self._publish_request(
+            request,
+            "body_motion",
+            f"euler roll={float(roll):.3f} pitch={float(pitch):.3f} yaw={float(yaw):.3f}",
+        )
 
     def _publish_body_height(self, height: float) -> None:
+        if self._handheld_override_is_active():
+            self._debug_log_motion("suppress_body_motion_request", f"body_height={float(height):.3f}")
+            return
         request = Request()
         request.header.identity.id = self._next_request_id()
         request.header.identity.api_id = API_ID_BODY_HEIGHT
         request.parameter = json.dumps({"data": float(height)})
-        self.sport_request_publisher.publish(request)
+        self._publish_request(request, "body_motion", f"body_height={float(height):.3f}")
 
     def _send_body_motion_baseline(self) -> None:
         self._smoothed_body_height = 0.0
@@ -366,6 +601,18 @@ class Go2UnitreeBridgeNode(Node):
         self._body_motion_baseline_sent = True
 
     def _tick_body_motion(self) -> None:
+        if self._handheld_override_is_active():
+            self._enter_handheld_override()
+            state = UInt8()
+            state_plot = Float32()
+            state.data = 0
+            state_plot.data = 0.0
+            self.body_motion_state_publisher.publish(state)
+            self.body_motion_state_plot_publisher.publish(state_plot)
+            return
+
+        self._exit_handheld_override()
+
         mode = self._last_body_motion_mode
         state = UInt8()
         state_plot = Float32()

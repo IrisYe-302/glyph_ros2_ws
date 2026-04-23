@@ -104,18 +104,30 @@ def generate_launch_description() -> LaunchDescription:
                 }.items(),
             ),
             Node(
+                package="go2_navigation",
+                executable="pointcloud_restamper",
+                name="go2_nav_pointcloud_restamper",
+                parameters=[
+                    {
+                        "input_topic": cloud_topic,
+                        "output_topic": "/utlidar/cloud_base_restamped",
+                    }
+                ],
+                output="screen",
+            ),
+            Node(
                 package="pointcloud_to_laserscan",
                 executable="pointcloud_to_laserscan_node",
                 name="go2_nav_pointcloud_to_laserscan",
                 remappings=[
-                    ("cloud_in", cloud_topic),
+                    ("cloud_in", "/utlidar/cloud_base_restamped"),
                     ("scan", "/scan_raw"),
                 ],
                 parameters=[
                     {
-                        "target_frame": "base_link",
+                        "target_frame": "base_footprint",
                         "transform_tolerance": 0.2,
-                        "min_height": -0.10,
+                        "min_height": 0.10,
                         "max_height": 0.40,
                         "angle_min": -3.14159,
                         "angle_max": 3.14159,
@@ -154,6 +166,23 @@ def generate_launch_description() -> LaunchDescription:
             TimerAction(
                 period=nav2_start_delay,
                 actions=[
+                    Node(
+                        package="go2_navigation",
+                        executable="stability_guard",
+                        name="go2_stability_guard",
+                        parameters=[
+                            {
+                                "imu_topic": "/imu/data",
+                                "odom_topic": "/odom",
+                                "startup_balance_stand": False,
+                                "max_angular_velocity_rad_s": 2.5,
+                                "accel_deviation_threshold": 4.5,
+                                "max_odom_linear_speed": 1.0,
+                                "stable_dwell_sec": 1.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
                     Node(
                         package="go2_navigation",
                         executable="cmd_vel_arbiter",

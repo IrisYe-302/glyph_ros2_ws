@@ -40,6 +40,7 @@ setup(
             'global_localization_trigger = go2_navigation.global_localization_trigger:main',
             'session_map_publisher = go2_navigation.session_map_publisher:main',
             'cmd_vel_arbiter = go2_navigation.cmd_vel_arbiter:main',
+            'odom_ready_gate = go2_navigation.odom_ready_gate:main',
         ],
     },
 )

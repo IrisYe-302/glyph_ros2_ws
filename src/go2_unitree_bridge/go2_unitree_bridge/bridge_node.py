@@ -77,6 +77,7 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("handheld_remote_raw_fallback", True)
         self.declare_parameter("debug_motion_commands", False)
         self.declare_parameter("debug_motion_log_interval_sec", 0.25)
+        self.declare_parameter("sport_state_timeout_sec", 2.0)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value
         sport_state_fallback_topic = self.get_parameter("sport_state_fallback_topic").value
@@ -117,6 +118,7 @@ class Go2UnitreeBridgeNode(Node):
         self.debug_motion_log_interval_ns = int(
             float(self.get_parameter("debug_motion_log_interval_sec").value) * 1e9
         )
+        self.sport_state_timeout_ns = int(float(self.get_parameter("sport_state_timeout_sec").value) * 1e9)
         self._origin_x = None
         self._origin_y = None
         self._origin_yaw = None
@@ -134,6 +136,9 @@ class Go2UnitreeBridgeNode(Node):
         self._wireless_controller_msg_count = 0
         self._low_state_msg_count = 0
         self._last_cmd_vel_zero_sent = False
+        self._startup_ns = self.get_clock().now().nanoseconds
+        self._last_sport_state_ns: int | None = None
+        self._last_sport_state_warn_ns = 0
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
@@ -179,6 +184,7 @@ class Go2UnitreeBridgeNode(Node):
         self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)
         self.create_subscription(String, recovery_command_topic, self._on_recovery_command, 10)
         self.body_motion_timer = self.create_timer(1.0 / body_motion_hz, self._tick_body_motion)
+        self.create_timer(1.0, self._check_upstream_health)
 
         self._request_id = 1
         self.get_logger().info(
@@ -235,6 +241,14 @@ class Go2UnitreeBridgeNode(Node):
         return x, y, z, w
 
     def _on_sport_state(self, msg: SportModeState) -> None:
+        now_ns = self.get_clock().now().nanoseconds
+        if (
+            self._last_sport_state_ns is not None
+            and (now_ns - self._last_sport_state_ns) >= self.sport_state_timeout_ns
+        ):
+            gap_sec = (now_ns - self._last_sport_state_ns) / 1e9
+            self.get_logger().info(f"SportModeState stream resumed after {gap_sec:.2f}s gap")
+        self._last_sport_state_ns = now_ns
         stamp = self.get_clock().now().to_msg()
         # Unitree IMU quaternions are published as w,x,y,z; convert to ROS xyzw.
         full_qw = float(msg.imu_state.quaternion[0])
@@ -315,6 +329,30 @@ class Go2UnitreeBridgeNode(Node):
 
         if transforms:
             self.tf_broadcaster.sendTransform(transforms)
+
+    def _check_upstream_health(self) -> None:
+        if self.sport_state_timeout_ns <= 0:
+            return
+
+        now_ns = self.get_clock().now().nanoseconds
+        reference_ns = self._last_sport_state_ns if self._last_sport_state_ns is not None else self._startup_ns
+        overdue_ns = now_ns - reference_ns
+        if overdue_ns < self.sport_state_timeout_ns:
+            return
+
+        if (now_ns - self._last_sport_state_warn_ns) < self.sport_state_timeout_ns:
+            return
+
+        if self._last_sport_state_ns is None:
+            self.get_logger().warn(
+                "No SportModeState received yet; /odom and odom->base_footprint will not be published"
+            )
+        else:
+            self.get_logger().warn(
+                f"SportModeState stream stalled for {overdue_ns / 1e9:.2f}s; "
+                "/odom and odom->base_footprint TF may disappear from downstream consumers"
+            )
+        self._last_sport_state_warn_ns = now_ns
 
     def _on_low_state(self, msg: LowState) -> None:
         stamp = self.get_clock().now().to_msg()

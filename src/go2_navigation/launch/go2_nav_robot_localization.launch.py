@@ -3,8 +3,9 @@ import json
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler, TimerAction
 from launch.conditions import IfCondition
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -66,6 +67,295 @@ def generate_launch_description() -> LaunchDescription:
         "robot_home_pose.json",
     )
     persisted_home_x, persisted_home_y, persisted_home_yaw = _load_persisted_home_defaults(home_pose_path)
+    odom_ready_gate = Node(
+        package="go2_navigation",
+        executable="odom_ready_gate",
+        name="go2_odom_ready_gate",
+        parameters=[
+            {
+                "odom_topic": "/odom",
+                "target_frame": "odom",
+                "base_frame": "base_footprint",
+                "warn_interval_sec": 2.0,
+            }
+        ],
+        output="screen",
+    )
+    gated_startup_actions = [
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(localization_launch),
+            launch_arguments={
+                "map": map_yaml,
+                "use_sim_time": "False",
+                "autostart": "True",
+                "params_file": nav2_params,
+                "use_composition": "False",
+            }.items(),
+        ),
+        TimerAction(
+            period=nav2_start_delay,
+            actions=[
+                Node(
+                    package="go2_navigation",
+                    executable="stability_guard",
+                    name="go2_stability_guard",
+                    parameters=[
+                        {
+                            "imu_topic": "/imu/data",
+                            "odom_topic": "/odom",
+                            "startup_balance_stand": False,
+                            "max_angular_velocity_rad_s": 2.5,
+                            "accel_deviation_threshold": 4.5,
+                            "max_odom_linear_speed": 1.0,
+                            "stable_dwell_sec": 1.5,
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="cmd_vel_arbiter",
+                    name="go2_cmd_vel_arbiter",
+                    parameters=[
+                        {
+                            "teleop_input_topic": "/cmd_vel_teleop",
+                            "nav_input_topic": "/cmd_vel_nav",
+                            "dance_input_topic": "/cmd_vel_dance",
+                            "output_topic": "/cmd_vel_muxed",
+                            "nav_timeout_sec": 1.5,
+                            "dance_timeout_sec": 1.5,
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="nav2_controller",
+                    executable="controller_server",
+                    name="controller_server",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[
+                        ("/tf", "tf"),
+                        ("/tf_static", "tf_static"),
+                        ("/cmd_vel", "/cmd_vel_nav"),
+                    ],
+                ),
+                Node(
+                    package="nav2_smoother",
+                    executable="smoother_server",
+                    name="smoother_server",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[
+                        ("/tf", "tf"),
+                        ("/tf_static", "tf_static"),
+                        ("/cmd_vel", "/cmd_vel_nav"),
+                    ],
+                ),
+                Node(
+                    package="nav2_planner",
+                    executable="planner_server",
+                    name="planner_server",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                ),
+                Node(
+                    package="nav2_behaviors",
+                    executable="behavior_server",
+                    name="behavior_server",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                ),
+                Node(
+                    package="nav2_bt_navigator",
+                    executable="bt_navigator",
+                    name="bt_navigator",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                ),
+                Node(
+                    package="nav2_waypoint_follower",
+                    executable="waypoint_follower",
+                    name="waypoint_follower",
+                    output="screen",
+                    parameters=[nav2_params],
+                    arguments=["--ros-args", "--log-level", "info"],
+                    remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
+                ),
+                Node(
+                    package="nav2_lifecycle_manager",
+                    executable="lifecycle_manager",
+                    name="lifecycle_manager_navigation",
+                    output="screen",
+                    arguments=["--ros-args", "--log-level", "info"],
+                    parameters=[
+                        {"use_sim_time": False},
+                        {"autostart": True},
+                        {
+                            "node_names": [
+                                "controller_server",
+                                "smoother_server",
+                                "planner_server",
+                                "behavior_server",
+                                "bt_navigator",
+                                "waypoint_follower",
+                            ]
+                        },
+                    ],
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="sim_behavior_supervisor",
+                    name="go2_behavior_supervisor",
+                    parameters=[
+                        {
+                            "target_topic": target_topic,
+                            "target_location_topic": "/target_location",
+                            "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
+                            "movement_gate_topic": movement_gate_topic,
+                            "return_home_trigger_topic": return_home_trigger_topic,
+                            "home_target_topic": home_target_topic,
+                            "body_motion_topic": "/body_motion",
+                            "home_align_cmd_vel_topic": "/cmd_vel_dance",
+                            "clear_local_costmap_service": "/local_costmap/clear_entirely_local_costmap",
+                            "set_home_topic": set_home_topic,
+                            "persist_home": True,
+                            "home_persistence_path": home_pose_path,
+                            "home_x": initial_pose_x,
+                            "home_y": initial_pose_y,
+                            "home_yaw": initial_pose_yaw,
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="sim_body_motion_controller",
+                    name="go2_robot_body_motion_controller",
+                    parameters=[
+                        {
+                            "motion_topic": "/body_motion",
+                            "cmd_vel_topic": "/cmd_vel_dance",
+                            "state_topic": "/body_motion_state",
+                            "state_plot_topic": "/body_motion_state_plot",
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="uart_dispense_bridge",
+                    name="go2_uart_dispense_bridge",
+                    parameters=[
+                        {
+                            "port": dispense_uart_port,
+                            "baudrate": dispense_uart_baudrate,
+                            "flavor_selection_topic": flavor_selection_topic,
+                            "currently_dispensing_topic": currently_dispensing_topic,
+                            "movement_gate_topic": movement_gate_topic,
+                            "return_home_trigger_topic": return_home_trigger_topic,
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="location_subscriber",
+                    name="go2_location_subscriber_dispatch",
+                    parameters=[
+                        {
+                            "target_topic": "/behavior_supervisor_dispatch_goal",
+                            "use_sim_time": False,
+                            "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
+                            "goal_failed_topic": "/behavior_supervisor_dispatch_failed",
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="location_subscriber",
+                    name="go2_location_subscriber_return_home",
+                    parameters=[
+                        {
+                            "target_topic": home_target_topic,
+                            "use_sim_time": False,
+                            "orient_toward_goal_center": False,
+                            "goal_cleared_topic": "/behavior_supervisor_home_cleared",
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="goal_tolerance_marker",
+                    name="go2_goal_tolerance_marker_dispatch",
+                    parameters=[
+                        {
+                            "target_topic": "/behavior_supervisor_dispatch_goal",
+                            "marker_topic": "/target_location_tolerance",
+                            "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
+                            "radius": 0.5,
+                        }
+                    ],
+                    output="screen",
+                ),
+                Node(
+                    package="go2_navigation",
+                    executable="goal_tolerance_marker",
+                    name="go2_goal_tolerance_marker_return_home",
+                    parameters=[
+                        {
+                            "target_topic": home_target_topic,
+                            "marker_topic": "/target_location_tolerance",
+                            "goal_cleared_topic": "/behavior_supervisor_home_cleared",
+                            "radius": 0.5,
+                        }
+                    ],
+                    output="screen",
+                ),
+            ],
+        ),
+        Node(
+            package="go2_navigation",
+            executable="initial_pose_publisher",
+            name="go2_initial_pose_publisher",
+            condition=IfCondition(publish_initial_pose),
+            parameters=[
+                {
+                    "topic": "/initialpose",
+                    "frame_id": "map",
+                    "x": initial_pose_x,
+                    "y": initial_pose_y,
+                    "yaw": initial_pose_yaw,
+                    "use_sim_time": False,
+                    "delay_sec": initial_pose_delay,
+                }
+            ],
+            output="screen",
+        ),
+        Node(
+            package="go2_navigation",
+            executable="global_localization_trigger",
+            name="go2_global_localization_trigger",
+            condition=IfCondition(global_localization),
+            parameters=[
+                {
+                    "service_name": "/reinitialize_global_localization",
+                    "delay_sec": global_localization_delay,
+                }
+            ],
+            output="screen",
+        ),
+    ]
 
     return LaunchDescription(
         [
@@ -141,278 +431,12 @@ def generate_launch_description() -> LaunchDescription:
                 ],
                 output="screen",
             ),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(localization_launch),
-                launch_arguments={
-                    "map": map_yaml,
-                    "use_sim_time": "False",
-                    "autostart": "True",
-                    "params_file": nav2_params,
-                    "use_composition": "False",
-                }.items(),
-            ),
-            TimerAction(
-                period=nav2_start_delay,
-                actions=[
-                    Node(
-                        package="go2_navigation",
-                        executable="stability_guard",
-                        name="go2_stability_guard",
-                        parameters=[
-                            {
-                                "imu_topic": "/imu/data",
-                                "odom_topic": "/odom",
-                                "startup_balance_stand": False,
-                                "max_angular_velocity_rad_s": 2.5,
-                                "accel_deviation_threshold": 4.5,
-                                "max_odom_linear_speed": 1.0,
-                                "stable_dwell_sec": 1.5,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="cmd_vel_arbiter",
-                        name="go2_cmd_vel_arbiter",
-                        parameters=[
-                            {
-                                "teleop_input_topic": "/cmd_vel_teleop",
-                                "nav_input_topic": "/cmd_vel_nav",
-                                "dance_input_topic": "/cmd_vel_dance",
-                                "output_topic": "/cmd_vel_muxed",
-                                "nav_timeout_sec": 1.5,
-                                "dance_timeout_sec": 1.5,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="nav2_controller",
-                        executable="controller_server",
-                        name="controller_server",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[
-                            ("/tf", "tf"),
-                            ("/tf_static", "tf_static"),
-                            ("/cmd_vel", "/cmd_vel_nav"),
-                        ],
-                    ),
-                    Node(
-                        package="nav2_smoother",
-                        executable="smoother_server",
-                        name="smoother_server",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[
-                            ("/tf", "tf"),
-                            ("/tf_static", "tf_static"),
-                            ("/cmd_vel", "/cmd_vel_nav"),
-                        ],
-                    ),
-                    Node(
-                        package="nav2_planner",
-                        executable="planner_server",
-                        name="planner_server",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
-                    ),
-                    Node(
-                        package="nav2_behaviors",
-                        executable="behavior_server",
-                        name="behavior_server",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
-                    ),
-                    Node(
-                        package="nav2_bt_navigator",
-                        executable="bt_navigator",
-                        name="bt_navigator",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
-                    ),
-                    Node(
-                        package="nav2_waypoint_follower",
-                        executable="waypoint_follower",
-                        name="waypoint_follower",
-                        output="screen",
-                        parameters=[nav2_params],
-                        arguments=["--ros-args", "--log-level", "info"],
-                        remappings=[("/tf", "tf"), ("/tf_static", "tf_static")],
-                    ),
-                    Node(
-                        package="nav2_lifecycle_manager",
-                        executable="lifecycle_manager",
-                        name="lifecycle_manager_navigation",
-                        output="screen",
-                        arguments=["--ros-args", "--log-level", "info"],
-                        parameters=[
-                            {"use_sim_time": False},
-                            {"autostart": True},
-                            {
-                                "node_names": [
-                                    "controller_server",
-                                    "smoother_server",
-                                    "planner_server",
-                                    "behavior_server",
-                                    "bt_navigator",
-                                    "waypoint_follower",
-                                ]
-                            },
-                        ],
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="sim_behavior_supervisor",
-                        name="go2_behavior_supervisor",
-                        parameters=[
-                            {
-                                "target_topic": target_topic,
-                                "target_location_topic": "/target_location",
-                                "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
-                                "movement_gate_topic": movement_gate_topic,
-                                "return_home_trigger_topic": return_home_trigger_topic,
-                                "home_target_topic": home_target_topic,
-                                "body_motion_topic": "/body_motion",
-                                "home_align_cmd_vel_topic": "/cmd_vel_dance",
-                                "clear_local_costmap_service": "/local_costmap/clear_entirely_local_costmap",
-                                "set_home_topic": set_home_topic,
-                                "persist_home": True,
-                                "home_persistence_path": home_pose_path,
-                                "home_x": initial_pose_x,
-                                "home_y": initial_pose_y,
-                                "home_yaw": initial_pose_yaw,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="sim_body_motion_controller",
-                        name="go2_robot_body_motion_controller",
-                        parameters=[
-                            {
-                                "motion_topic": "/body_motion",
-                                "cmd_vel_topic": "/cmd_vel_dance",
-                                "state_topic": "/body_motion_state",
-                                "state_plot_topic": "/body_motion_state_plot",
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="uart_dispense_bridge",
-                        name="go2_uart_dispense_bridge",
-                        parameters=[
-                            {
-                                "port": dispense_uart_port,
-                                "baudrate": dispense_uart_baudrate,
-                                "flavor_selection_topic": flavor_selection_topic,
-                                "currently_dispensing_topic": currently_dispensing_topic,
-                                "movement_gate_topic": movement_gate_topic,
-                                "return_home_trigger_topic": return_home_trigger_topic,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="location_subscriber",
-                        name="go2_location_subscriber_dispatch",
-                        parameters=[
-                            {
-                                "target_topic": "/behavior_supervisor_dispatch_goal",
-                                "use_sim_time": False,
-                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
-                                "goal_failed_topic": "/behavior_supervisor_dispatch_failed",
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="location_subscriber",
-                        name="go2_location_subscriber_return_home",
-                        parameters=[
-                            {
-                                "target_topic": home_target_topic,
-                                "use_sim_time": False,
-                                "orient_toward_goal_center": False,
-                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="goal_tolerance_marker",
-                        name="go2_goal_tolerance_marker_dispatch",
-                        parameters=[
-                            {
-                                "target_topic": "/behavior_supervisor_dispatch_goal",
-                                "marker_topic": "/target_location_tolerance",
-                                "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
-                                "radius": 0.5,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                    Node(
-                        package="go2_navigation",
-                        executable="goal_tolerance_marker",
-                        name="go2_goal_tolerance_marker_return_home",
-                        parameters=[
-                            {
-                                "target_topic": home_target_topic,
-                                "marker_topic": "/target_location_tolerance",
-                                "goal_cleared_topic": "/behavior_supervisor_home_cleared",
-                                "radius": 0.5,
-                            }
-                        ],
-                        output="screen",
-                    ),
-                ],
-            ),
-            Node(
-                package="go2_navigation",
-                executable="initial_pose_publisher",
-                name="go2_initial_pose_publisher",
-                condition=IfCondition(publish_initial_pose),
-                parameters=[
-                    {
-                        "topic": "/initialpose",
-                        "frame_id": "map",
-                        "x": initial_pose_x,
-                        "y": initial_pose_y,
-                        "yaw": initial_pose_yaw,
-                        "use_sim_time": False,
-                        "delay_sec": initial_pose_delay,
-                    }
-                ],
-                output="screen",
-            ),
-            Node(
-                package="go2_navigation",
-                executable="global_localization_trigger",
-                name="go2_global_localization_trigger",
-                condition=IfCondition(global_localization),
-                parameters=[
-                    {
-                        "service_name": "/reinitialize_global_localization",
-                        "delay_sec": global_localization_delay,
-                    }
-                ],
-                output="screen",
+            odom_ready_gate,
+            RegisterEventHandler(
+                OnProcessExit(
+                    target_action=odom_ready_gate,
+                    on_exit=gated_startup_actions,
+                )
             ),
             Node(
                 package="go2_navigation",

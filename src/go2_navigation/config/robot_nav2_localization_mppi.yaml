@@ -166,14 +166,14 @@ controller_server:
       ConstraintCritic.cost_weight: 4.0
       CostCritic.enabled: true
       CostCritic.cost_power: 1
-      CostCritic.cost_weight: 4.5
-      CostCritic.critical_cost: 650.0
+      CostCritic.cost_weight: 8.0
+      CostCritic.critical_cost: 300.0
       CostCritic.consider_footprint: true
       CostCritic.collision_cost: 1000000.0
       CostCritic.near_goal_distance: 1.0
       GoalCritic.enabled: true
       GoalCritic.cost_power: 1
-      GoalCritic.cost_weight: 5.0
+      GoalCritic.cost_weight: 4.0
       GoalCritic.threshold_to_consider: 1.8
       GoalAngleCritic.enabled: true
       GoalAngleCritic.cost_power: 1
@@ -181,11 +181,11 @@ controller_server:
       GoalAngleCritic.threshold_to_consider: 1.6
       PathAlignCritic.enabled: true
       PathAlignCritic.cost_power: 1
-      PathAlignCritic.cost_weight: 5.5
+      PathAlignCritic.cost_weight: 4.0
       PathAlignCritic.threshold_to_consider: 0.8
       PathFollowCritic.enabled: true
       PathFollowCritic.cost_power: 1
-      PathFollowCritic.cost_weight: 4.5
+      PathFollowCritic.cost_weight: 3.5
       PathFollowCritic.threshold_to_consider: 1.4
       PathAngleCritic.enabled: true
       PathAngleCritic.cost_power: 1

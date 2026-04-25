@@ -621,7 +621,7 @@ class SimBehaviorSupervisor(Node):
             if self.movement_gate_open and self.return_home_start_deadline_ns is None:
                 self.return_home_start_deadline_ns = now_ns + int(self.return_home_delay_sec * 1e9)
                 self.get_logger().info(
-                    f"Pin 7 HIGH; dispatching home after {self.return_home_delay_sec:.1f}s"
+                    f"Movement gate OPEN; dispatching home after {self.return_home_delay_sec:.1f}s"
                 )
             elif not self.movement_gate_open:
                 self.return_home_start_deadline_ns = None

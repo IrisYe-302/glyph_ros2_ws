@@ -29,6 +29,10 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_y", 0.0)
         self.declare_parameter("home_yaw", 0.0)
         self.declare_parameter("target_wait_sec", 10.0)
+        self.declare_parameter("arrival_bob_enabled", True)
+        self.declare_parameter("arrival_bob_mode", "dance2")
+        self.declare_parameter("arrival_bob_count", 2)
+        self.declare_parameter("arrival_bob_cycle_sec", 2.05)
         self.declare_parameter("movement_gate_topic", "/return_home_trigger")
         self.declare_parameter("return_home_trigger_topic", "")
         self.declare_parameter("home_target_topic", "/return_home_target_location")
@@ -74,6 +78,12 @@ class SimBehaviorSupervisor(Node):
         self.home_y = float(self.get_parameter("home_y").value)
         self.home_yaw = float(self.get_parameter("home_yaw").value)
         self.target_wait_sec = float(self.get_parameter("target_wait_sec").value)
+        self.arrival_bob_enabled = bool(self.get_parameter("arrival_bob_enabled").value)
+        self.arrival_bob_mode = str(self.get_parameter("arrival_bob_mode").value)
+        self.arrival_bob_count = max(0, int(self.get_parameter("arrival_bob_count").value))
+        self.arrival_bob_cycle_sec = max(
+            0.0, float(self.get_parameter("arrival_bob_cycle_sec").value)
+        )
         self.return_home_delay_sec = float(self.get_parameter("return_home_delay_sec").value)
         self.target_reached_radius = float(self.get_parameter("target_reached_radius").value)
         self.home_reached_radius = float(self.get_parameter("home_reached_radius").value)
@@ -202,7 +212,7 @@ class SimBehaviorSupervisor(Node):
                 or "/return_home_trigger"
             ),
             self._on_movement_gate,
-            live_command_qos,
+            target_qos,
         )
         self.create_subscription(
             Bool,
@@ -228,6 +238,7 @@ class SimBehaviorSupervisor(Node):
         self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
         self.dance_deadline_ns: Optional[int] = None
         self.dwell_deadline_ns: Optional[int] = None
+        self.arrival_bob_deadline_ns: Optional[int] = None
         self.command_queue: list[PoseStamped] = []
         self.active_target_pose: Optional[PoseStamped] = None
         self.returning_home = False
@@ -328,6 +339,7 @@ class SimBehaviorSupervisor(Node):
             self.return_home_pending = False
             self.return_home_start_deadline_ns = None
         self.dwell_deadline_ns = None
+        self.arrival_bob_deadline_ns = None
         self._publish_queue_markers()
 
     def _on_cancel_command(self, msg: PoseStamped) -> None:
@@ -337,6 +349,7 @@ class SimBehaviorSupervisor(Node):
 
         cancel_x = pose.pose.position.x
         cancel_y = pose.pose.position.y
+
         best_index: Optional[int] = None
         best_distance_sq: Optional[float] = None
 
@@ -391,6 +404,7 @@ class SimBehaviorSupervisor(Node):
         self.command_queue.clear()
         self.active_target_pose = None
         self.dwell_deadline_ns = None
+        self.arrival_bob_deadline_ns = None
         self.get_logger().info(
             f"Updated home pose to x={self.home_x:.2f}, y={self.home_y:.2f}, yaw={self.home_yaw:.2f}"
         )
@@ -400,7 +414,16 @@ class SimBehaviorSupervisor(Node):
     def _on_dispatch_goal_cleared(self, _: Empty) -> None:
         if self.active_target_pose is not None:
             now_ns = self.get_clock().now().nanoseconds
-            if self.target_wait_sec > 0.0:
+            if (
+                self.arrival_bob_enabled
+                and self.arrival_bob_count > 0
+                and self.arrival_bob_cycle_sec > 0.0
+            ):
+                self.arrival_bob_deadline_ns = now_ns + int(
+                    self.arrival_bob_count * self.arrival_bob_cycle_sec * 1e9
+                )
+                self.dwell_deadline_ns = None
+            elif self.target_wait_sec > 0.0:
                 self.dwell_deadline_ns = now_ns + int(self.target_wait_sec * 1e9)
             else:
                 self._complete_active_target(now_ns)
@@ -552,6 +575,19 @@ class SimBehaviorSupervisor(Node):
         self.at_home_last = at_home
 
         if self.active_target_pose is not None:
+            if self.arrival_bob_deadline_ns is not None:
+                if now_ns < self.arrival_bob_deadline_ns:
+                    self._publish_debug("active_target_arrival_bob", quiet_for_sec)
+                    self._publish_arrival_bob()
+                    return
+                self.arrival_bob_deadline_ns = None
+                self._publish_stop()
+                if self.target_wait_sec > 0.0:
+                    self.dwell_deadline_ns = now_ns + int(self.target_wait_sec * 1e9)
+                else:
+                    self._complete_active_target(now_ns)
+                    return
+
             self._publish_debug("active_target", quiet_for_sec)
             self._publish_stop()
             if self.dwell_deadline_ns is not None and now_ns >= self.dwell_deadline_ns:
@@ -800,6 +836,11 @@ class SimBehaviorSupervisor(Node):
         msg.data = self.dance_mode
         self.body_motion_pub.publish(msg)
 
+    def _publish_arrival_bob(self) -> None:
+        msg = String()
+        msg.data = self.arrival_bob_mode
+        self.body_motion_pub.publish(msg)
+
     def _publish_home_align_cmd(self) -> None:
         if self.home_align_cmd_pub is None:
             self._publish_home_goal()
@@ -835,6 +876,7 @@ class SimBehaviorSupervisor(Node):
         self.active_target_pose = self.command_queue.pop(0)
         self.active_target_pose.header.stamp = self.get_clock().now().to_msg()
         self.dwell_deadline_ns = None
+        self.arrival_bob_deadline_ns = None
         self.return_home_authorized = False
         self.dispatch_goal_pub.publish(self.active_target_pose)
         self.last_command_time = self.get_clock().now()
@@ -843,6 +885,7 @@ class SimBehaviorSupervisor(Node):
     def _complete_active_target(self, now_ns: int) -> None:
         self.active_target_pose = None
         self.dwell_deadline_ns = None
+        self.arrival_bob_deadline_ns = None
         self.last_command_time = self.get_clock().now()
         if self.command_queue:
             self._publish_queue_markers()

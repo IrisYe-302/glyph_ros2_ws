@@ -31,7 +31,6 @@ setup(
             'goal_tolerance_marker = go2_navigation.goal_tolerance_marker:main',
             'sim_fall_recovery = go2_navigation.sim_fall_recovery:main',
             'scan_restamper = go2_navigation.scan_restamper:main',
-            'pointcloud_restamper = go2_navigation.pointcloud_restamper:main',
             'initial_pose_restamper = go2_navigation.initial_pose_restamper:main',
             'sim_behavior_supervisor = go2_navigation.sim_behavior_supervisor:main',
             'sim_body_motion_controller = go2_navigation.sim_body_motion_controller:main',

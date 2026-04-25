@@ -75,7 +75,7 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("handheld_remote_hold_sec", 0.75)
         self.declare_parameter("handheld_remote_axis_deadband", 0.05)
         self.declare_parameter("handheld_remote_raw_fallback", True)
-        self.declare_parameter("debug_motion_commands", True)
+        self.declare_parameter("debug_motion_commands", False)
         self.declare_parameter("debug_motion_log_interval_sec", 0.25)
 
         sport_state_topic = self.get_parameter("sport_state_topic").value

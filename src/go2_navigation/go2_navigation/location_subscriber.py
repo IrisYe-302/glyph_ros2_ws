@@ -46,6 +46,7 @@ class LocationSubscriber(Node):
         self.base_frame_candidates = ['base_footprint', 'base_link']
         self.target_qos = self._target_qos_for_topic(target_topic)
         self._active_goal_signature: tuple[float, float, float] | None = None
+        self._pending_pose: PoseStamped | None = None
 
         self.subscription = self.create_subscription(
             PoseStamped,
@@ -103,6 +104,11 @@ class LocationSubscriber(Node):
 
         if self.nav_ready and self.frame_ready:
             self.readiness_timer.cancel()
+            if self._pending_pose is not None:
+                pending_pose = self._pending_pose
+                self._pending_pose = None
+                self.get_logger().info('Dispatching pending target after readiness became available')
+                self.send_navigation_goal(pending_pose)
 
     def location_callback(self, msg: PoseStamped):
         if not self.nav_ready:
@@ -114,8 +120,9 @@ class LocationSubscriber(Node):
             self._check_readiness()
 
         if not self.nav_ready or not self.frame_ready:
+            self._pending_pose = msg
             self.get_logger().warn(
-                f"Ignoring target until Nav2 and frame '{self.goal_frame_id}' are ready "
+                f"Deferring target until Nav2 and frame '{self.goal_frame_id}' are ready "
                 f"(nav_ready={self.nav_ready}, frame_ready={self.frame_ready})"
             )
             return

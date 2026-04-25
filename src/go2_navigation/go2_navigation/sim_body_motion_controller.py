@@ -41,6 +41,8 @@ class SimBodyMotionController(Node):
 
     def _on_motion_command(self, msg: String) -> None:
         mode = msg.data.strip().lower()
+        if mode == "arrival_twist":
+            mode = "dance1"
         if mode not in {"stop", "dance1", "dance2"}:
             self.get_logger().warn(f"Ignoring unsupported body motion mode '{msg.data}'")
             return

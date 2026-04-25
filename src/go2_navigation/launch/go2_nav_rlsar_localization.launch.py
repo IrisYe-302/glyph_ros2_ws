@@ -368,6 +368,10 @@ def generate_launch_description() -> LaunchDescription:
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,
+                                "home_reached_radius": 0.18,
+                                "home_reached_yaw_tol": 0.12,
+                                "home_resume_radius": 0.28,
+                                "home_resume_yaw_tol": 0.22,
                             }
                         ],
                         output="screen",

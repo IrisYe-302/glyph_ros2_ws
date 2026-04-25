@@ -561,6 +561,8 @@ class Go2UnitreeBridgeNode(Node):
             return
 
         mode = msg.data.strip().lower()
+        if mode == "arrival_twist":
+            mode = "dance1"
         if mode == self._last_body_motion_mode:
             return
 

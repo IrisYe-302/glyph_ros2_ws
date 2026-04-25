@@ -30,7 +30,7 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("home_yaw", 0.0)
         self.declare_parameter("target_wait_sec", 10.0)
         self.declare_parameter("arrival_bob_enabled", True)
-        self.declare_parameter("arrival_bob_mode", "dance2")
+        self.declare_parameter("arrival_bob_mode", "arrival_twist")
         self.declare_parameter("arrival_bob_count", 2)
         self.declare_parameter("arrival_bob_cycle_sec", 2.05)
         self.declare_parameter("movement_gate_topic", "/return_home_trigger")

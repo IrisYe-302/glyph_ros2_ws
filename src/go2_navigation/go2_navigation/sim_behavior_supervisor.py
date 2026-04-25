@@ -39,6 +39,7 @@ class SimBehaviorSupervisor(Node):
         self.declare_parameter("body_motion_topic", "/sim_body_motion")
         self.declare_parameter("home_align_cmd_vel_topic", "")
         self.declare_parameter("dispatch_goal_cleared_topic", "/behavior_supervisor_dispatch_cleared")
+        self.declare_parameter("dispatch_goal_failed_topic", "/behavior_supervisor_dispatch_failed")
         self.declare_parameter("home_goal_cleared_topic", "/behavior_supervisor_home_cleared")
         self.declare_parameter("queue_marker_topic", "/behavior_supervisor_queue")
         self.declare_parameter("debug_reason_topic", "/behavior_supervisor_debug_reason")
@@ -224,6 +225,12 @@ class SimBehaviorSupervisor(Node):
             Empty,
             str(self.get_parameter("dispatch_goal_cleared_topic").value),
             self._on_dispatch_goal_cleared,
+            10,
+        )
+        self.create_subscription(
+            Empty,
+            str(self.get_parameter("dispatch_goal_failed_topic").value),
+            self._on_dispatch_goal_failed,
             10,
         )
         self.create_subscription(
@@ -451,6 +458,20 @@ class SimBehaviorSupervisor(Node):
             self.last_command_time = self.get_clock().now()
             self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
             self._publish_queue_markers()
+
+    def _on_dispatch_goal_failed(self, _: Empty) -> None:
+        if self.active_target_pose is None:
+            return
+
+        failed_pose = self.active_target_pose
+        self.active_target_pose = None
+        self.dwell_deadline_ns = None
+        self.arrival_bob_deadline_ns = None
+        self.command_queue.insert(0, failed_pose)
+        self.get_logger().warn(
+            "Dispatch goal failed before completion; re-queued target at the front of the queue"
+        )
+        self._publish_queue_markers()
 
     def _normalize_pose(self, pose: PoseStamped) -> Optional[PoseStamped]:
         normalized = PoseStamped()

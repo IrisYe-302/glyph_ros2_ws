@@ -240,6 +240,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
                                 "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
+                                "goal_failed_topic": "/behavior_supervisor_dispatch_failed",
                             }
                         ],
                         output="screen",

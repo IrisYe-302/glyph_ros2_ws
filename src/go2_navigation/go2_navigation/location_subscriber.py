@@ -22,6 +22,7 @@ class LocationSubscriber(Node):
         self.declare_parameter('target_xy_rotation_deg', 0.0)
         self.declare_parameter('orient_toward_goal_center', True)
         self.declare_parameter('goal_cleared_topic', '/target_location_cleared')
+        self.declare_parameter('goal_failed_topic', '')
         self.declare_parameter('duplicate_goal_position_tol', 0.05)
         self.declare_parameter('duplicate_goal_yaw_tol', 0.20)
 
@@ -35,6 +36,7 @@ class LocationSubscriber(Node):
             self.get_parameter('orient_toward_goal_center').get_parameter_value().bool_value
         )
         goal_cleared_topic = self.get_parameter('goal_cleared_topic').get_parameter_value().string_value
+        goal_failed_topic = self.get_parameter('goal_failed_topic').get_parameter_value().string_value
         self.duplicate_goal_position_tol = float(self.get_parameter('duplicate_goal_position_tol').value)
         self.duplicate_goal_yaw_tol = float(self.get_parameter('duplicate_goal_yaw_tol').value)
 
@@ -55,6 +57,11 @@ class LocationSubscriber(Node):
             self.target_qos,
         )
         self.goal_cleared_publisher = self.create_publisher(Empty, goal_cleared_topic, 10)
+        self.goal_failed_publisher = (
+            self.create_publisher(Empty, goal_failed_topic, 10)
+            if goal_failed_topic
+            else None
+        )
 
         self.get_logger().info(f'Listening for target locations on {target_topic}')
         self.get_logger().info('Waiting for Nav2 action server and goal frame...')
@@ -182,6 +189,7 @@ class LocationSubscriber(Node):
                 self.get_logger().warn(
                     f"Failed to transform target from '{source_frame}' to '{self.goal_frame_id}': {exc}"
                 )
+                self._publish_goal_failed()
                 return
 
         goal_msg.pose.header.stamp.sec = 0
@@ -201,10 +209,18 @@ class LocationSubscriber(Node):
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
-        goal_handle = future.result()
+        try:
+            goal_handle = future.result()
+        except Exception as exc:
+            self._active_goal_signature = None
+            self.get_logger().error(f'Failed to send goal: {exc}')
+            self._publish_goal_failed()
+            return
+
         if not goal_handle.accepted:
             self._active_goal_signature = None
             self.get_logger().error('Goal rejected')
+            self._publish_goal_failed()
             return
 
         self.get_logger().info('Goal accepted — waiting for result...')
@@ -219,12 +235,23 @@ class LocationSubscriber(Node):
             self.get_logger().debug('Received feedback')
 
     def _result_callback(self, future):
-        result = future.result().result
-        status = future.result().status
+        try:
+            action_result = future.result()
+        except Exception as exc:
+            self._active_goal_signature = None
+            self.get_logger().error(f'Failed to receive navigation result: {exc}')
+            self._publish_goal_failed()
+            return
+
+        result = action_result.result
+        status = action_result.status
         self._active_goal_signature = None
         self.get_logger().info(f'Navigation finished with status {status}: {result}')
-        if status in {4, 6}:
+        if status == 4:
             self.goal_cleared_publisher.publish(Empty())
+            return
+        if status in {5, 6}:
+            self._publish_goal_failed()
 
     def _orient_goal_toward_center(self, pose: PoseStamped):
         for base_frame in self.base_frame_candidates:
@@ -281,6 +308,11 @@ class LocationSubscriber(Node):
         siny_cosp = 2.0 * (w * z + x * y)
         cosy_cosp = 1.0 - 2.0 * (y * y + z * z)
         return math.atan2(siny_cosp, cosy_cosp)
+
+    def _publish_goal_failed(self) -> None:
+        if self.goal_failed_publisher is None:
+            return
+        self.goal_failed_publisher.publish(Empty())
 
 
 def main(args=None):

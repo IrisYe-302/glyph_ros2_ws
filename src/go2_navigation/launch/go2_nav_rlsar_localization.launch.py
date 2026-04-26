@@ -164,6 +164,23 @@ def generate_launch_description() -> LaunchDescription:
                     ),
                     Node(
                         package="go2_navigation",
+                        executable="cmd_vel_arbiter",
+                        name="go2_cmd_vel_arbiter",
+                        condition=IfCondition(use_nav2),
+                        parameters=[
+                            {
+                                "teleop_input_topic": "/cmd_vel_teleop",
+                                "nav_input_topic": "/cmd_vel_nav",
+                                "dance_input_topic": "/cmd_vel_dance",
+                                "output_topic": "/cmd_vel",
+                                "nav_timeout_sec": 1.5,
+                                "dance_timeout_sec": 1.5,
+                            }
+                        ],
+                        output="screen",
+                    ),
+                    Node(
+                        package="go2_navigation",
                         executable="initial_pose_publisher",
                         name="go2_initial_pose_publisher",
                         condition=IfCondition(publish_initial_pose),
@@ -223,6 +240,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "target_topic": "/behavior_supervisor_dispatch_goal",
                                 "use_sim_time": False,
                                 "goal_cleared_topic": "/behavior_supervisor_dispatch_cleared",
+                                "goal_failed_topic": "/behavior_supervisor_dispatch_failed",
                             }
                         ],
                         output="screen",
@@ -326,7 +344,7 @@ def generate_launch_description() -> LaunchDescription:
                         parameters=[
                             {
                                 "motion_topic": "/sim_body_motion",
-                                "cmd_vel_topic": "/cmd_vel",
+                                "cmd_vel_topic": "/cmd_vel_dance",
                             }
                         ],
                         output="screen",
@@ -345,10 +363,15 @@ def generate_launch_description() -> LaunchDescription:
                                 "return_home_trigger_topic": return_home_trigger_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/sim_body_motion",
+                                "home_align_cmd_vel_topic": "/cmd_vel_dance",
                                 "set_home_topic": set_home_topic,
                                 "home_x": initial_pose_x,
                                 "home_y": initial_pose_y,
                                 "home_yaw": initial_pose_yaw,
+                                "home_reached_radius": 0.18,
+                                "home_reached_yaw_tol": 0.12,
+                                "home_resume_radius": 0.28,
+                                "home_resume_yaw_tol": 0.22,
                             }
                         ],
                         output="screen",

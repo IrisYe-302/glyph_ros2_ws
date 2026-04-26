@@ -31,6 +31,7 @@ class GoalToleranceMarker(Node):
         self._radius = self.get_parameter("radius").get_parameter_value().double_value
         self._height = self.get_parameter("height").get_parameter_value().double_value
         self._z_offset = self.get_parameter("z_offset").get_parameter_value().double_value
+        self._last_frame_id = self._frame_id
 
         pub_qos = QoSProfile(depth=1)
         pub_qos.reliability = ReliabilityPolicy.RELIABLE
@@ -44,12 +45,7 @@ class GoalToleranceMarker(Node):
         self.create_subscription(PoseStamped, target_topic, self._callback, sub_qos)
         if goal_cleared_topic:
             self.create_subscription(Empty, goal_cleared_topic, self._clear_callback, 10)
-        self._publish_marker(
-            self._frame_id,
-            self._default_x,
-            self._default_y,
-            self._default_yaw,
-        )
+        self._publish_delete_marker()
 
     def _callback(self, msg: PoseStamped) -> None:
         self._publish_marker(
@@ -60,8 +56,11 @@ class GoalToleranceMarker(Node):
         )
 
     def _clear_callback(self, _: Empty) -> None:
+        self._publish_delete_marker()
+
+    def _publish_delete_marker(self) -> None:
         marker = Marker()
-        marker.header.frame_id = self._frame_id
+        marker.header.frame_id = self._last_frame_id
         marker.header.stamp = self.get_clock().now().to_msg()
         marker.ns = "target_location_tolerance"
         marker.id = 1
@@ -69,8 +68,9 @@ class GoalToleranceMarker(Node):
         self._publisher.publish(marker)
 
     def _publish_marker(self, frame_id: str, x: float, y: float, yaw: float) -> None:
+        self._last_frame_id = frame_id or self._frame_id
         marker = Marker()
-        marker.header.frame_id = frame_id
+        marker.header.frame_id = self._last_frame_id
         marker.header.stamp = self.get_clock().now().to_msg()
         marker.ns = "target_location_tolerance"
         marker.id = 1

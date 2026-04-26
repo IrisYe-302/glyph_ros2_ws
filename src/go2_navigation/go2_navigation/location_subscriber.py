@@ -22,6 +22,9 @@ class LocationSubscriber(Node):
         self.declare_parameter('target_xy_rotation_deg', 0.0)
         self.declare_parameter('orient_toward_goal_center', True)
         self.declare_parameter('goal_cleared_topic', '/target_location_cleared')
+        self.declare_parameter('goal_failed_topic', '')
+        self.declare_parameter('duplicate_goal_position_tol', 0.05)
+        self.declare_parameter('duplicate_goal_yaw_tol', 0.20)
 
         target_topic = self.get_parameter('target_topic').get_parameter_value().string_value
         self.goal_frame_id = self.get_parameter('goal_frame_id').get_parameter_value().string_value
@@ -33,19 +36,19 @@ class LocationSubscriber(Node):
             self.get_parameter('orient_toward_goal_center').get_parameter_value().bool_value
         )
         goal_cleared_topic = self.get_parameter('goal_cleared_topic').get_parameter_value().string_value
-
+        goal_failed_topic = self.get_parameter('goal_failed_topic').get_parameter_value().string_value
+        self.duplicate_goal_position_tol = float(self.get_parameter('duplicate_goal_position_tol').value)
+        self.duplicate_goal_yaw_tol = float(self.get_parameter('duplicate_goal_yaw_tol').value)
+        
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
         self.nav_ready = False
         self.frame_ready = False
         self.base_frame_candidates = ['base_footprint', 'base_link']
-        self.target_qos = QoSProfile(
-            reliability=ReliabilityPolicy.RELIABLE,
-            durability=DurabilityPolicy.TRANSIENT_LOCAL,
-            history=HistoryPolicy.KEEP_LAST,
-            depth=1,
-        )
+        self.target_qos = self._target_qos_for_topic(target_topic)
+        self._active_goal_signature: tuple[float, float, float] | None = None
+        self._pending_pose: PoseStamped | None = None
 
         self.subscription = self.create_subscription(
             PoseStamped,
@@ -54,11 +57,29 @@ class LocationSubscriber(Node):
             self.target_qos,
         )
         self.goal_cleared_publisher = self.create_publisher(Empty, goal_cleared_topic, 10)
+        self.goal_failed_publisher = (
+            self.create_publisher(Empty, goal_failed_topic, 10)
+            if goal_failed_topic
+            else None
+        )
 
         self.get_logger().info(f'Listening for target locations on {target_topic}')
         self.get_logger().info('Waiting for Nav2 action server and goal frame...')
         self.readiness_timer = self.create_timer(0.5, self._check_readiness)
 
+    def _target_qos_for_topic(self, topic: str) -> QoSProfile:
+        durability = (
+            DurabilityPolicy.VOLATILE
+            if topic == '/move_base_simple/goal'
+            else DurabilityPolicy.TRANSIENT_LOCAL
+        )
+        return QoSProfile(
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=durability,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+        )
+    
     def _check_readiness(self):
         if not self.nav_ready:
             self.nav_ready = self.nav_client.wait_for_server(timeout_sec=0.2)
@@ -90,6 +111,11 @@ class LocationSubscriber(Node):
 
         if self.nav_ready and self.frame_ready:
             self.readiness_timer.cancel()
+            if self._pending_pose is not None:
+                pending_pose = self._pending_pose
+                self._pending_pose = None
+                self.get_logger().info('Dispatching pending target after readiness became available')
+                self.send_navigation_goal(pending_pose)
 
     def location_callback(self, msg: PoseStamped):
         if not self.nav_ready:
@@ -101,8 +127,9 @@ class LocationSubscriber(Node):
             self._check_readiness()
 
         if not self.nav_ready or not self.frame_ready:
+            self._pending_pose = msg
             self.get_logger().warn(
-                f"Ignoring target until Nav2 and frame '{self.goal_frame_id}' are ready "
+                f"Deferring target until Nav2 and frame '{self.goal_frame_id}' are ready "
                 f"(nav_ready={self.nav_ready}, frame_ready={self.frame_ready})"
             )
             return
@@ -162,6 +189,7 @@ class LocationSubscriber(Node):
                 self.get_logger().warn(
                     f"Failed to transform target from '{source_frame}' to '{self.goal_frame_id}': {exc}"
                 )
+                self._publish_goal_failed()
                 return
 
         goal_msg.pose.header.stamp.sec = 0
@@ -170,14 +198,29 @@ class LocationSubscriber(Node):
         if self.orient_toward_goal_center:
             self._orient_goal_toward_center(goal_msg.pose)
 
+        goal_signature = self._goal_signature(goal_msg.pose)
+        if self._goal_is_duplicate(goal_signature):
+            self.get_logger().info('Ignoring duplicate active target')
+            return
+        self._active_goal_signature = goal_signature
+        
         self.get_logger().info('Sending robot to target...')
         self._send_goal_future = self.nav_client.send_goal_async(goal_msg, self.feedback_callback)
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
-        goal_handle = future.result()
+        try:
+            goal_handle = future.result()
+        except Exception as exc:
+            self._active_goal_signature = None
+            self.get_logger().error(f'Failed to send goal: {exc}')
+            self._publish_goal_failed()
+            return
+
         if not goal_handle.accepted:
+            self._active_goal_signature = None
             self.get_logger().error('Goal rejected')
+            self._publish_goal_failed()
             return
 
         self.get_logger().info('Goal accepted — waiting for result...')
@@ -192,11 +235,23 @@ class LocationSubscriber(Node):
             self.get_logger().debug('Received feedback')
 
     def _result_callback(self, future):
-        result = future.result().result
-        status = future.result().status
+        try:
+            action_result = future.result()
+        except Exception as exc:
+            self._active_goal_signature = None
+            self.get_logger().error(f'Failed to receive navigation result: {exc}')
+            self._publish_goal_failed()
+            return
+
+        result = action_result.result
+        status = action_result.status
+        self._active_goal_signature = None
         self.get_logger().info(f'Navigation finished with status {status}: {result}')
-        if status in {4, 6}:
+        if status == 4:
             self.goal_cleared_publisher.publish(Empty())
+            return
+        if status in {5, 6}:
+            self._publish_goal_failed()
 
     def _orient_goal_toward_center(self, pose: PoseStamped):
         for base_frame in self.base_frame_candidates:
@@ -224,7 +279,39 @@ class LocationSubscriber(Node):
                 return
             except Exception:
                 continue
+    def _goal_signature(self, pose: PoseStamped) -> tuple[float, float, float]:
+        yaw = self._yaw_from_quaternion(
+            pose.pose.orientation.x,
+            pose.pose.orientation.y,
+            pose.pose.orientation.z,
+            pose.pose.orientation.w,
+        )
+        return (float(pose.pose.position.x), float(pose.pose.position.y), yaw)
 
+    def _goal_is_duplicate(self, signature: tuple[float, float, float]) -> bool:
+        if self._active_goal_signature is None:
+            return False
+        dx = signature[0] - self._active_goal_signature[0]
+        dy = signature[1] - self._active_goal_signature[1]
+        dyaw = math.atan2(
+            math.sin(signature[2] - self._active_goal_signature[2]),
+            math.cos(signature[2] - self._active_goal_signature[2]),
+        )
+        return (
+            math.hypot(dx, dy) <= self.duplicate_goal_position_tol
+            and abs(dyaw) <= self.duplicate_goal_yaw_tol
+        )
+
+    @staticmethod
+    def _yaw_from_quaternion(x: float, y: float, z: float, w: float) -> float:
+        siny_cosp = 2.0 * (w * z + x * y)
+        cosy_cosp = 1.0 - 2.0 * (y * y + z * z)
+        return math.atan2(siny_cosp, cosy_cosp)
+
+    def _publish_goal_failed(self) -> None:
+        if self.goal_failed_publisher is None:
+            return
+        self.goal_failed_publisher.publish(Empty())
 
 def main(args=None):
     rclpy.init(args=args)

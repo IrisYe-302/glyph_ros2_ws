@@ -31,8 +31,8 @@ amcl:
     sigma_hit: 0.15
     tf_broadcast: true
     transform_tolerance: 0.5
-    update_min_a: 0.1
-    update_min_d: 0.10
+    update_min_a: 0.2
+    update_min_d: 0.2
     z_hit: 0.7
     z_max: 0.05
     z_rand: 0.2
@@ -131,15 +131,15 @@ controller_server:
       model_dt: 0.05
       batch_size: 500
       iteration_count: 1
-      vx_std: 0.24
+      vx_std: 0.3
       vy_std: 0.0
       wz_std: 0.80
       vx_max: 0.50
       vx_min: -0.24
       vy_max: 0.0
       wz_max: 1.5
-      ax_max: 1.35
-      ax_min: -1.35
+      ax_max: 2
+      ax_min: -2
       ay_max: 0.0
       az_max: 2.0
       temperature: 0.3
@@ -200,8 +200,8 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: false
-      update_frequency: 15.0
-      publish_frequency: 10.0
+      update_frequency: 20.0
+      publish_frequency: 15.0
       always_send_full_costmap: false
       global_frame: odom
       robot_base_frame: base_footprint
@@ -237,7 +237,7 @@ global_costmap:
   global_costmap:
     ros__parameters:
       use_sim_time: false
-      update_frequency: 2.0
+      update_frequency: 5.0
       publish_frequency: 2.0
       always_send_full_costmap: false
       global_frame: map

@@ -1,4 +1,24 @@
-from __future__ import annotations # allows using class name inside the class definition
+"""
+    uart_dispense_bridge connects ROS2 with the ESP over UART.
+
+    It acts as a bidirectional bridge:
+    - ROS → UART: sends flavor selections or raw commands to the ESP
+    - UART → ROS: parses status messages and publishes state updates
+
+    Core responsibilities:
+    - Convert flavor selections (1/2/3) into protocol commands (A/B/C)
+    - Read newline-delimited UART messages and interpret status
+    - Publish dispensing state and empty state as ROS topics
+    - Open the movement gate when dispensing is complete (EMPTY event)
+    - Provide raw UART event stream for debugging/UI
+
+    Key signals:
+        "EMPTY"   → dispensing complete, machine empty, allow robot to move
+        "CUP"     → cup present → dispensing active
+        "REMOVED" → cup removed → dispensing finished
+"""
+
+from __future__ import annotations
 
 from typing import Optional
 
@@ -19,7 +39,6 @@ class UartDispenseBridge(Node):
     def __init__(self) -> None:
         super().__init__("go2_uart_dispense_bridge")
 
-        # ROS parameters
         self.declare_parameter("port", "/dev/ttyTHS1")
         self.declare_parameter("baudrate", 115200)
         self.declare_parameter("flavor_selection_topic", "/flavor_selection")
@@ -53,7 +72,6 @@ class UartDispenseBridge(Node):
         self.write_timeout_sec = float(self.get_parameter("write_timeout_sec").value)
         self.read_timeout_sec = float(self.get_parameter("read_timeout_sec").value)
 
-        # Transient local QoS: makes the latest state available to late-joining subscribers
         qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             durability=DurabilityPolicy.TRANSIENT_LOCAL,
@@ -101,17 +119,9 @@ class UartDispenseBridge(Node):
         self._publish_currently_dispensing(self._currently_dispensing, force=True)
         self._publish_dispense_empty(self._dispense_empty, force=True)
         self.create_timer(1.0 / poll_hz, self._poll_serial)
-        self.get_logger().info(
-            f"UART dispense bridge listening on {self.port} at {self.baudrate} baud; "
-            f"publishing dispensing state to {self.currently_dispensing_topic} and "
-            f"empty state to {self.dispense_empty_topic}; reading flavor commands from "
-            f"{self.flavor_selection_topic}, raw UART commands from {self.uart_command_topic}"
-        )
-        
-    # Open the UART device and keep the handle for later reads/writes
+
     def _connect_serial(self) -> None:
         if serial is None:
-            self.get_logger().error("pyserial is unavailable; UART dispense bridge is disabled")
             return
 
         try:
@@ -121,103 +131,71 @@ class UartDispenseBridge(Node):
                 timeout=self.read_timeout_sec,
                 write_timeout=self.write_timeout_sec,
             )
-        except Exception as exc:
+        except Exception:
             self._serial = None
-            self.get_logger().error(f"Failed to open UART port {self.port}: {exc}")
-            
-    # Publish current dispensing state only when it changes unless forced
+
     def _publish_currently_dispensing(self, state: bool, *, force: bool = False) -> None:
         if not force and self._currently_dispensing == state:
             return
-
         self._currently_dispensing = state
         msg = Bool()
         msg.data = state
         self.currently_dispensing_pub.publish(msg)
-        self.get_logger().info(f"currently_dispensing -> {'true' if state else 'false'}")
-        
-    # Publish whether the dispenser is empty, suppressing duplicate state
+
     def _publish_dispense_empty(self, state: bool, *, force: bool = False) -> None:
         if not force and self._dispense_empty == state:
             return
-
         self._dispense_empty = state
         msg = Bool()
         msg.data = state
         self.dispense_empty_pub.publish(msg)
-        self.get_logger().info(f"dispense_empty -> {'true' if state else 'false'}")
-        
-    # Forward raw UART status text onto a ROS topic for debugging and UI display.
+
     def _publish_uart_event(self, text: str) -> None:
         msg = String()
         msg.data = text
         self.uart_event_pub.publish(msg)
-    # Allow motion again when the dispenser reports EMPTY and service is complete.
+
     def _publish_movement_gate_open(self) -> None:
         msg = Bool()
         msg.data = True
         self.movement_gate_pub.publish(msg)
-        self.get_logger().warn("Published movement gate OPEN after EMPTY status")
-    # Translate ROS flavor ids 1/2/3 into the ESP protocol bytes A/B/C.
+
     def _on_flavor_selection(self, msg: UInt8) -> None:
         selection = int(msg.data)
         flavor_code = {1: "A", 2: "B", 3: "C"}.get(selection)
         if flavor_code is None:
-            self.get_logger().warn(f"Ignoring unsupported flavor selection value {selection}")
             return
-
-        if self._write_text(flavor_code):
-            if self._last_flavor_selection != selection:
-                self.get_logger().info(f"Sent flavor selection {selection} as UART '{flavor_code}'")
-                self._last_flavor_selection = selection
+        self._write_text(flavor_code)
 
     def _on_uart_command(self, msg: String) -> None:
         command = str(msg.data)
-        if not command:
-            return
-        if self._write_text(command):
-            self.get_logger().info(f"Sent raw UART command {command!r}")
+        if command:
+            self._write_text(command)
 
-    # Write a ASCII to ESP over UART.
     def _write_text(self, payload: str) -> bool:
         if self._serial is None:
-            self.get_logger().error(f"UART port {self.port} is not open; dropping {payload!r}")
             return False
-
         try:
-            encoded = payload.encode("utf-8")
-            self._serial.write(encoded)
+            self._serial.write(payload.encode("utf-8"))
             self._serial.flush()
             return True
-        except SerialException as exc:
-            self.get_logger().error(f"UART write failed: {exc}")
+        except Exception:
             self._serial = None
             return False
-        except Exception as exc:
-            self.get_logger().error(f"Failed to write UART payload {payload!r}: {exc}")
-            return False
-            
-    # Read any pending UART bytes and split them into newline-terminated messages
+
     def _poll_serial(self) -> None:
         if self._serial is None:
             return
-
         try:
             waiting = self._serial.in_waiting
             if waiting <= 0:
                 return
             chunk = self._serial.read(waiting)
-        except SerialException as exc:
-            self.get_logger().error(f"UART read failed: {exc}")
+        except Exception:
             self._serial = None
             return
-        except Exception as exc:
-            self.get_logger().error(f"Unexpected UART read failure: {exc}")
-            return
-
         if not chunk:
             return
-
         self._read_buffer.extend(chunk)
         while True:
             newline_index = self._read_buffer.find(b"\n")
@@ -225,38 +203,29 @@ class UartDispenseBridge(Node):
                 return
             raw_line = bytes(self._read_buffer[:newline_index]).strip()
             del self._read_buffer[: newline_index + 1]
-            if not raw_line:
-                continue
-            self._handle_line(raw_line)
-            
-    # Parse single UART status line from the ESP and update ROS state topics
+            if raw_line:
+                self._handle_line(raw_line)
+
     def _handle_line(self, raw_line: bytes) -> None:
         try:
             text = raw_line.decode("utf-8", errors="replace").strip()
-        except Exception as exc:
-            self.get_logger().warn(f"Ignoring invalid UART line {raw_line!r}: {exc}")
+        except Exception:
             return
-
         if not text:
             return
-
         self._publish_uart_event(text)
         upper_text = text.upper()
-
         if "EMPTY" in upper_text:
             self._publish_currently_dispensing(False)
             self._publish_dispense_empty(True)
             self._publish_movement_gate_open()
             return
-
         if "CUP" in upper_text:
             self._publish_currently_dispensing("REMOVED" not in upper_text)
             return
-
         if "REMOVED" in upper_text:
             self._publish_currently_dispensing(False)
-            
-    # Close UART device before letting the ROS node shut down.
+
     def destroy_node(self) -> bool:
         if self._serial is not None:
             try:
@@ -265,7 +234,7 @@ class UartDispenseBridge(Node):
                 pass
         return super().destroy_node()
 
-# ROS entrypoint: initialize rclpy, run the node, clean up resources
+
 def main(args=None) -> None:
     rclpy.init(args=args)
     node = UartDispenseBridge()

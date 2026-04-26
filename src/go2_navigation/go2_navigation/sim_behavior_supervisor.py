@@ -1,3 +1,30 @@
+"""
+    sim_behavior_supervisor is the high-level coordinator for both sim and robot mode (I just never changed the name)
+
+    It orchestrates:
+    - Goal intake and FIFO queueing
+    - Dispatching goals to Nav2 (via a downstream bridge)
+    - Goal completion, failure, and retry
+    - Automatic return-to-home when idle
+    - Final yaw alignment at home
+    - Idle "dance" behaviors when safely at home
+    - Recovery (e.g., costmap clearing if stuck near home)
+    - Visualization + debug telemetry
+
+    States:
+        ACTIVE_TARGET, DWELL/ARRIVAL_BOB, QUEUED (gate-closed),
+        RETURN_HOME_PENDING, RETURNING_HOME, HOME_ALIGN,
+        IDLE_AT_HOME, DANCING
+
+    Key concepts:
+    - Movement gate: external Bool controlling whether motion is allowed
+    - Home pose: persistent (optionally saved) anchor pose
+    - Quiet time: delay since last command before idle behaviors
+    - Dance: randomized idle motion, with drift limits + recovery
+
+    Note: State diagram found under behavior_supervisor_state_diagram.png
+"""
+
 import json
 import math
 import os

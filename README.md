@@ -84,6 +84,39 @@ RL-sar path:
 - `go2_navigation`
 - `unitree_go2_description`
 
+## External Sources
+
+This workspace also depends on runtime pieces outside `~/ros2_ws`:
+
+- ROS 2 Humble under `/opt/ros/humble`
+  - base ROS environment sourced by the shell helpers
+  - provides system packages used directly by the launches such as `nav2_bringup`, `slam_toolbox`, `pointcloud_to_laserscan`, `robot_localization`, and `foxglove_bridge`
+  - also provides fallback robot description at `/opt/ros/humble/share/unitree_go2_description/urdf/unitree_go2_robot.xacro`
+- Official Unitree ROS2 support: `~/unitree_ros2`
+  - `~/unitree_ros2/setup_go2_humble.sh`
+    - sets `RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`
+    - sets `CYCLONEDDS_URI` for the robot Ethernet interface (`enP8p1s0`)
+  - `~/unitree_ros2/example/install/setup.bash`
+    - sourced by `robot_mode()` before real-robot launches
+- Shell helpers in `~/.bashrc`
+  - `robot_mode()`
+    - sources `~/unitree_ros2/setup_go2_humble.sh`
+    - sources `~/unitree_ros2/example/install/setup.bash`
+    - re-sources `~/ros2_ws/install/setup.bash`
+  - `go2_bridge`, `go2_nav_robot`, and `go2_nav_robot_localize`all rely on `robot_mode()`
+  - `sim_mode()`, `go2_rlsar_sim`, `go2_nav_rlsar`, and `go2_nav_rlsar_localize` set the non-robot simulation environment outside the launch files themselves
+- `~/go2_python_sdk` or `GO2_PYTHON_SDK_DIR`
+  - used by `go2_robot_sdk/go2_robot_sdk/presentation/cyclonedds_bridge_node.py`
+  - expected to provide the Python SDK virtualenv site-packages and IDL definitions
+- `~/rl_sar` or `RLSAR_ROOT`
+  - used by `go2_unitree_bridge/launch/go2_rlsar_sim.launch.py`
+  - expected to contain `./cmake_build/bin/rl_sim_mujoco`
+- Jetson host networking configuration
+  - the real robot path assumes the dedicated robot link is on `enP8p1s0`
+  - EEE stability fix:
+    - `/etc/NetworkManager/dispatcher.d/99-go2-eee-off`
+    - `/etc/systemd/system/go2-eee-off.service`
+
 ## Maps
 
 Saved maps live in `~/ros2_ws/src/go2_navigation/maps`.

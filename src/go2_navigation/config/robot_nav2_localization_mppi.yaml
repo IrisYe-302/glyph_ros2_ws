@@ -166,8 +166,8 @@ controller_server:
       ConstraintCritic.cost_weight: 4.0
       CostCritic.enabled: true
       CostCritic.cost_power: 1
-      CostCritic.cost_weight: 16.0
-      CostCritic.critical_cost: 180.0
+      CostCritic.cost_weight: 12.0
+      CostCritic.critical_cost: 220.0
       CostCritic.consider_footprint: true
       CostCritic.collision_cost: 1000000.0
       CostCritic.near_goal_distance: 1.0
@@ -232,7 +232,7 @@ local_costmap:
           inf_is_valid: true
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 8.0
+        cost_scaling_factor: 6.5
         inflation_radius: 0.10
 
 global_costmap:
@@ -272,7 +272,7 @@ global_costmap:
           inf_is_valid: true
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 8.0
+        cost_scaling_factor: 6.5
         inflation_radius: 0.10
 
 map_server:

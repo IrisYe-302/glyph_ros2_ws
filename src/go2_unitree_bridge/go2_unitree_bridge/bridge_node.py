@@ -64,7 +64,7 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("body_motion_hz", 30.0)
         self.declare_parameter("sport_state_republish_hz", 20.0)
         self.declare_parameter("sport_state_republish_delay_sec", 0.15)
-        self.declare_parameter("sport_state_hold_sec", 3.0)
+        self.declare_parameter("sport_state_hold_sec", 6.0)
         self.declare_parameter("sport_state_warn_sec", 0.5)
         self.declare_parameter("dance1_yaw_amplitude", 0.05)
         self.declare_parameter("dance1_frequency_hz", 0.20)

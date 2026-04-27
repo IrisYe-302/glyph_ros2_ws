@@ -209,7 +209,7 @@ local_costmap:
       width: 8
       height: 8
       resolution: 0.05
-      footprint_padding: 0.04
+      footprint_padding: 0.01
       footprint: "[ [0.360, 0.200], [0.360, -0.200], [-0.450, -0.200], [-0.450, 0.200] ]"
       plugins: [obstacle_layer, inflation_layer]
       obstacle_layer:
@@ -244,32 +244,14 @@ global_costmap:
       always_send_full_costmap: false
       global_frame: map
       robot_base_frame: base_footprint
-      footprint_padding: 0.04
+      footprint_padding: 0.02
       footprint: "[ [0.360, 0.200], [0.360, -0.200], [-0.450, -0.200], [-0.450, 0.200] ]"
       resolution: 0.05
       track_unknown_space: false
-      plugins: [static_layer, obstacle_layer, inflation_layer]
+      plugins: [static_layer, inflation_layer]
       static_layer:
         plugin: nav2_costmap_2d::StaticLayer
         map_subscribe_transient_local: true
-      obstacle_layer:
-        plugin: nav2_costmap_2d::ObstacleLayer
-        enabled: true
-        observation_sources: scan
-        footprint_clearing_enabled: true
-        combination_method: 1
-        scan:
-          topic: /scan
-          data_type: LaserScan
-          marking: true
-          clearing: true
-          observation_persistence: 0.2
-          max_obstacle_height: 2.0
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          obstacle_max_range: 3.0
-          obstacle_min_range: 0.0
-          inf_is_valid: true
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
         cost_scaling_factor: 5.0

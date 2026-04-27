@@ -6,6 +6,7 @@ import rclpy
 from geometry_msgs.msg import TransformStamped, Twist
 from nav_msgs.msg import Odometry
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Imu, JointState
 from std_msgs.msg import Float32, String, UInt8
 from tf2_ros import TransformBroadcaster
@@ -126,21 +127,31 @@ class Go2UnitreeBridgeNode(Node):
         self.body_motion_state_publisher = self.create_publisher(UInt8, body_motion_state_topic, 10)
         self.body_motion_state_plot_publisher = self.create_publisher(Float32, body_motion_state_plot_topic, 10)
 
-        self.create_subscription(SportModeState, sport_state_topic, self._on_sport_state, 10)
+        self.create_subscription(
+            SportModeState,
+            sport_state_topic,
+            self._on_sport_state,
+            qos_profile_sensor_data,
+        )
         if sport_state_fallback_topic != sport_state_topic:
             self.create_subscription(
                 SportModeState,
                 sport_state_fallback_topic,
                 self._on_sport_state,
-                10,
+                qos_profile_sensor_data,
             )
-        self.create_subscription(LowState, low_state_topic, self._on_low_state, 10)
+        self.create_subscription(
+            LowState,
+            low_state_topic,
+            self._on_low_state,
+            qos_profile_sensor_data,
+        )
         if low_state_fallback_topic != low_state_topic:
             self.create_subscription(
                 LowState,
                 low_state_fallback_topic,
                 self._on_low_state,
-                10,
+                qos_profile_sensor_data,
             )
         self.create_subscription(Twist, cmd_vel_topic, self._on_cmd_vel, 10)
         self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)

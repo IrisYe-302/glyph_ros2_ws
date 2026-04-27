@@ -61,6 +61,10 @@ class Go2UnitreeBridgeNode(Node):
         self.declare_parameter("body_motion_state_topic", "/body_motion_state")
         self.declare_parameter("body_motion_state_plot_topic", "/body_motion_state_plot")
         self.declare_parameter("body_motion_hz", 30.0)
+        self.declare_parameter("sport_state_republish_hz", 20.0)
+        self.declare_parameter("sport_state_republish_delay_sec", 0.15)
+        self.declare_parameter("sport_state_hold_sec", 3.0)
+        self.declare_parameter("sport_state_warn_sec", 0.5)
         self.declare_parameter("dance1_yaw_amplitude", 0.05)
         self.declare_parameter("dance1_frequency_hz", 0.20)
         self.declare_parameter("dance1_roll_amplitude", 0.01)
@@ -89,6 +93,13 @@ class Go2UnitreeBridgeNode(Node):
         body_motion_state_topic = self.get_parameter("body_motion_state_topic").value
         body_motion_state_plot_topic = self.get_parameter("body_motion_state_plot_topic").value
         body_motion_hz = max(2.0, float(self.get_parameter("body_motion_hz").value))
+        sport_state_republish_hz = max(1.0, float(self.get_parameter("sport_state_republish_hz").value))
+        self.sport_state_republish_delay_sec = max(
+            0.0,
+            float(self.get_parameter("sport_state_republish_delay_sec").value),
+        )
+        self.sport_state_hold_sec = max(0.0, float(self.get_parameter("sport_state_hold_sec").value))
+        self.sport_state_warn_sec = max(0.0, float(self.get_parameter("sport_state_warn_sec").value))
         self.dance1_yaw_amplitude = float(self.get_parameter("dance1_yaw_amplitude").value)
         self.dance1_frequency_hz = float(self.get_parameter("dance1_frequency_hz").value)
         self.dance1_roll_amplitude = float(self.get_parameter("dance1_roll_amplitude").value)
@@ -103,6 +114,9 @@ class Go2UnitreeBridgeNode(Node):
         self._body_motion_baseline_sent = False
         self._last_body_motion_tick_ns: int | None = None
         self._smoothed_body_height = 0.0
+        self._last_sport_state_rx_ns: int | None = None
+        self._last_sport_state_snapshot: dict[str, float] | None = None
+        self._sport_state_stale_warned = False
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.odom_publisher = self.create_publisher(Odometry, odom_topic, 10)
@@ -131,6 +145,10 @@ class Go2UnitreeBridgeNode(Node):
         self.create_subscription(Twist, cmd_vel_topic, self._on_cmd_vel, 10)
         self.create_subscription(String, body_motion_topic, self._on_body_motion, 10)
         self.body_motion_timer = self.create_timer(1.0 / body_motion_hz, self._tick_body_motion)
+        self.sport_state_timer = self.create_timer(
+            1.0 / sport_state_republish_hz,
+            self._republish_sport_state_if_stale,
+        )
 
         self._request_id = 1
         self.get_logger().info(
@@ -176,8 +194,95 @@ class Go2UnitreeBridgeNode(Node):
         z = cr * cp * sy - sr * sp * cy
         return x, y, z, w
 
+    def _publish_sport_state_snapshot(self, snapshot: dict[str, float], stamp) -> None:
+        planar_qx, planar_qy, planar_qz, planar_qw = self._quaternion_from_rpy(0.0, 0.0, snapshot["yaw"])
+        body_qx, body_qy, body_qz, body_qw = self._quaternion_from_rpy(
+            snapshot["roll"],
+            snapshot["pitch"],
+            0.0,
+        )
+
+        if self.publish_odom_enabled:
+            odom = Odometry()
+            odom.header.stamp = stamp
+            odom.header.frame_id = self.odom_frame
+            odom.child_frame_id = self.base_frame
+            odom.pose.pose.position.x = snapshot["x"]
+            odom.pose.pose.position.y = snapshot["y"]
+            odom.pose.pose.position.z = 0.0
+            odom.pose.pose.orientation.x = planar_qx
+            odom.pose.pose.orientation.y = planar_qy
+            odom.pose.pose.orientation.z = planar_qz
+            odom.pose.pose.orientation.w = planar_qw
+            vx_world = snapshot["vx_world"]
+            vy_world = snapshot["vy_world"]
+            yaw = snapshot["yaw"]
+            odom.twist.twist.linear.x = math.cos(yaw) * vx_world + math.sin(yaw) * vy_world
+            odom.twist.twist.linear.y = 0.0
+            odom.twist.twist.linear.z = 0.0
+            odom.twist.twist.angular.z = snapshot["yaw_speed"]
+            self.odom_publisher.publish(odom)
+
+        transforms = []
+        if self.publish_planar_tf_enabled:
+            transform = TransformStamped()
+            transform.header.stamp = stamp
+            transform.header.frame_id = self.odom_frame
+            transform.child_frame_id = self.base_frame
+            transform.transform.translation.x = snapshot["x"]
+            transform.transform.translation.y = snapshot["y"]
+            transform.transform.translation.z = 0.0
+            transform.transform.rotation.x = planar_qx
+            transform.transform.rotation.y = planar_qy
+            transform.transform.rotation.z = planar_qz
+            transform.transform.rotation.w = planar_qw
+            transforms.append(transform)
+
+        if self.publish_body_tf_enabled:
+            body_transform = TransformStamped()
+            body_transform.header.stamp = stamp
+            body_transform.header.frame_id = self.base_frame
+            body_transform.child_frame_id = self.body_frame
+            body_transform.transform.translation.x = 0.0
+            body_transform.transform.translation.y = 0.0
+            body_transform.transform.translation.z = snapshot["body_z"]
+            body_transform.transform.rotation.x = body_qx
+            body_transform.transform.rotation.y = body_qy
+            body_transform.transform.rotation.z = body_qz
+            body_transform.transform.rotation.w = body_qw
+            transforms.append(body_transform)
+
+        if transforms:
+            self.tf_broadcaster.sendTransform(transforms)
+
+    def _republish_sport_state_if_stale(self) -> None:
+        if self._last_sport_state_snapshot is None or self._last_sport_state_rx_ns is None:
+            return
+
+        now = self.get_clock().now()
+        age_sec = (now.nanoseconds - self._last_sport_state_rx_ns) / 1e9
+        if age_sec < self.sport_state_republish_delay_sec:
+            return
+
+        if self.sport_state_hold_sec > 0.0 and age_sec > self.sport_state_hold_sec:
+            if not self._sport_state_stale_warned:
+                self.get_logger().warn(
+                    f"SportModeState stalled for {age_sec:.2f}s; holding odom/TF stopped after {self.sport_state_hold_sec:.2f}s"
+                )
+                self._sport_state_stale_warned = True
+            return
+
+        if age_sec >= self.sport_state_warn_sec and not self._sport_state_stale_warned:
+            self.get_logger().warn(
+                f"SportModeState stalled for {age_sec:.2f}s; republishing last odom/TF sample to bridge a transient dropout"
+            )
+            self._sport_state_stale_warned = True
+
+        self._publish_sport_state_snapshot(self._last_sport_state_snapshot, now.to_msg())
+
     def _on_sport_state(self, msg: SportModeState) -> None:
-        stamp = self.get_clock().now().to_msg()
+        now = self.get_clock().now()
+        stamp = now.to_msg()
         # Unitree IMU quaternions are published as w,x,y,z; convert to ROS xyzw.
         full_qw = float(msg.imu_state.quaternion[0])
         full_qx = float(msg.imu_state.quaternion[1])
@@ -203,60 +308,23 @@ class Go2UnitreeBridgeNode(Node):
             y = sin_yaw * dx + cos_yaw * dy
             yaw = math.atan2(math.sin(yaw - self._origin_yaw), math.cos(yaw - self._origin_yaw))
 
-        planar_qx, planar_qy, planar_qz, planar_qw = self._quaternion_from_rpy(0.0, 0.0, yaw)
-        body_qx, body_qy, body_qz, body_qw = self._quaternion_from_rpy(roll, pitch, 0.0)
+        self._last_sport_state_snapshot = {
+            "x": x,
+            "y": y,
+            "yaw": yaw,
+            "roll": roll,
+            "pitch": pitch,
+            "body_z": float(msg.position[2]),
+            "vx_world": float(msg.velocity[0]),
+            "vy_world": float(msg.velocity[1]),
+            "yaw_speed": float(msg.yaw_speed),
+        }
+        self._last_sport_state_rx_ns = now.nanoseconds
+        if self._sport_state_stale_warned:
+            self.get_logger().info("SportModeState updates resumed")
+            self._sport_state_stale_warned = False
 
-        if self.publish_odom_enabled:
-            odom = Odometry()
-            odom.header.stamp = stamp
-            odom.header.frame_id = self.odom_frame
-            odom.child_frame_id = self.base_frame
-            odom.pose.pose.position.x = x
-            odom.pose.pose.position.y = y
-            odom.pose.pose.position.z = 0.0
-            odom.pose.pose.orientation.x = planar_qx
-            odom.pose.pose.orientation.y = planar_qy
-            odom.pose.pose.orientation.z = planar_qz
-            odom.pose.pose.orientation.w = planar_qw
-            vx_world = float(msg.velocity[0])
-            vy_world = float(msg.velocity[1])
-            odom.twist.twist.linear.x = math.cos(yaw) * vx_world + math.sin(yaw) * vy_world
-            odom.twist.twist.linear.y = 0.0
-            odom.twist.twist.linear.z = 0.0
-            odom.twist.twist.angular.z = float(msg.yaw_speed)
-            self.odom_publisher.publish(odom)
-
-        transforms = []
-        if self.publish_planar_tf_enabled:
-            transform = TransformStamped()
-            transform.header.stamp = stamp
-            transform.header.frame_id = self.odom_frame
-            transform.child_frame_id = self.base_frame
-            transform.transform.translation.x = x
-            transform.transform.translation.y = y
-            transform.transform.translation.z = 0.0
-            transform.transform.rotation.x = planar_qx
-            transform.transform.rotation.y = planar_qy
-            transform.transform.rotation.z = planar_qz
-            transform.transform.rotation.w = planar_qw
-            transforms.append(transform)
-
-        if self.publish_body_tf_enabled:
-            body_transform = TransformStamped()
-            body_transform.header.stamp = stamp
-            body_transform.header.frame_id = self.base_frame
-            body_transform.child_frame_id = self.body_frame
-            body_transform.transform.translation.x = 0.0
-            body_transform.transform.translation.y = 0.0
-            body_transform.transform.translation.z = float(msg.position[2])
-            body_transform.transform.rotation.x = body_qx
-            body_transform.transform.rotation.y = body_qy
-            body_transform.transform.rotation.z = body_qz
-            body_transform.transform.rotation.w = body_qw
-            transforms.append(body_transform)
-
-        if transforms:
-            self.tf_broadcaster.sendTransform(transforms)
+        self._publish_sport_state_snapshot(self._last_sport_state_snapshot, stamp)
 
     def _on_low_state(self, msg: LowState) -> None:
         stamp = self.get_clock().now().to_msg()

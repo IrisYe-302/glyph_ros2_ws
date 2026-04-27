@@ -186,12 +186,13 @@ class LocationSubscriber(Node):
             )
             return
 
-        # Reject stale latched messages
-        msg_time = Time.from_msg(msg.header.stamp)
-        goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
-        if goal_age > 2.0:
-            self.get_logger().warn(f'Ignoring stale latched target ({goal_age:.2f}s old)')
-            return
+        # A zero timestamp means "use latest TF" and should not be treated as stale.
+        if msg.header.stamp.sec != 0 or msg.header.stamp.nanosec != 0:
+            msg_time = Time.from_msg(msg.header.stamp)
+            goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
+            if goal_age > 2.0:
+                self.get_logger().warn(f'Ignoring stale latched target ({goal_age:.2f}s old)')
+                return
 
         # Log received goal
         self.get_logger().info(

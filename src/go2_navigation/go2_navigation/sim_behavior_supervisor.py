@@ -344,10 +344,11 @@ class SimBehaviorSupervisor(Node):
             )
 
     def _on_command(self, msg: PoseStamped) -> None:
-        msg_time = Time.from_msg(msg.header.stamp)
-        goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
-        if goal_age > 2.0:
-            return
+        if msg.header.stamp.sec != 0 or msg.header.stamp.nanosec != 0:
+            msg_time = Time.from_msg(msg.header.stamp)
+            goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
+            if goal_age > 2.0:
+                return
 
         pose = self._normalize_pose(msg)
         if pose is None:
@@ -781,7 +782,8 @@ class SimBehaviorSupervisor(Node):
     def _publish_home_goal(self) -> None:
         msg = PoseStamped()
         msg.header.frame_id = self.goal_frame_id
-        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.stamp.sec = 0
+        msg.header.stamp.nanosec = 0
         msg.pose.position.x = self.home_x
         msg.pose.position.y = self.home_y
         msg.pose.position.z = 0.0
@@ -926,7 +928,8 @@ class SimBehaviorSupervisor(Node):
         if not self.command_queue:
             return
         self.active_target_pose = self.command_queue.pop(0)
-        self.active_target_pose.header.stamp = self.get_clock().now().to_msg()
+        self.active_target_pose.header.stamp.sec = 0
+        self.active_target_pose.header.stamp.nanosec = 0
         self.dwell_deadline_ns = None
         self.arrival_bob_deadline_ns = None
         self.return_home_authorized = False

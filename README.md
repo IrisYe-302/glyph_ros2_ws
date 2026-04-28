@@ -114,8 +114,16 @@ This workspace also depends on runtime pieces outside `~/ros2_ws`:
 - Jetson host networking configuration
   - the real robot path assumes the dedicated robot link is on `enP8p1s0`
   - EEE stability fix:
+    - `/usr/local/sbin/go2-eee-off`
     - `/etc/NetworkManager/dispatcher.d/99-go2-eee-off`
     - `/etc/systemd/system/go2-eee-off.service`
+    - `/etc/udev/rules.d/99-go2-eee-off.rules`
+    - the fix is not just a boot-time `ethtool` call:`go2-eee-off.service` calls the helper, which waits for `enP8p1s0` to exist and retries disabling EEE. `udev` rule re-triggers the helper when `enP8p1s0` is added or changes. NetworkManager dispatcher script is kept as a fallback path and also calls the same helper.
+    - manual fallback if EEE ever comes on:
+      - `sudo ethtool --set-eee enP8p1s0 eee off`
+    - verification:
+      - `ethtool --show-eee enP8p1s0`
+      - `journalctl -t go2-net -b`
 
 ## Maps
 

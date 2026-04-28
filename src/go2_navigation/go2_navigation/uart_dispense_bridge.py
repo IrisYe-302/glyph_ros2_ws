@@ -9,17 +9,18 @@
     - Convert flavor selections (1/2/3) into protocol commands (A/B/C)
     - Read newline-delimited UART messages and interpret status
     - Publish dispensing state and empty state as ROS topics
-    - Open the movement gate when dispensing is complete (EMPTY event)
+    - Open the movement gate when dispensing is complete ("DONE" event)
     - Provide raw UART event stream for debugging/UI
 
     Key signals:
-        "EMPTY"   → dispensing complete, machine empty, allow robot to move
-        "CUP"     → cup present → dispensing active
-        "REMOVED" → cup removed → dispensing finished
+        "CUP"   → cup present → dispensing active
+        "DONE"  → dispensing finished, allow robot to move
+        "EMPTY" / "FLAVOR_EMPTY" → dispenser out of stock
 """
 
 from __future__ import annotations
 
+import re
 from typing import Optional
 
 import rclpy
@@ -120,6 +121,8 @@ class UartDispenseBridge(Node):
         self._publish_dispense_empty(self._dispense_empty, force=True)
         self.create_timer(1.0 / poll_hz, self._poll_serial)
 
+    _LEVELS_WATER_RE = re.compile(r"W=([0-9]+(?:\.[0-9]+)?)/([0-9]+(?:\.[0-9]+)?)", re.IGNORECASE)
+
     def _connect_serial(self) -> None:
         if serial is None:
             return
@@ -215,16 +218,32 @@ class UartDispenseBridge(Node):
             return
         self._publish_uart_event(text)
         upper_text = text.upper()
-        if "EMPTY" in upper_text:
+        if "CUP" in upper_text:
+            self._publish_currently_dispensing(True)
+            return
+        if "DONE" in upper_text:
             self._publish_currently_dispensing(False)
-            self._publish_dispense_empty(True)
             self._publish_movement_gate_open()
             return
-        if "CUP" in upper_text:
-            self._publish_currently_dispensing("REMOVED" not in upper_text)
-            return
-        if "REMOVED" in upper_text:
+        if "EMPTY" in upper_text or "FLAVOR_EMPTY" in upper_text:
             self._publish_currently_dispensing(False)
+            self._publish_dispense_empty(True)
+            return
+        if upper_text.startswith("LEVELS:"):
+            self._handle_levels_line(text)
+            return
+        if "READY" in upper_text or "NO_SELECTION" in upper_text:
+            self._publish_currently_dispensing(False)
+
+    def _handle_levels_line(self, text: str) -> None:
+        match = self._LEVELS_WATER_RE.search(text)
+        if match is None:
+            return
+        try:
+            remaining_ml = float(match.group(1))
+        except ValueError:
+            return
+        self._publish_dispense_empty(remaining_ml <= 1.0)
 
     def destroy_node(self) -> bool:
         if self._serial is not None:

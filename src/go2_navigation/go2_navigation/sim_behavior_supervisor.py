@@ -64,6 +64,7 @@ class SimBehaviorSupervisor(Node):
 
         self.declare_parameter("movement_gate_topic", "/return_home_trigger")
         self.declare_parameter("return_home_trigger_topic", "")
+        self.declare_parameter("dispense_empty_topic", "/dispense_empty")
         self.declare_parameter("home_target_topic", "/return_home_target_location")
         self.declare_parameter("body_motion_topic", "/sim_body_motion")
         self.declare_parameter("home_align_cmd_vel_topic", "")
@@ -249,6 +250,12 @@ class SimBehaviorSupervisor(Node):
         )
         self.create_subscription(
             Bool,
+            str(self.get_parameter("dispense_empty_topic").value),
+            self._on_dispense_empty,
+            target_qos,
+        )
+        self.create_subscription(
+            Bool,
             str(self.get_parameter("set_home_topic").value),
             self._on_set_home_here,
             10,
@@ -284,6 +291,7 @@ class SimBehaviorSupervisor(Node):
         self.return_home_pending = False
         self.movement_gate_open = False
         self.return_home_authorized = False
+        self.dispense_empty = False
         self.return_home_start_deadline_ns: Optional[int] = None
         self.last_home_publish_ns: Optional[int] = None
         self.home_final_align_sent = False
@@ -344,6 +352,10 @@ class SimBehaviorSupervisor(Node):
             )
 
     def _on_command(self, msg: PoseStamped) -> None:
+        if self.dispense_empty:
+            self.get_logger().info("Ignoring service command because dispenser is empty; holding home")
+            return
+
         if msg.header.stamp.sec != 0 or msg.header.stamp.nanosec != 0:
             msg_time = Time.from_msg(msg.header.stamp)
             goal_age = (self.get_clock().now() - msg_time).nanoseconds / 1e9
@@ -418,6 +430,27 @@ class SimBehaviorSupervisor(Node):
         self.movement_gate_open = bool(msg.data)
         if self.movement_gate_open:
             self.return_home_authorized = True
+        self._publish_queue_markers()
+
+    def _on_dispense_empty(self, msg: Bool) -> None:
+        dispense_empty = bool(msg.data)
+        if self.dispense_empty == dispense_empty:
+            return
+
+        self.dispense_empty = dispense_empty
+        if self.dispense_empty:
+            self.get_logger().warn("Dispenser empty; forcing robot to stay home until refill is reported")
+            self.command_queue.clear()
+            self.dwell_deadline_ns = None
+            self.arrival_bob_deadline_ns = None
+            self.dance_deadline_ns = None
+            self.dance_recovery_pending = False
+            if self.active_target_pose is None:
+                self._force_return_home_for_empty()
+        else:
+            self.get_logger().info("Dispenser refill detected; home hold cleared")
+            self.last_command_time = self.get_clock().now()
+            self.next_dance_ns = self._schedule_next_dance(self.last_command_time.nanoseconds)
         self._publish_queue_markers()
 
     def _on_set_home_here(self, msg: Bool) -> None:
@@ -647,6 +680,21 @@ class SimBehaviorSupervisor(Node):
                 self._complete_active_target(now_ns)
             return
 
+        if self.dispense_empty and (self.return_home_pending or self.returning_home):
+            self._publish_debug("dispense_empty_returning_home", quiet_for_sec)
+            self._publish_stop()
+            if self.return_home_pending:
+                self.return_home_pending = False
+                self.returning_home = True
+                self.return_home_start_deadline_ns = None
+                self.last_home_publish_ns = None
+                self.home_final_align_sent = False
+                self._publish_home_align_stop()
+                self._reset_home_stuck_tracking()
+                self._publish_home_goal()
+                self._publish_queue_markers()
+                return
+
         if self.return_home_pending:
             self._publish_debug("return_home_pending", quiet_for_sec)
             self._publish_stop()
@@ -708,6 +756,10 @@ class SimBehaviorSupervisor(Node):
             return
 
         if self.command_queue:
+            if self.dispense_empty:
+                self._publish_debug("dispense_empty_holding_home", quiet_for_sec)
+                self._publish_stop()
+                return
             self._publish_debug("queued_waiting_for_pin", quiet_for_sec)
             self._publish_stop()
             if self.movement_gate_open:
@@ -736,6 +788,14 @@ class SimBehaviorSupervisor(Node):
             self._publish_debug("waiting_for_quiet", quiet_for_sec)
             self._publish_stop()
             return
+
+        if self.dispense_empty:
+            if not at_home:
+                self._publish_debug("dispense_empty_not_home", quiet_for_sec)
+                self._publish_stop()
+                self._force_return_home_for_empty()
+                return
+            self._publish_debug("dispense_empty_idle_at_home", quiet_for_sec)
 
         if self.dance_deadline_ns is not None:
             if now_ns < self.dance_deadline_ns:
@@ -942,11 +1002,36 @@ class SimBehaviorSupervisor(Node):
         self.dwell_deadline_ns = None
         self.arrival_bob_deadline_ns = None
         self.last_command_time = self.get_clock().now()
+        if self.dispense_empty:
+            self._force_return_home_for_empty()
+            self._publish_queue_markers()
+            return
         if self.command_queue:
             self._publish_queue_markers()
         else:
             self._queue_return_home()
             self._publish_queue_markers()
+
+    def _force_return_home_for_empty(self) -> None:
+        if self._is_at_home_resume():
+            self.returning_home = False
+            self.return_home_pending = False
+            self.return_home_start_deadline_ns = None
+            self.last_home_publish_ns = None
+            self.home_final_align_sent = False
+            self._publish_home_align_stop()
+            self._reset_home_stuck_tracking()
+            return
+
+        self.return_home_pending = False
+        self.returning_home = True
+        self.return_home_authorized = False
+        self.return_home_start_deadline_ns = None
+        self.last_home_publish_ns = None
+        self.home_final_align_sent = False
+        self._publish_home_align_stop()
+        self._reset_home_stuck_tracking()
+        self._publish_home_goal()
 
     def _publish_queue_markers(self) -> None:
         markers = MarkerArray()
@@ -1035,7 +1120,10 @@ class SimBehaviorSupervisor(Node):
                 status.text = f"Home queued | gate {gate}"
             else:
                 gate = "OPEN" if self.movement_gate_open else "CLOSED"
-                status.text = f"At home | gate {gate}"
+                if self.dispense_empty:
+                    status.text = f"At home | EMPTY | gate {gate}"
+                else:
+                    status.text = f"At home | gate {gate}"
             markers.markers.append(status)
 
         self.queue_marker_pub.publish(markers)

@@ -42,6 +42,7 @@ def generate_launch_description() -> LaunchDescription:
     set_home_topic = LaunchConfiguration("set_home_topic")
     flavor_selection_topic = LaunchConfiguration("flavor_selection_topic")
     currently_dispensing_topic = LaunchConfiguration("currently_dispensing_topic")
+    dispense_empty_topic = LaunchConfiguration("dispense_empty_topic")
     dispense_uart_port = LaunchConfiguration("dispense_uart_port")
     dispense_uart_baudrate = LaunchConfiguration("dispense_uart_baudrate")
 
@@ -86,6 +87,7 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument("set_home_topic", default_value="/set_home_here"),
             DeclareLaunchArgument("flavor_selection_topic", default_value="/flavor_selection"),
             DeclareLaunchArgument("currently_dispensing_topic", default_value="/currently_dispensing"),
+            DeclareLaunchArgument("dispense_empty_topic", default_value="/dispense_empty"),
             DeclareLaunchArgument("dispense_uart_port", default_value="/dev/ttyTHS1"),
             DeclareLaunchArgument("dispense_uart_baudrate", default_value="115200"),
             DeclareLaunchArgument(
@@ -264,6 +266,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "dispatch_target_topic": "/behavior_supervisor_dispatch_goal",
                                 "movement_gate_topic": movement_gate_topic,
                                 "return_home_trigger_topic": return_home_trigger_topic,
+                                "dispense_empty_topic": dispense_empty_topic,
                                 "home_target_topic": home_target_topic,
                                 "body_motion_topic": "/body_motion",
                                 "home_align_cmd_vel_topic": "/cmd_vel_dance",
@@ -302,6 +305,7 @@ def generate_launch_description() -> LaunchDescription:
                                 "baudrate": dispense_uart_baudrate,
                                 "flavor_selection_topic": flavor_selection_topic,
                                 "currently_dispensing_topic": currently_dispensing_topic,
+                                "dispense_empty_topic": dispense_empty_topic,
                                 "movement_gate_topic": movement_gate_topic,
                                 "return_home_trigger_topic": return_home_trigger_topic,
                             }
